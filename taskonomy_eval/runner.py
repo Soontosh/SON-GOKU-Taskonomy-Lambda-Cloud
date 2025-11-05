@@ -27,8 +27,11 @@ from taskonomy_eval.methods import gradnorm_method as _gradnorm_method  # noqa: 
 from taskonomy_eval.methods import mgda_method as _mgda_method          # noqa: F401
 from taskonomy_eval.methods import pcgrad_method as _pcgrad_method      # noqa: F401
 from taskonomy_eval.methods import adatask_method as _adatask_method     # noqa: F401
-from taskonomy_eval.methods import cagrad_method as _cagrad_method  # if you have CAGrad implemented
+from taskonomy_eval.methods import cagrad_method as _cagrad_method  # noqa: F401
 from taskonomy_eval.methods import sel_update_method as _sel_update_method  # noqa: F401
+from taskonomy_eval.methods import nashmtl_method as _nashmtl_method     # noqa: F401
+from taskonomy_eval.methods import fairgrad_method as _fairgrad_method   # noqa: F401
+from taskonomy_eval.methods import famo_method as _famo_method           # noqa: F401
 
 
 # ---------- shared helpers ----------
@@ -340,6 +343,41 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             lr=cfg.lr,        # reuse same lr as others
             betas=(0.9, 0.999),
             eps=1e-8,
+            device=device,
+        )
+    elif cfg.method == "nashmtl":
+        from taskonomy_eval.methods.nashmtl_method import NashMTLMethod
+
+        method = NashMTLMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            inner_lr=0.1,        # you can tune this
+            max_inner_iter=20,   # same order as in the paper
+            eps=1e-8,
+            device=device,
+        )
+    elif cfg.method == "fairgrad":
+        from taskonomy_eval.methods.fairgrad_method import FairGradMethod
+
+        method = FairGradMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            device=device,
+        )
+    elif cfg.method == "famo":
+        from taskonomy_eval.methods.famo_method import FAMOMethod
+
+        method = FAMOMethod(
+            model=model,
+            tasks=task_specs,
+            optimizer=opt,
+            shared_param_filter=shared_filter,
+            alpha=2.5e-2,
+            weight_decay=1e-3,
             device=device,
         )
     else:
