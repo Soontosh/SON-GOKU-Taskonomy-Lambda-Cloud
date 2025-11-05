@@ -173,7 +173,6 @@ class ExperimentConfig:
     gradnorm_alpha: float = 1.5
     gradnorm_lr: float = 0.025
 
-
 def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     set_seed(cfg.seed)
     os.makedirs(cfg.out_dir, exist_ok=True)
@@ -226,7 +225,6 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         base_fn = build_task_loss(task_name, cfg.seg_classes)
 
         def loss_fn(model: nn.Module, batch: Dict[str, Any]) -> torch.Tensor:
-            # batch already on device in the methods (we call this from inside them)
             return base_fn(model, batch)
 
         return loss_fn
@@ -284,6 +282,12 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         t0 = time.time()
         for step, batch in enumerate(train_loader):
             global_step += 1
+
+            batch = {
+                k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
+                for k, v in batch.items()
+            }
+
             logs = method.step(batch, global_step)
             if step % 50 == 0:
                 msg = " | ".join(f"{k}:{v:.3f}" for k, v in sorted(logs.items()) if k.startswith("loss/"))
@@ -304,7 +308,6 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     torch.save(model.state_dict(), ckpt_path)
     print(f"Saved {cfg.method} checkpoint to {ckpt_path}")
     return {"checkpoint": ckpt_path}
-
 
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser()
