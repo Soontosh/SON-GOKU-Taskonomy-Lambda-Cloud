@@ -25,6 +25,10 @@ from taskonomy_eval.methods.base import METHOD_REGISTRY
 from taskonomy_eval.methods import son_goku_method as _son_goku_method  # noqa: F401
 from taskonomy_eval.methods import gradnorm_method as _gradnorm_method  # noqa: F401
 from taskonomy_eval.methods import mgda_method as _mgda_method          # noqa: F401
+from taskonomy_eval.methods import pcgrad_method as _pcgrad_method      # noqa: F401
+from taskonomy_eval.methods import adatask_method as _adatask_method     # noqa: F401
+from taskonomy_eval.methods import cagrad_method as _cagrad_method  # if you have CAGrad implemented
+from taskonomy_eval.methods import sel_update_method as _sel_update_method  # noqa: F401
 
 
 # ---------- shared helpers ----------
@@ -173,6 +177,11 @@ class ExperimentConfig:
     min_updates_per_cycle: int = 1
     gradnorm_alpha: float = 1.5
     gradnorm_lr: float = 0.025
+    
+    # CAGrad
+    cagrad_c: float = 0.5
+    cagrad_inner_lr: float = 0.1
+    cagrad_inner_steps: int = 20
 
 def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     set_seed(cfg.seed)
@@ -285,6 +294,54 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             qp_tol=1e-5,
             device=device,
         )
+    elif cfg.method == "pcgrad":
+        from taskonomy_eval.methods.pcgrad_method import PCGradMethod
+
+        method = PCGradMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,  # not used internally, but passed for symmetry
+            base_optimizer=opt,
+            device=device,
+        )
+    elif cfg.method == "cagrad":
+        from taskonomy_eval.methods.cagrad_method import CAGradMethod
+
+        method = CAGradMethod(
+            model=model,
+            tasks=task_specs,
+            base_optimizer=opt,
+            device=device,
+            c=cfg.cagrad_c,                 # new hyperparam
+            inner_lr=cfg.cagrad_inner_lr,   # new hyperparam
+            inner_steps=cfg.cagrad_inner_steps,
+        )
+    elif cfg.method == "sel_update":
+        from taskonomy_eval.methods.sel_update_method import SelectiveUpdateMethod
+
+        method = SelectiveUpdateMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            device=device,
+            affinity_momentum=0.9,
+            affinity_threshold=0.0,
+            max_group_size=None,  # or e.g. 2 if you want smaller groups
+        )
+    elif cfg.method == "adatask":
+        from taskonomy_eval.methods.adatask_method import AdaTaskMethod
+
+        method = AdaTaskMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            lr=cfg.lr,        # reuse same lr as others
+            betas=(0.9, 0.999),
+            eps=1e-8,
+            device=device,
+        )
     else:
         # Future methods can be wired here as needed
         method = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
@@ -356,6 +413,11 @@ def parse_args() -> argparse.Namespace:
     # GradNorm hyperparams
     ap.add_argument("--gradnorm_alpha", type=float, default=1.5)
     ap.add_argument("--gradnorm_lr", type=float, default=0.025)
+
+    # CAGrad hyperparams
+    ap.add_argument("--cagrad_c", type=float, default=0.5)
+    ap.add_argument("--cagrad_inner_lr", type=float, default=0.1)
+    ap.add_argument("--cagrad_inner_steps", type=int, default=20)
 
     return ap.parse_args()
 
