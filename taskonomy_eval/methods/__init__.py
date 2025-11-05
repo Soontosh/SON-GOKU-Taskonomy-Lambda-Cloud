@@ -1,0 +1,1 @@
+from .base import METHOD_REGISTRY, MultiTaskMethod, register_method
