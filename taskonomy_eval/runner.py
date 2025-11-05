@@ -24,6 +24,7 @@ from taskonomy_eval.methods.base import METHOD_REGISTRY
 # Import to trigger registration side effects
 from taskonomy_eval.methods import son_goku_method as _son_goku_method  # noqa: F401
 from taskonomy_eval.methods import gradnorm_method as _gradnorm_method  # noqa: F401
+from taskonomy_eval.methods import mgda_method as _mgda_method          # noqa: F401
 
 
 # ---------- shared helpers ----------
@@ -226,7 +227,6 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         base_fn = build_task_loss(task_name, cfg.seg_classes)
 
         def loss_fn(model: nn.Module, batch: Dict[str, Any]) -> torch.Tensor:
-            # batch already on device in the methods (we call this from inside them)
             return base_fn(model, batch)
 
         return loss_fn
@@ -273,6 +273,19 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             weight_lr=cfg.gradnorm_lr,
             device=device,
         )
+    elif cfg.method == "mgda":
+        from taskonomy_eval.methods.mgda_method import MGDAMethod
+
+        method = MGDAMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            grad_normalization="none",  # or "l2" / "loss" if you want to experiment
+            max_qp_iter=250,
+            qp_tol=1e-5,
+            device=device,
+        )
     else:
         # Future methods can be wired here as needed
         method = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
@@ -284,6 +297,12 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         t0 = time.time()
         for step, batch in enumerate(train_loader):
             global_step += 1
+
+            batch = {
+                k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
+                for k, v in batch.items()
+            }
+
             logs = method.step(batch, global_step)
             if step % 50 == 0:
                 msg = " | ".join(f"{k}:{v:.3f}" for k, v in sorted(logs.items()) if k.startswith("loss/"))
