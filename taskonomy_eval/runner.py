@@ -24,6 +24,7 @@ from taskonomy_eval.methods.base import METHOD_REGISTRY
 # Import to trigger registration side effects
 from taskonomy_eval.methods import son_goku_method as _son_goku_method  # noqa: F401
 from taskonomy_eval.methods import gradnorm_method as _gradnorm_method  # noqa: F401
+from taskonomy_eval.methods import mgda_method as _mgda_method          # noqa: F401
 
 
 # ---------- shared helpers ----------
@@ -269,6 +270,19 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             base_optimizer=opt,
             alpha=cfg.gradnorm_alpha,
             weight_lr=cfg.gradnorm_lr,
+            device=device,
+        )
+    elif cfg.method == "mgda":
+        from taskonomy_eval.methods.mgda_method import MGDAMethod
+
+        method = MGDAMethod(
+            model=model,
+            tasks=task_specs,
+            shared_param_filter=shared_filter,
+            base_optimizer=opt,
+            grad_normalization="none",  # or "l2" / "loss" if you want to experiment
+            max_qp_iter=250,
+            qp_tol=1e-5,
             device=device,
         )
     else:
