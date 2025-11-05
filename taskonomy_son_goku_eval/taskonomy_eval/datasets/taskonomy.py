@@ -133,7 +133,22 @@ class TaskonomyDataset(Dataset):
         return len(self.items)
 
     def _path(self, building: str, domain: str, fname: str) -> str:
-        return os.path.join(self.root, self.split, building, TASK_FOLDERS[domain], fname)
+        # Omnidata/Taskonomy encodes domain in the filename, e.g.
+        #   point_47_view_3_domain_rgb.png
+        # and the corresponding depth file is
+        #   point_47_view_3_domain_depth_euclidean.png
+        # Our dataset uses the RGB filenames as anchors, so for non-RGB
+        # tasks we need to swap the suffix appropriately.
+        basename = fname
+        if "domain_rgb" in basename and domain != "rgb":
+            basename = basename.replace("domain_rgb", f"domain_{domain}")
+        return os.path.join(
+            self.root,
+            self.split,
+            building,
+            TASK_FOLDERS[domain],
+            basename,
+        )
 
     def __getitem__(self, idx: int):
         b, rgb_dir, fname = self.items[idx]

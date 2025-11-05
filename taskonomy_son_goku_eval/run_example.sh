@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 set -e
 python -m taskonomy_eval.train_taskonomy \
-  --data_root /data/taskonomy \
-  --split train --val_split val \
+  --data_root /home/ubuntu/taskonomy-reshaped \
+  --split train --val_split train \
   --tasks depth_euclidean normal reshading \
   --resize 256 256 \
   --epochs 1 --batch_size 4 --lr 1e-3 \
