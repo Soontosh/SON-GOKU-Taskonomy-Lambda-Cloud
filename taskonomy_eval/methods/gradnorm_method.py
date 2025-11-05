@@ -68,67 +68,69 @@ class GradNormMethod(MultiTaskMethod):
         return torch.stack(losses)  # [T]
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:
-        # Move tensors to device once
-        batch = {
-            k: (v.to(self.device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
-            for k, v in batch.items()
-        }
+        # batch has already been moved to the correct device by the runner
+        self.model.train()
+        self.base_optimizer.zero_grad(set_to_none=True)
+        self.weight_optimizer.zero_grad(set_to_none=True)
 
         # -----------------------------
         # 1) Compute raw per-task losses
         # -----------------------------
-        self.model.zero_grad(set_to_none=True)
-        self.base_optimizer.zero_grad(set_to_none=True)
-        self.weight_optimizer.zero_grad(set_to_none=True)
-
         raw_losses = self._raw_losses(batch)  # shape [T]
 
         if self.initial_losses is None:
             # First-iteration losses L_i(0) (detached so we don't keep a giant graph)
             self.initial_losses = raw_losses.detach()
 
-        # -------------------------------------------------------
-        # 2) GradNorm update for loss weights (log_w parameters)
-        # -------------------------------------------------------
-        weights = self.w  # uses current log_w (requires_grad=True)
+        num_tasks = len(self.tasks)
 
-        # Gradient norms g_i = ||∂ (w_i * L_i)/∂W_shared ||_2
+        # -------------------------------------------------
+        # 2) Compute per-task gradient norms (unweighted)
+        #    wrt shared parameters, WITHOUT create_graph
+        # -------------------------------------------------
         grad_norms: List[torch.Tensor] = []
-        for i, Li in enumerate(raw_losses):
-            Li_scaled = weights[i] * Li
+        for Li in raw_losses:
             grads = torch.autograd.grad(
-                Li_scaled,
+                Li,
                 self.shared_params,
-                retain_graph=True,
-                create_graph=True,   # needed so g_i depends on log_w
+                retain_graph=True,   # keep graph for the later model backward
+                create_graph=False,  # ❗ no higher-order graph needed
             )
-            # Flatten over layers, L2 norm
-            g_norm = torch.norm(torch.stack([g.norm(2) for g in grads]))
+            # Detach grads: we only need numerical norms
+            norms = [g.detach().view(-1).norm(2) for g in grads]
+            g_norm = torch.norm(torch.stack(norms))
             grad_norms.append(g_norm)
-        G = torch.stack(grad_norms)           # [T]
-        G_avg = G.mean().detach()             # treat target mean as constant
 
-        # Relative inverse training rates r_i(t)
+        G0 = torch.stack(grad_norms)  # [T], gradient norms of unweighted losses
+
+        # ---------------------------------------------------------
+        # 3) Compute target gradient norms using training rates
+        #    (all done under no_grad so no graph through the network)
+        # ---------------------------------------------------------
         with torch.no_grad():
-            loss_ratio = raw_losses / (self.initial_losses + 1e-8)  # L_i(t)/L_i(0)
-            inv_train_rate = loss_ratio / (loss_ratio.mean() + 1e-8)  # r_i(t)
+            loss_ratio = raw_losses / (self.initial_losses + 1e-8)         # L_i(t) / L_i(0)
+            inv_train_rate = loss_ratio / (loss_ratio.mean() + 1e-8)       # r_i(t)
+            target_G = G0.mean() * (inv_train_rate ** self.alpha)          # G_i*
+            # target_G is treated as a constant target for the weights
 
-        # Target gradient norms: G_i* = G_avg * r_i(t)^alpha
-        target_G = (G_avg * (inv_train_rate ** self.alpha)).detach()
+        # ----------------------------------------------------
+        # 4) Update loss weights log_w using GradNorm objective
+        # ----------------------------------------------------
+        weights = self.w  # function of log_w (requires_grad=True)
+        G = weights * G0  # weighted gradient norms, shape [T]
 
-        gradnorm_loss = torch.sum(torch.abs(G - target_G))
+        gradnorm_loss = torch.sum(torch.abs(G - target_G.detach()))
         gradnorm_loss.backward()
         self.weight_optimizer.step()
 
         # -------------------------------------------
-        # 3) Update model weights with *new* w_i's
-        #    (weights are frozen during this step)
+        # 5) Update model weights with *new* w_i's
         # -------------------------------------------
         self.model.zero_grad(set_to_none=True)
         self.base_optimizer.zero_grad(set_to_none=True)
 
         weights_detached = self.w.detach()
-        total_loss = torch.sum(weights_detached * raw_losses)  # gradients only w.r.t model
+        total_loss = torch.sum(weights_detached * raw_losses)  # scalar
 
         total_loss.backward()
         self.base_optimizer.step()
@@ -141,5 +143,5 @@ class GradNormMethod(MultiTaskMethod):
         for i, t in enumerate(self.tasks):
             out[f"loss/{t.name}"] = float(raw_losses[i].item())
             out[f"weight/{t.name}"] = float(weights_detached[i].item())
-            out[f"g_norm/{t.name}"] = float(G[i].detach().item())
+            out[f"g_norm/{t.name}"] = float(G0[i].detach().item())
         return out
