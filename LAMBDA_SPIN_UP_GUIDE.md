@@ -25,7 +25,7 @@ Once attached to an instance, Lambda mounts the filesystem at:
 
 ```text
 /lambda/nfs/<FILESYSTEM_NAME>
-```
+````
 
 and also creates a **symlink in the `ubuntu` home directory** with the same name (e.g. `~/taskonomy`).
 
@@ -131,7 +131,7 @@ sudo apt-get install -y \
 nvidia-smi
 ```
 
-(Lambda tutorials often suggest this as a sanity check after instance launch. )
+(Lambda tutorials often suggest this as a sanity check after instance launch.)
 
 ---
 
@@ -169,8 +169,6 @@ cat ~/.ssh/id_ed25519.pub
 
    * Go to **Settings → SSH and GPG keys → New SSH key**.
    * Paste the key, give it a name, save.
-
-GitHub’s SSH docs recommend exactly this flow for key-based auth.
 
 You can test from WSL:
 
@@ -233,8 +231,6 @@ With your venv active:
 ```bash
 pip install omnidata-tools
 ```
-
-The Omnidata docs describe `omnitools.download` as the one-line utility for downloading Taskonomy-style datasets, and they recommend using `aria2` under the hood.
 
 > ⚠️ If you use `--agree_all`, **you must** pass `--name` and `--email` or omnitools will raise a ValueError.
 
@@ -329,16 +325,23 @@ The script will:
 
 ## 9. Run training
 
-### 9.1 Point `run_example.sh` at the reshaped data
+You now have two complementary ways to train:
 
-In the repo:
+1. **The original SON-GOKU Taskonomy script** (kept exactly as-is).
+2. **The new multi-method harness** (SON-GOKU, GradNorm, and future methods), which uses the same data/model for fair comparison.
+
+### 9.1 Single-method training: original SON-GOKU script
+
+This uses the existing SON-GOKU training/eval path and is ideal when you just want to reproduce the original results or do SON-GOKU-only experiments.
+
+First, ensure the example script points at your reshaped data:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_son_goku_eval
 nano run_example.sh
 ```
 
-Set the `python` command to use your reshaped root (and your splits):
+Update the `--data_root` (and optionally splits) to match your reshaped tree:
 
 ```bash
 python -m taskonomy_eval.train_taskonomy \
@@ -355,23 +358,86 @@ python -m taskonomy_eval.train_taskonomy \
 
 > 🔎 This guide assumes your local repo already includes the small `TaskonomyDataset._path` patch you made earlier, which maps filenames like `domain_rgb` → `domain_depth_euclidean` / `domain_normal` / `domain_reshading`. Make sure those changes are committed or re-applied if you reclone.
 
-### 9.2 Launch training
-
-From the same directory:
+Run training:
 
 ```bash
+cd ~/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_son_goku_eval
 source ~/venvs/taskonomy-env/bin/activate
 bash run_example.sh
 ```
 
-If you want to keep training running after you disconnect, use `tmux`:
+### 9.2 Multi-method training: SON-GOKU vs GradNorm (and more)
+
+For **fair comparisons** across methods (SON-GOKU, GradNorm, future algorithms), use the unified runner. It:
+
+* Builds the **same Taskonomy dataset + splits** for all methods.
+* Builds the **same multi-task model** (shared backbone + per-task heads).
+* Uses the **same losses and metrics**.
+* Only changes *how* each method schedules/weights tasks and updates gradients.
+
+Example: run SON-GOKU and GradNorm back-to-back on the same split:
+
+```bash
+cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
+source ~/venvs/taskonomy-env/bin/activate
+
+python -m taskonomy_eval.runner \
+  --data_root /home/ubuntu/taskonomy-reshaped \
+  --split train --val_split val \
+  --tasks depth_euclidean normal reshading \
+  --resize 256 256 \
+  --epochs 10 --batch_size 8 --lr 1e-3 \
+  --methods son_goku gradnorm \
+  --seeds 0 1 \
+  --refresh_period 32 --tau_kind log --tau_initial 1.0 --tau_target 0.25 \
+  --ema_beta 0.9 --min_updates_per_cycle 1 \
+  --gradnorm_alpha 1.5 --gradnorm_lr 0.025 \
+  --out_dir experiments/taskonomy_compare
+```
+
+This will sequentially run:
+
+* SON-GOKU with seeds 0 and 1.
+* GradNorm with seeds 0 and 1.
+
+Each `(method, seed)` combination gets its own directory under `experiments/taskonomy_compare/`, containing:
+
+* `config.json` – the full experiment config.
+* `val_metrics_epoch*.json` – per-epoch validation metrics.
+* `<method>_seed<seed>.pt` – final model checkpoint.
+
+You can add more methods later (e.g., Uncertainty weighting, PCGrad) by implementing them under `taskonomy_eval/methods/` and registering them in the same way as `son_goku` and `gradnorm`.
+
+### 9.3 Long-running jobs with tmux
+
+Whether you’re using the original SON-GOKU script or the multi-method runner, it’s convenient to keep jobs alive after disconnecting.
 
 ```bash
 tmux new -s taskonomy
-cd ~/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_son_goku_eval
+cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
 source ~/venvs/taskonomy-env/bin/activate
-bash run_example.sh
+
+# Example: SON-GOKU only
+bash taskonomy_son_goku_eval/run_example.sh
+
+# Example: SON-GOKU + GradNorm
+python -m taskonomy_eval.runner \
+  --data_root /home/ubuntu/taskonomy-reshaped \
+  --split train --val_split val \
+  --tasks depth_euclidean normal reshading \
+  --resize 256 256 \
+  --epochs 10 --batch_size 8 --lr 1e-3 \
+  --methods son_goku gradnorm \
+  --seeds 0 \
+  --out_dir experiments/taskonomy_compare
+
 # detach with: Ctrl+B then D
+```
+
+You can later reattach with:
+
+```bash
+tmux attach -t taskonomy
 ```
 
 ---
@@ -385,5 +451,8 @@ Once this is all scripted, spinning up a fresh environment on a new **Lambda Vir
 3. SSH from WSL → install packages → create `taskonomy-env` venv.
 4. Clone repo → `pip install -e .` → `pip install omnidata-tools`.
 5. Run `prepare_taskonomy_data.py` into `/lambda/nfs/taskonomy/reshaped`.
-6. Ensure `run_example.sh` uses `/home/ubuntu/taskonomy-reshaped`.
-7. Run `bash run_example.sh` to start training.
+6. Point training scripts at `/home/ubuntu/taskonomy-reshaped`:
+
+   * Use `taskonomy_son_goku_eval/run_example.sh` for **SON-GOKU-only** runs.
+   * Use `python -m taskonomy_eval.runner --methods son_goku gradnorm ...` for **multi-method comparisons**.
+7. Use `tmux` if you want training to continue after disconnecting.
