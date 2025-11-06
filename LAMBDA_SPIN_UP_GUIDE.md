@@ -199,6 +199,33 @@ cd SON-GOKU-Taskonomy-Lambda-Cloud
 
 ---
 
+## 6.3 Install a CUDA-enabled PyTorch build
+
+PyTorch’s default `pip` wheel is CPU-only. Even if `nvidia-smi` shows the GH200, that build leaves `torch.cuda.is_available()` as `False` and the runner will train on the CPU.
+
+With the venv active:
+
+```bash
+source ~/venvs/taskonomy-env/bin/activate
+python - <<'PY'
+import torch
+print("PyTorch:", torch.__version__)
+print("CUDA version:", torch.version.cuda)
+print("CUDA available:", torch.cuda.is_available())
+PY
+```
+
+If the CUDA version prints `None` or `CUDA available` is `False`, reinstall PyTorch using the CUDA wheel that matches your stack (see <https://pytorch.org/get-started/locally/>). For CUDA 12.1:
+
+```bash
+pip uninstall -y torch torchvision torchaudio
+pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
+```
+
+Re-run the quick Python check to confirm it now reports `CUDA available: True` before proceeding.
+
+---
+
 ## 7. Install the repo as a package (`pip install -e .`)
 
 From inside the repo:
