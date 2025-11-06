@@ -1,0 +1,120 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_043517/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+[mgda] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:7.841
+[mgda] epoch 1 step 50: loss/depth_euclidean:5.826 | loss/normal:0.381 | loss/reshading:0.234 | loss/total:0.241
+[mgda] epoch 1 step 100: loss/depth_euclidean:7.287 | loss/normal:0.395 | loss/reshading:0.226 | loss/total:0.614
+[mgda] epoch 1 step 150: loss/depth_euclidean:4.388 | loss/normal:0.366 | loss/reshading:0.211 | loss/total:0.244
+[mgda] epoch 1 step 200: loss/depth_euclidean:4.456 | loss/normal:0.313 | loss/reshading:0.198 | loss/total:0.226
+[mgda] epoch 1 step 250: loss/depth_euclidean:5.841 | loss/normal:0.315 | loss/reshading:0.190 | loss/total:0.190
+[mgda] epoch 1 step 300: loss/depth_euclidean:5.236 | loss/normal:0.276 | loss/reshading:0.184 | loss/total:0.213
+[mgda] epoch 1 step 350: loss/depth_euclidean:3.854 | loss/normal:0.289 | loss/reshading:0.199 | loss/total:0.218
+[mgda] epoch 1 step 400: loss/depth_euclidean:4.232 | loss/normal:0.288 | loss/reshading:0.182 | loss/total:0.182
+[mgda] epoch 1 step 450: loss/depth_euclidean:5.813 | loss/normal:0.281 | loss/reshading:0.178 | loss/total:0.178
+[mgda] epoch 1 step 500: loss/depth_euclidean:5.997 | loss/normal:0.292 | loss/reshading:0.177 | loss/total:0.177
+[mgda] epoch 1 step 550: loss/depth_euclidean:5.031 | loss/normal:0.287 | loss/reshading:0.171 | loss/total:0.171
+[mgda] epoch 1 step 600: loss/depth_euclidean:5.742 | loss/normal:0.265 | loss/reshading:0.167 | loss/total:0.183
+[mgda] epoch 1 step 650: loss/depth_euclidean:4.369 | loss/normal:0.256 | loss/reshading:0.163 | loss/total:0.163
+[mgda] epoch 1 step 700: loss/depth_euclidean:3.098 | loss/normal:0.242 | loss/reshading:0.173 | loss/total:0.209
+[mgda] epoch 1 step 750: loss/depth_euclidean:6.811 | loss/normal:0.242 | loss/reshading:0.167 | loss/total:0.167
+[mgda] epoch 1 step 800: loss/depth_euclidean:2.454 | loss/normal:0.231 | loss/reshading:0.156 | loss/total:0.185
+[mgda] epoch 1 step 850: loss/depth_euclidean:4.568 | loss/normal:0.250 | loss/reshading:0.173 | loss/total:0.246
+[mgda] epoch 1 step 900: loss/depth_euclidean:6.220 | loss/normal:0.258 | loss/reshading:0.165 | loss/total:0.165
+[mgda] epoch 1 step 950: loss/depth_euclidean:3.868 | loss/normal:0.221 | loss/reshading:0.156 | loss/total:0.156
+[mgda] epoch 1 step 1000: loss/depth_euclidean:4.359 | loss/normal:0.203 | loss/reshading:0.153 | loss/total:0.189
+[mgda] epoch 1 step 1050: loss/depth_euclidean:6.798 | loss/normal:0.235 | loss/reshading:0.161 | loss/total:0.311
+[mgda] epoch 1 step 1100: loss/depth_euclidean:5.664 | loss/normal:0.233 | loss/reshading:0.158 | loss/total:0.173
+[mgda] epoch 1 step 1150: loss/depth_euclidean:4.150 | loss/normal:0.220 | loss/reshading:0.151 | loss/total:0.181
+[mgda] epoch 1 step 1200: loss/depth_euclidean:5.315 | loss/normal:0.229 | loss/reshading:0.149 | loss/total:0.169
+[mgda] epoch 1 step 1250: loss/depth_euclidean:6.717 | loss/normal:0.236 | loss/reshading:0.155 | loss/total:0.155
+[mgda] epoch 1 step 1300: loss/depth_euclidean:4.195 | loss/normal:0.224 | loss/reshading:0.153 | loss/total:0.153
+[mgda] epoch 1 step 1350: loss/depth_euclidean:4.887 | loss/normal:0.201 | loss/reshading:0.152 | loss/total:0.155
+[mgda] epoch 1 step 1400: loss/depth_euclidean:3.668 | loss/normal:0.195 | loss/reshading:0.145 | loss/total:0.151
+[mgda] epoch 1 step 1450: loss/depth_euclidean:3.794 | loss/normal:0.217 | loss/reshading:0.153 | loss/total:0.179
+[mgda] epoch 1 step 1500: loss/depth_euclidean:2.043 | loss/normal:0.204 | loss/reshading:0.146 | loss/total:0.182
+[mgda] epoch 1 step 1550: loss/depth_euclidean:4.863 | loss/normal:0.226 | loss/reshading:0.160 | loss/total:0.169
+[mgda] epoch 1 step 1600: loss/depth_euclidean:3.471 | loss/normal:0.195 | loss/reshading:0.161 | loss/total:0.170
+[mgda] epoch 1 step 1650: loss/depth_euclidean:4.461 | loss/normal:0.219 | loss/reshading:0.172 | loss/total:0.179
+[mgda] epoch 1 step 1700: loss/depth_euclidean:2.335 | loss/normal:0.183 | loss/reshading:0.151 | loss/total:0.168
+[mgda] epoch 1 step 1750: loss/depth_euclidean:4.647 | loss/normal:0.197 | loss/reshading:0.146 | loss/total:0.170
+[mgda] epoch 1 step 1800: loss/depth_euclidean:7.277 | loss/normal:0.192 | loss/reshading:0.144 | loss/total:0.149
+[mgda] epoch 1 step 1850: loss/depth_euclidean:3.321 | loss/normal:0.167 | loss/reshading:0.132 | loss/total:0.145
+[mgda] epoch 1 step 1900: loss/depth_euclidean:2.965 | loss/normal:0.205 | loss/reshading:0.163 | loss/total:0.173
+[mgda] epoch 1 step 1950: loss/depth_euclidean:3.949 | loss/normal:0.210 | loss/reshading:0.157 | loss/total:0.357
+[mgda] epoch 1 step 2000: loss/depth_euclidean:5.265 | loss/normal:0.178 | loss/reshading:0.142 | loss/total:0.142
+[mgda] epoch 1 step 2050: loss/depth_euclidean:2.963 | loss/normal:0.196 | loss/reshading:0.158 | loss/total:0.158
+[mgda] epoch 1 step 2100: loss/depth_euclidean:4.703 | loss/normal:0.180 | loss/reshading:0.140 | loss/total:0.140
+[mgda] epoch 1 step 2150: loss/depth_euclidean:2.902 | loss/normal:0.183 | loss/reshading:0.150 | loss/total:0.150
+[mgda] epoch 1 step 2200: loss/depth_euclidean:2.803 | loss/normal:0.199 | loss/reshading:0.149 | loss/total:0.168
+[ERROR] Method 'mgda' (seed 0) failed: Caught OSError in DataLoader worker process 6.
+Original Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 30, in _load_rgb
+    arr = _load_png(path)  # H,W,3 uint8
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 27, in _load_png
+    return np.array(img)
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 675, in __array__
+    new["data"] = self.tobytes()
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 718, in tobytes
+    self.load()
+  File "/usr/lib/python3/dist-packages/PIL/ImageFile.py", line 272, in load
+    raise_oserror(err_code)
+  File "/usr/lib/python3/dist-packages/PIL/ImageFile.py", line 67, in raise_oserror
+    raise OSError(message + " when reading image file")
+OSError: unrecognized data stream contents when reading image file
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 582, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/usr/lib/python3/dist-packages/torch/utils/data/dataloader.py", line 733, in __next__
+    data = self._next_data()
+  File "/usr/lib/python3/dist-packages/torch/utils/data/dataloader.py", line 1515, in _next_data
+    return self._process_data(data, worker_id)
+  File "/usr/lib/python3/dist-packages/torch/utils/data/dataloader.py", line 1550, in _process_data
+    data.reraise()
+  File "/usr/lib/python3/dist-packages/torch/_utils.py", line 750, in reraise
+    raise exception
+OSError: Caught OSError in DataLoader worker process 6.
+Original Traceback (most recent call last):
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/worker.py", line 349, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/lib/python3/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 30, in _load_rgb
+    arr = _load_png(path)  # H,W,3 uint8
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 27, in _load_png
+    return np.array(img)
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 675, in __array__
+    new["data"] = self.tobytes()
+  File "/usr/lib/python3/dist-packages/PIL/Image.py", line 718, in tobytes
+    self.load()
+  File "/usr/lib/python3/dist-packages/PIL/ImageFile.py", line 272, in load
+    raise_oserror(err_code)
+  File "/usr/lib/python3/dist-packages/PIL/ImageFile.py", line 67, in raise_oserror
+    raise OSError(message + " when reading image file")
+OSError: unrecognized data stream contents when reading image file
+
+[WARN] Skipping remaining seeds for method 'mgda' due to failure.
+
+=== Running method=pcgrad, seed=0, out_dir=experiments/all_methods_smoke/pcgrad_seed0 ===
+[pcgrad] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:3.383
+[pcgrad] epoch 1 step 50: loss/depth_euclidean:5.305 | loss/normal:0.361 | loss/reshading:0.237 | loss/total:1.968
+
+[WARN] KeyboardInterrupt received. Finishing current logging before exit...
+[WARN] Skipping remaining seeds for method 'pcgrad' due to failure.
+[INFO] Early stop requested; skipping remaining methods.
+[INFO] Run interrupted by user. Logs and summaries are being finalized.
+[91mFailed methods: mgda-seed0, pcgrad-seed0 (interrupted)[0m

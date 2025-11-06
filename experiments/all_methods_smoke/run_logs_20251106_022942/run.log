@@ -1,0 +1,98 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_022942/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+[ERROR] Method 'mgda' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'mgda' due to failure.
+
+=== Running method=pcgrad, seed=0, out_dir=experiments/all_methods_smoke/pcgrad_seed0 ===
+[ERROR] Method 'pcgrad' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'pcgrad' due to failure.
+
+=== Running method=cagrad, seed=0, out_dir=experiments/all_methods_smoke/cagrad_seed0 ===
+[ERROR] Method 'cagrad' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'cagrad' due to failure.
+
+=== Running method=adatask, seed=0, out_dir=experiments/all_methods_smoke/adatask_seed0 ===
+[ERROR] Method 'adatask' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'adatask' due to failure.
+
+=== Running method=sel_update, seed=0, out_dir=experiments/all_methods_smoke/sel_update_seed0 ===
+[ERROR] Method 'sel_update' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'sel_update' due to failure.
+
+=== Running method=nashmtl, seed=0, out_dir=experiments/all_methods_smoke/nashmtl_seed0 ===
+[ERROR] Method 'nashmtl' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'nashmtl' due to failure.
+
+=== Running method=fairgrad, seed=0, out_dir=experiments/all_methods_smoke/fairgrad_seed0 ===
+[ERROR] Method 'fairgrad' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'fairgrad' due to failure.
+
+=== Running method=famo, seed=0, out_dir=experiments/all_methods_smoke/famo_seed0 ===
+[ERROR] Method 'famo' (seed 0) failed: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 229, in train_and_eval_once
+    train_ds = TaskonomyDataset(train_cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 120, in __init__
+    buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+FileNotFoundError: [Errno 2] No such file or directory: '/path/to/taskonomy/train'
+[WARN] Skipping remaining seeds for method 'famo' due to failure.
+[91mFailed methods: mgda-seed0, pcgrad-seed0, cagrad-seed0, adatask-seed0, sel_update-seed0, nashmtl-seed0, fairgrad-seed0, famo-seed0[0m

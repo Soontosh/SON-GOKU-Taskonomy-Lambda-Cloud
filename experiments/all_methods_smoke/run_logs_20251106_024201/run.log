@@ -1,0 +1,380 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_024201/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+
+A module that was compiled using NumPy 1.x cannot be run in
+NumPy 2.2.6 as it may crash. To support both 1.x and 2.x
+versions of NumPy, modules must be compiled with NumPy 2.0.
+Some module may need to rebuild instead e.g. with 'pybind11>=2.12'.
+
+If you are a user of the module, the easiest solution will be to
+downgrade to 'numpy<2' or try to upgrade the affected module.
+We expect that some modules will need time to support NumPy 2.
+
+Traceback (most recent call last):  File "/usr/lib/python3.10/runpy.py", line 196, in _run_module_as_main
+    return _run_code(code, main_globals, None,
+  File "/usr/lib/python3.10/runpy.py", line 86, in _run_code
+    exec(code, run_globals)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 601, in <module>
+    main()
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 209, in train_and_eval_once
+    set_seed(cfg.seed)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 60, in set_seed
+    torch.manual_seed(seed)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/random.py", line 46, in manual_seed
+    return default_generator.manual_seed(seed)
+/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/random.py:46: UserWarning: Failed to initialize NumPy: _ARRAY_API not found (Triggered internally at /root/pytorch/torch/csrc/utils/tensor_numpy.cpp:84.)
+  return default_generator.manual_seed(seed)
+[ERROR] Method 'mgda' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'mgda' due to failure.
+
+=== Running method=pcgrad, seed=0, out_dir=experiments/all_methods_smoke/pcgrad_seed0 ===
+[ERROR] Method 'pcgrad' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'pcgrad' due to failure.
+
+=== Running method=cagrad, seed=0, out_dir=experiments/all_methods_smoke/cagrad_seed0 ===
+[ERROR] Method 'cagrad' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'cagrad' due to failure.
+
+=== Running method=adatask, seed=0, out_dir=experiments/all_methods_smoke/adatask_seed0 ===
+[ERROR] Method 'adatask' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'adatask' due to failure.
+
+=== Running method=sel_update, seed=0, out_dir=experiments/all_methods_smoke/sel_update_seed0 ===
+[ERROR] Method 'sel_update' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'sel_update' due to failure.
+
+=== Running method=nashmtl, seed=0, out_dir=experiments/all_methods_smoke/nashmtl_seed0 ===
+[ERROR] Method 'nashmtl' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'nashmtl' due to failure.
+
+=== Running method=fairgrad, seed=0, out_dir=experiments/all_methods_smoke/fairgrad_seed0 ===
+[ERROR] Method 'fairgrad' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'fairgrad' due to failure.
+
+=== Running method=famo, seed=0, out_dir=experiments/all_methods_smoke/famo_seed0 ===
+[ERROR] Method 'famo' (seed 0) failed: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+Traceback (most recent call last):
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 577, in main
+    train_and_eval_once(cfg)
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/runner.py", line 428, in train_and_eval_once
+    for step, batch in enumerate(train_loader):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 633, in __next__
+    data = self._next_data()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1345, in _next_data
+    return self._process_data(data)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py", line 1371, in _process_data
+    data.reraise()
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/_utils.py", line 644, in reraise
+    raise exception
+RuntimeError: Caught RuntimeError in DataLoader worker process 0.
+Original Traceback (most recent call last):
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/worker.py", line 308, in _worker_loop
+    data = fetcher.fetch(index)
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/_utils/fetch.py", line 51, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 156, in __getitem__
+    sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+  File "/home/ubuntu/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_eval/datasets/taskonomy.py", line 34, in _load_rgb
+    t = torch.from_numpy(arr).permute(2,0,1).float() / 255.0
+RuntimeError: Numpy is not available
+
+[WARN] Skipping remaining seeds for method 'famo' due to failure.
+[91mFailed methods: mgda-seed0, pcgrad-seed0, cagrad-seed0, adatask-seed0, sel_update-seed0, nashmtl-seed0, fairgrad-seed0, famo-seed0[0m

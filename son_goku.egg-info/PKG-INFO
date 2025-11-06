@@ -7,6 +7,8 @@ License: MIT
 Requires-Python: >=3.9
 Description-Content-Type: text/markdown
 Requires-Dist: torch
+Requires-Dist: numpy
+Requires-Dist: Pillow
 
 # SON-GOKU (PyTorch) — Interference-Aware Task Scheduler
 

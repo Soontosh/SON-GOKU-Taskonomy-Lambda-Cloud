@@ -1,0 +1,1498 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_051049/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+[mgda] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:7.841
+[mgda] epoch 1 step 50: loss/depth_euclidean:5.872 | loss/normal:0.387 | loss/reshading:0.232 | loss/total:0.232
+[mgda] epoch 1 step 100: loss/depth_euclidean:7.309 | loss/normal:0.408 | loss/reshading:0.225 | loss/total:0.952
+[mgda] epoch 1 step 150: loss/depth_euclidean:4.337 | loss/normal:0.334 | loss/reshading:0.204 | loss/total:0.613
+[mgda] epoch 1 step 200: loss/depth_euclidean:4.642 | loss/normal:0.308 | loss/reshading:0.199 | loss/total:0.240
+[mgda] epoch 1 step 250: loss/depth_euclidean:5.915 | loss/normal:0.310 | loss/reshading:0.186 | loss/total:0.228
+[mgda] epoch 1 step 300: loss/depth_euclidean:5.336 | loss/normal:0.290 | loss/reshading:0.181 | loss/total:0.197
+[mgda] epoch 1 step 350: loss/depth_euclidean:3.897 | loss/normal:0.297 | loss/reshading:0.206 | loss/total:0.221
+[mgda] epoch 1 step 400: loss/depth_euclidean:4.197 | loss/normal:0.284 | loss/reshading:0.182 | loss/total:0.187
+[mgda] epoch 1 step 450: loss/depth_euclidean:5.901 | loss/normal:0.311 | loss/reshading:0.176 | loss/total:0.199
+[mgda] epoch 1 step 500: loss/depth_euclidean:6.005 | loss/normal:0.252 | loss/reshading:0.170 | loss/total:0.170
+[mgda] epoch 1 step 550: loss/depth_euclidean:4.991 | loss/normal:0.264 | loss/reshading:0.173 | loss/total:0.194
+[mgda] epoch 1 step 600: loss/depth_euclidean:5.808 | loss/normal:0.275 | loss/reshading:0.167 | loss/total:0.167
+[mgda] epoch 1 step 650: loss/depth_euclidean:4.298 | loss/normal:0.262 | loss/reshading:0.165 | loss/total:0.183
+[mgda] epoch 1 step 700: loss/depth_euclidean:3.034 | loss/normal:0.257 | loss/reshading:0.168 | loss/total:0.182
+[mgda] epoch 1 step 750: loss/depth_euclidean:6.833 | loss/normal:0.256 | loss/reshading:0.167 | loss/total:0.196
+[mgda] epoch 1 step 800: loss/depth_euclidean:2.638 | loss/normal:0.234 | loss/reshading:0.160 | loss/total:0.183
+[mgda] epoch 1 step 850: loss/depth_euclidean:4.693 | loss/normal:0.250 | loss/reshading:0.170 | loss/total:0.187
+[mgda] epoch 1 step 900: loss/depth_euclidean:6.299 | loss/normal:0.252 | loss/reshading:0.166 | loss/total:0.258
+[mgda] epoch 1 step 950: loss/depth_euclidean:3.749 | loss/normal:0.240 | loss/reshading:0.168 | loss/total:0.187
+[mgda] epoch 1 step 1000: loss/depth_euclidean:4.334 | loss/normal:0.212 | loss/reshading:0.154 | loss/total:0.154
+[mgda] epoch 1 step 1050: loss/depth_euclidean:6.644 | loss/normal:0.228 | loss/reshading:0.161 | loss/total:0.187
+[mgda] epoch 1 step 1100: loss/depth_euclidean:5.678 | loss/normal:0.230 | loss/reshading:0.161 | loss/total:0.161
+[mgda] epoch 1 step 1150: loss/depth_euclidean:3.990 | loss/normal:0.215 | loss/reshading:0.157 | loss/total:0.157
+[mgda] epoch 1 step 1200: loss/depth_euclidean:5.222 | loss/normal:0.229 | loss/reshading:0.157 | loss/total:0.175
+[mgda] epoch 1 step 1250: loss/depth_euclidean:6.424 | loss/normal:0.233 | loss/reshading:0.158 | loss/total:0.158
+[mgda] epoch 1 step 1300: loss/depth_euclidean:4.142 | loss/normal:0.221 | loss/reshading:0.153 | loss/total:0.197
+[mgda] epoch 1 step 1350: loss/depth_euclidean:4.855 | loss/normal:0.201 | loss/reshading:0.155 | loss/total:0.164
+[mgda] epoch 1 step 1400: loss/depth_euclidean:3.604 | loss/normal:0.216 | loss/reshading:0.146 | loss/total:0.153
+[mgda] epoch 1 step 1450: loss/depth_euclidean:3.758 | loss/normal:0.248 | loss/reshading:0.150 | loss/total:0.150
+[mgda] epoch 1 step 1500: loss/depth_euclidean:2.045 | loss/normal:0.203 | loss/reshading:0.151 | loss/total:0.151
+[mgda] epoch 1 step 1550: loss/depth_euclidean:4.656 | loss/normal:0.230 | loss/reshading:0.156 | loss/total:0.157
+[mgda] epoch 1 step 1600: loss/depth_euclidean:3.347 | loss/normal:0.197 | loss/reshading:0.161 | loss/total:0.161
+[mgda] epoch 1 step 1650: loss/depth_euclidean:4.441 | loss/normal:0.236 | loss/reshading:0.171 | loss/total:0.176
+[mgda] epoch 1 step 1700: loss/depth_euclidean:2.354 | loss/normal:0.193 | loss/reshading:0.147 | loss/total:0.171
+[mgda] epoch 1 step 1750: loss/depth_euclidean:4.680 | loss/normal:0.208 | loss/reshading:0.153 | loss/total:0.153
+[mgda] epoch 1 step 1800: loss/depth_euclidean:7.344 | loss/normal:0.201 | loss/reshading:0.139 | loss/total:0.166
+[mgda] epoch 1 step 1850: loss/depth_euclidean:3.318 | loss/normal:0.168 | loss/reshading:0.127 | loss/total:0.134
+[mgda] epoch 1 step 1900: loss/depth_euclidean:3.085 | loss/normal:0.231 | loss/reshading:0.167 | loss/total:0.230
+[mgda] epoch 1 step 1950: loss/depth_euclidean:3.783 | loss/normal:0.215 | loss/reshading:0.153 | loss/total:0.153
+[mgda] epoch 1 step 2000: loss/depth_euclidean:5.301 | loss/normal:0.185 | loss/reshading:0.139 | loss/total:0.139
+[mgda] epoch 1 step 2050: loss/depth_euclidean:2.955 | loss/normal:0.180 | loss/reshading:0.154 | loss/total:0.314
+[mgda] epoch 1 step 2100: loss/depth_euclidean:4.672 | loss/normal:0.179 | loss/reshading:0.135 | loss/total:0.135
+[mgda] epoch 1 step 2150: loss/depth_euclidean:2.790 | loss/normal:0.175 | loss/reshading:0.147 | loss/total:0.151
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[mgda] epoch 1 step 2200: loss/depth_euclidean:2.982 | loss/normal:0.198 | loss/reshading:0.151 | loss/total:0.166
+[mgda] epoch 1 step 2250: loss/depth_euclidean:3.891 | loss/normal:0.175 | loss/reshading:0.143 | loss/total:0.143
+[mgda] epoch 1 step 2300: loss/depth_euclidean:3.245 | loss/normal:0.157 | loss/reshading:0.138 | loss/total:0.148
+[mgda] epoch 1 step 2350: loss/depth_euclidean:2.838 | loss/normal:0.172 | loss/reshading:0.130 | loss/total:0.144
+[mgda] epoch 1 step 2400: loss/depth_euclidean:5.101 | loss/normal:0.182 | loss/reshading:0.146 | loss/total:0.146
+[mgda] epoch 1 step 2450: loss/depth_euclidean:4.983 | loss/normal:0.177 | loss/reshading:0.135 | loss/total:0.142
+[mgda] epoch 1 step 2500: loss/depth_euclidean:4.596 | loss/normal:0.191 | loss/reshading:0.138 | loss/total:0.186
+[mgda] epoch 1 step 2550: loss/depth_euclidean:3.579 | loss/normal:0.155 | loss/reshading:0.131 | loss/total:0.131
+[mgda] epoch 1 step 2600: loss/depth_euclidean:3.604 | loss/normal:0.159 | loss/reshading:0.132 | loss/total:0.140
+[mgda] epoch 1 step 2650: loss/depth_euclidean:5.681 | loss/normal:0.178 | loss/reshading:0.138 | loss/total:0.138
+[mgda] epoch 1 step 2700: loss/depth_euclidean:4.681 | loss/normal:0.175 | loss/reshading:0.132 | loss/total:0.141
+[mgda] epoch 1 step 2750: loss/depth_euclidean:5.076 | loss/normal:0.178 | loss/reshading:0.135 | loss/total:0.150
+[mgda] epoch 1 step 2800: loss/depth_euclidean:2.929 | loss/normal:0.147 | loss/reshading:0.127 | loss/total:0.127
+[mgda] epoch 1 step 2850: loss/depth_euclidean:5.681 | loss/normal:0.179 | loss/reshading:0.127 | loss/total:0.127
+[mgda] epoch 1 step 2900: loss/depth_euclidean:3.307 | loss/normal:0.154 | loss/reshading:0.133 | loss/total:0.133
+[mgda] epoch 1 step 2950: loss/depth_euclidean:3.173 | loss/normal:0.138 | loss/reshading:0.119 | loss/total:0.126
+[mgda] epoch 1 step 3000: loss/depth_euclidean:7.370 | loss/normal:0.157 | loss/reshading:0.126 | loss/total:0.140
+[mgda] epoch 1 step 3050: loss/depth_euclidean:7.464 | loss/normal:0.168 | loss/reshading:0.132 | loss/total:0.132
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[mgda] epoch 1 step 3100: loss/depth_euclidean:3.498 | loss/normal:0.157 | loss/reshading:0.140 | loss/total:0.140
+[mgda] epoch 1 step 3150: loss/depth_euclidean:2.693 | loss/normal:0.160 | loss/reshading:0.146 | loss/total:0.146
+[mgda] epoch 1 step 3200: loss/depth_euclidean:3.817 | loss/normal:0.144 | loss/reshading:0.122 | loss/total:0.123
+[mgda] epoch 1 step 3250: loss/depth_euclidean:2.240 | loss/normal:0.149 | loss/reshading:0.133 | loss/total:0.142
+[mgda] epoch 1 step 3300: loss/depth_euclidean:1.752 | loss/normal:0.145 | loss/reshading:0.125 | loss/total:0.130
+[mgda] epoch 1 step 3350: loss/depth_euclidean:3.794 | loss/normal:0.148 | loss/reshading:0.131 | loss/total:0.131
+[mgda] epoch 1 step 3400: loss/depth_euclidean:2.877 | loss/normal:0.146 | loss/reshading:0.131 | loss/total:0.143
+[mgda] epoch 1 step 3450: loss/depth_euclidean:3.669 | loss/normal:0.147 | loss/reshading:0.133 | loss/total:0.137
+[mgda] epoch 1 step 3500: loss/depth_euclidean:4.198 | loss/normal:0.159 | loss/reshading:0.143 | loss/total:0.149
+[mgda] epoch 1 step 3550: loss/depth_euclidean:3.245 | loss/normal:0.127 | loss/reshading:0.114 | loss/total:0.124
+[mgda] epoch 1 step 3600: loss/depth_euclidean:4.492 | loss/normal:0.166 | loss/reshading:0.129 | loss/total:0.153
+[mgda] epoch 1 step 3650: loss/depth_euclidean:6.892 | loss/normal:0.179 | loss/reshading:0.127 | loss/total:0.148
+[mgda] epoch 1 step 3700: loss/depth_euclidean:4.563 | loss/normal:0.146 | loss/reshading:0.120 | loss/total:0.120
+[mgda] epoch 1 step 3750: loss/depth_euclidean:2.237 | loss/normal:0.153 | loss/reshading:0.124 | loss/total:0.134
+[mgda] epoch 1 step 3800: loss/depth_euclidean:3.314 | loss/normal:0.133 | loss/reshading:0.114 | loss/total:0.124
+[mgda] epoch 1 step 3850: loss/depth_euclidean:2.927 | loss/normal:0.133 | loss/reshading:0.120 | loss/total:0.127
+[mgda] epoch 1 step 3900: loss/depth_euclidean:2.345 | loss/normal:0.147 | loss/reshading:0.133 | loss/total:0.140
+[mgda] epoch 1 step 3950: loss/depth_euclidean:6.724 | loss/normal:0.171 | loss/reshading:0.140 | loss/total:0.153
+[mgda] epoch 1 step 4000: loss/depth_euclidean:3.865 | loss/normal:0.123 | loss/reshading:0.117 | loss/total:0.123
+[mgda] epoch 1 step 4050: loss/depth_euclidean:4.803 | loss/normal:0.158 | loss/reshading:0.133 | loss/total:0.142
+[mgda] epoch 1 step 4100: loss/depth_euclidean:7.254 | loss/normal:0.180 | loss/reshading:0.130 | loss/total:0.130
+[mgda] epoch 1 step 4150: loss/depth_euclidean:3.851 | loss/normal:0.145 | loss/reshading:0.127 | loss/total:0.127
+[mgda] epoch 1 step 4200: loss/depth_euclidean:5.026 | loss/normal:0.135 | loss/reshading:0.117 | loss/total:0.122
+[mgda] epoch 1 step 4250: loss/depth_euclidean:5.580 | loss/normal:0.146 | loss/reshading:0.120 | loss/total:0.120
+[mgda] epoch 1 step 4300: loss/depth_euclidean:4.289 | loss/normal:0.142 | loss/reshading:0.111 | loss/total:0.276
+[mgda] epoch 1 step 4350: loss/depth_euclidean:3.613 | loss/normal:0.129 | loss/reshading:0.117 | loss/total:0.117
+[mgda] epoch 1 step 4400: loss/depth_euclidean:4.706 | loss/normal:0.131 | loss/reshading:0.111 | loss/total:0.119
+[mgda] epoch 1 step 4450: loss/depth_euclidean:5.474 | loss/normal:0.144 | loss/reshading:0.125 | loss/total:0.125
+[mgda] epoch 1 step 4500: loss/depth_euclidean:3.179 | loss/normal:0.119 | loss/reshading:0.112 | loss/total:0.116
+[mgda] epoch 1 step 4550: loss/depth_euclidean:6.037 | loss/normal:0.152 | loss/reshading:0.128 | loss/total:0.132
+[mgda] epoch 1 step 4600: loss/depth_euclidean:3.809 | loss/normal:0.139 | loss/reshading:0.118 | loss/total:0.127
+[mgda] epoch 1 step 4650: loss/depth_euclidean:5.424 | loss/normal:0.141 | loss/reshading:0.137 | loss/total:0.140
+[mgda] epoch 1 step 4700: loss/depth_euclidean:3.943 | loss/normal:0.120 | loss/reshading:0.124 | loss/total:0.121
+[mgda] epoch 1 step 4750: loss/depth_euclidean:5.511 | loss/normal:0.128 | loss/reshading:0.109 | loss/total:0.117
+[mgda] epoch 1 step 4800: loss/depth_euclidean:5.047 | loss/normal:0.124 | loss/reshading:0.114 | loss/total:0.114
+[mgda] epoch 1 step 4850: loss/depth_euclidean:5.010 | loss/normal:0.138 | loss/reshading:0.111 | loss/total:0.127
+[mgda] epoch 1 step 4900: loss/depth_euclidean:3.127 | loss/normal:0.127 | loss/reshading:0.120 | loss/total:0.120
+[mgda] epoch 1 step 4950: loss/depth_euclidean:5.767 | loss/normal:0.123 | loss/reshading:0.114 | loss/total:0.114
+[mgda] epoch 1 step 5000: loss/depth_euclidean:5.742 | loss/normal:0.160 | loss/reshading:0.129 | loss/total:0.143
+[mgda] epoch 1 step 5050: loss/depth_euclidean:6.909 | loss/normal:0.168 | loss/reshading:0.121 | loss/total:0.123
+[mgda] epoch 1 step 5100: loss/depth_euclidean:3.551 | loss/normal:0.109 | loss/reshading:0.107 | loss/total:0.107
+[mgda] epoch 1 step 5150: loss/depth_euclidean:5.076 | loss/normal:0.127 | loss/reshading:0.118 | loss/total:0.125
+[mgda] epoch 1 step 5200: loss/depth_euclidean:3.328 | loss/normal:0.130 | loss/reshading:0.118 | loss/total:0.125
+[mgda] epoch 1 step 5250: loss/depth_euclidean:5.261 | loss/normal:0.122 | loss/reshading:0.120 | loss/total:0.121
+[mgda] epoch 1 step 5300: loss/depth_euclidean:4.694 | loss/normal:0.138 | loss/reshading:0.117 | loss/total:0.126
+[mgda] epoch 1 step 5350: loss/depth_euclidean:3.239 | loss/normal:0.107 | loss/reshading:0.102 | loss/total:0.102
+[mgda] epoch 1 step 5400: loss/depth_euclidean:4.457 | loss/normal:0.124 | loss/reshading:0.109 | loss/total:0.113
+[mgda] epoch 1 step 5450: loss/depth_euclidean:2.541 | loss/normal:0.111 | loss/reshading:0.119 | loss/total:0.116
+[mgda] epoch 1 step 5500: loss/depth_euclidean:5.858 | loss/normal:0.115 | loss/reshading:0.125 | loss/total:0.122
+[mgda] epoch 1 step 5550: loss/depth_euclidean:3.048 | loss/normal:0.113 | loss/reshading:0.105 | loss/total:0.109
+[mgda] epoch 1 step 5600: loss/depth_euclidean:6.722 | loss/normal:0.141 | loss/reshading:0.127 | loss/total:0.132
+[mgda] epoch 1 step 5650: loss/depth_euclidean:3.503 | loss/normal:0.131 | loss/reshading:0.115 | loss/total:0.118
+[mgda] epoch 1 step 5700: loss/depth_euclidean:3.100 | loss/normal:0.109 | loss/reshading:0.107 | loss/total:0.108
+[mgda] epoch 1 step 5750: loss/depth_euclidean:4.747 | loss/normal:0.120 | loss/reshading:0.116 | loss/total:0.119
+[mgda] epoch 1 step 5800: loss/depth_euclidean:3.354 | loss/normal:0.113 | loss/reshading:0.110 | loss/total:0.111
+[mgda] epoch 1 step 5850: loss/depth_euclidean:5.785 | loss/normal:0.143 | loss/reshading:0.116 | loss/total:0.131
+[mgda] epoch 1 step 5900: loss/depth_euclidean:6.190 | loss/normal:0.136 | loss/reshading:0.128 | loss/total:0.131
+[mgda] epoch 1 step 5950: loss/depth_euclidean:4.056 | loss/normal:0.112 | loss/reshading:0.104 | loss/total:0.106
+[mgda] epoch 1 step 6000: loss/depth_euclidean:3.622 | loss/normal:0.116 | loss/reshading:0.098 | loss/total:0.103
+[mgda] epoch 1 step 6050: loss/depth_euclidean:7.106 | loss/normal:0.140 | loss/reshading:0.122 | loss/total:0.207
+[mgda] epoch 1 step 6100: loss/depth_euclidean:5.838 | loss/normal:0.118 | loss/reshading:0.113 | loss/total:0.116
+[mgda] epoch 1 step 6150: loss/depth_euclidean:3.258 | loss/normal:0.102 | loss/reshading:0.105 | loss/total:0.103
+[mgda] epoch 1 step 6200: loss/depth_euclidean:3.023 | loss/normal:0.105 | loss/reshading:0.102 | loss/total:0.103
+[mgda] epoch 1 step 6250: loss/depth_euclidean:4.187 | loss/normal:0.127 | loss/reshading:0.119 | loss/total:0.125
+[mgda] epoch 1 step 6300: loss/depth_euclidean:3.885 | loss/normal:0.110 | loss/reshading:0.105 | loss/total:0.107
+[mgda] epoch 1 step 6350: loss/depth_euclidean:3.144 | loss/normal:0.110 | loss/reshading:0.104 | loss/total:0.104
+[mgda] epoch 1 step 6400: loss/depth_euclidean:3.337 | loss/normal:0.110 | loss/reshading:0.105 | loss/total:0.108
+[mgda] epoch 1 step 6450: loss/depth_euclidean:5.380 | loss/normal:0.107 | loss/reshading:0.095 | loss/total:0.101
+[mgda] epoch 1 step 6500: loss/depth_euclidean:2.742 | loss/normal:0.118 | loss/reshading:0.106 | loss/total:0.191
+[mgda] epoch 1 step 6550: loss/depth_euclidean:2.705 | loss/normal:0.108 | loss/reshading:0.116 | loss/total:0.116
+[mgda] epoch 1 step 6600: loss/depth_euclidean:2.747 | loss/normal:0.110 | loss/reshading:0.105 | loss/total:0.107
+[mgda] epoch 1 step 6650: loss/depth_euclidean:2.855 | loss/normal:0.101 | loss/reshading:0.102 | loss/total:0.171
+[mgda] epoch 1 step 6700: loss/depth_euclidean:3.375 | loss/normal:0.112 | loss/reshading:0.105 | loss/total:0.106
+[mgda] epoch 1 step 6750: loss/depth_euclidean:2.922 | loss/normal:0.105 | loss/reshading:0.090 | loss/total:0.101
+[mgda] epoch 1 step 6800: loss/depth_euclidean:5.310 | loss/normal:0.120 | loss/reshading:0.108 | loss/total:0.116
+[mgda] epoch 1 step 6850: loss/depth_euclidean:2.346 | loss/normal:0.105 | loss/reshading:0.096 | loss/total:0.100
+[mgda] epoch 1 step 6900: loss/depth_euclidean:1.856 | loss/normal:0.087 | loss/reshading:0.106 | loss/total:0.098
+[mgda] epoch 1 step 6950: loss/depth_euclidean:2.319 | loss/normal:0.090 | loss/reshading:0.091 | loss/total:0.091
+[mgda] epoch 1 step 7000: loss/depth_euclidean:2.589 | loss/normal:0.098 | loss/reshading:0.116 | loss/total:0.107
+[mgda] epoch 1 step 7050: loss/depth_euclidean:4.443 | loss/normal:0.098 | loss/reshading:0.095 | loss/total:0.096
+[mgda] epoch 1 step 7100: loss/depth_euclidean:2.478 | loss/normal:0.100 | loss/reshading:0.116 | loss/total:0.151
+[mgda] epoch 1 step 7150: loss/depth_euclidean:2.480 | loss/normal:0.093 | loss/reshading:0.105 | loss/total:0.101
+[mgda] epoch 1 step 7200: loss/depth_euclidean:2.779 | loss/normal:0.100 | loss/reshading:0.101 | loss/total:0.101
+[mgda] epoch 1 step 7250: loss/depth_euclidean:4.202 | loss/normal:0.112 | loss/reshading:0.099 | loss/total:0.105
+[mgda] epoch 1 step 7300: loss/depth_euclidean:2.742 | loss/normal:0.106 | loss/reshading:0.095 | loss/total:0.139
+[mgda] epoch 1 step 7350: loss/depth_euclidean:3.234 | loss/normal:0.096 | loss/reshading:0.095 | loss/total:0.096
+[mgda] epoch 1 step 7400: loss/depth_euclidean:2.768 | loss/normal:0.096 | loss/reshading:0.097 | loss/total:0.096
+[mgda] epoch 1 step 7450: loss/depth_euclidean:3.515 | loss/normal:0.093 | loss/reshading:0.092 | loss/total:0.093
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[mgda] epoch 1 step 7500: loss/depth_euclidean:4.481 | loss/normal:0.109 | loss/reshading:0.096 | loss/total:0.103
+[mgda] epoch 1 step 7550: loss/depth_euclidean:4.724 | loss/normal:0.109 | loss/reshading:0.100 | loss/total:0.103
+[mgda] epoch 1 step 7600: loss/depth_euclidean:2.763 | loss/normal:0.099 | loss/reshading:0.100 | loss/total:0.099
+[mgda] epoch 1 step 7650: loss/depth_euclidean:2.800 | loss/normal:0.100 | loss/reshading:0.096 | loss/total:0.098
+[mgda] epoch 1 step 7700: loss/depth_euclidean:3.515 | loss/normal:0.100 | loss/reshading:0.101 | loss/total:0.101
+[mgda] epoch 1 step 7750: loss/depth_euclidean:5.984 | loss/normal:0.115 | loss/reshading:0.101 | loss/total:0.109
+[mgda] epoch 1 step 7800: loss/depth_euclidean:3.222 | loss/normal:0.105 | loss/reshading:0.097 | loss/total:0.101
+[mgda] epoch 1 step 7850: loss/depth_euclidean:3.261 | loss/normal:0.094 | loss/reshading:0.102 | loss/total:0.099
+[mgda] epoch 1 step 7900: loss/depth_euclidean:3.392 | loss/normal:0.097 | loss/reshading:0.100 | loss/total:0.099
+[mgda] epoch 1 step 7950: loss/depth_euclidean:2.365 | loss/normal:0.082 | loss/reshading:0.093 | loss/total:0.088
+[mgda] epoch 1 step 8000: loss/depth_euclidean:3.035 | loss/normal:0.089 | loss/reshading:0.093 | loss/total:0.091
+[mgda] epoch 1 step 8050: loss/depth_euclidean:2.702 | loss/normal:0.087 | loss/reshading:0.098 | loss/total:0.160
+[mgda] epoch 1 step 8100: loss/depth_euclidean:4.080 | loss/normal:0.091 | loss/reshading:0.095 | loss/total:0.093
+[mgda] epoch 1 step 8150: loss/depth_euclidean:2.943 | loss/normal:0.090 | loss/reshading:0.090 | loss/total:0.110
+[mgda] epoch 1 step 8200: loss/depth_euclidean:5.663 | loss/normal:0.116 | loss/reshading:0.102 | loss/total:0.108
+[mgda] epoch 1 step 8250: loss/depth_euclidean:2.683 | loss/normal:0.112 | loss/reshading:0.101 | loss/total:0.120
+[mgda] epoch 1 step 8300: loss/depth_euclidean:2.645 | loss/normal:0.081 | loss/reshading:0.097 | loss/total:0.090
+[mgda] epoch 1 step 8350: loss/depth_euclidean:3.807 | loss/normal:0.113 | loss/reshading:0.103 | loss/total:0.109
+[mgda] epoch 1 step 8400: loss/depth_euclidean:3.897 | loss/normal:0.093 | loss/reshading:0.100 | loss/total:0.096
+[mgda] epoch 1 step 8450: loss/depth_euclidean:2.381 | loss/normal:0.083 | loss/reshading:0.091 | loss/total:0.088
+[mgda] epoch 1 step 8500: loss/depth_euclidean:2.729 | loss/normal:0.085 | loss/reshading:0.091 | loss/total:0.087
+[mgda] epoch 1 step 8550: loss/depth_euclidean:1.983 | loss/normal:0.092 | loss/reshading:0.107 | loss/total:0.096
+[mgda] epoch 1 step 8600: loss/depth_euclidean:2.436 | loss/normal:0.081 | loss/reshading:0.091 | loss/total:0.086
+[mgda] epoch 1 step 8650: loss/depth_euclidean:2.844 | loss/normal:0.082 | loss/reshading:0.094 | loss/total:0.090
+[mgda] epoch 1 step 8700: loss/depth_euclidean:3.179 | loss/normal:0.108 | loss/reshading:0.092 | loss/total:0.099
+[mgda] epoch 1 step 8750: loss/depth_euclidean:2.522 | loss/normal:0.081 | loss/reshading:0.084 | loss/total:0.088
+[mgda] epoch 1 step 8800: loss/depth_euclidean:4.476 | loss/normal:0.101 | loss/reshading:0.100 | loss/total:0.131
+[mgda] epoch 1 step 8850: loss/depth_euclidean:2.752 | loss/normal:0.080 | loss/reshading:0.082 | loss/total:0.081
+[mgda] epoch 1 done in 87.8 min
+[mgda] [VAL] epoch 1: {'depth_euclidean': {'rmse': 17.510955651601154, 'mae': 3.424091208105286, 'absrel': 0.6507681489456445}, 'normal': {'mean_deg': 19.078061709801357, 'median_deg': 10.350933363040289, '11.25deg': 0.5277910055592656, '22.5deg': 0.7364091333001852, '30deg': 0.8078136422360936}, 'reshading': {'mae': 0.10939136698531608}}
+Saved mgda checkpoint to experiments/all_methods_smoke/mgda_seed0/mgda_seed0.pt
+[mgda] [TEST]: {'depth_euclidean': {'rmse': 17.510955651601154, 'mae': 3.424091208105286, 'absrel': 0.6507681489456445}, 'normal': {'mean_deg': 19.078061709801357, 'median_deg': 10.350933363040289, '11.25deg': 0.5277910055592656, '22.5deg': 0.7364091333001852, '30deg': 0.8078136422360936}, 'reshading': {'mae': 0.10939136698531608}}
+
+=== Running method=pcgrad, seed=0, out_dir=experiments/all_methods_smoke/pcgrad_seed0 ===
+[pcgrad] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:3.383
+[pcgrad] epoch 1 step 50: loss/depth_euclidean:5.300 | loss/normal:0.362 | loss/reshading:0.236 | loss/total:1.966
+[pcgrad] epoch 1 step 100: loss/depth_euclidean:6.758 | loss/normal:0.396 | loss/reshading:0.233 | loss/total:2.462
+[pcgrad] epoch 1 step 150: loss/depth_euclidean:3.916 | loss/normal:0.342 | loss/reshading:0.213 | loss/total:1.490
+[pcgrad] epoch 1 step 200: loss/depth_euclidean:4.121 | loss/normal:0.322 | loss/reshading:0.199 | loss/total:1.547
+[pcgrad] epoch 1 step 250: loss/depth_euclidean:5.383 | loss/normal:0.280 | loss/reshading:0.188 | loss/total:1.950
+[pcgrad] epoch 1 step 300: loss/depth_euclidean:4.827 | loss/normal:0.278 | loss/reshading:0.179 | loss/total:1.761
+[pcgrad] epoch 1 step 350: loss/depth_euclidean:3.553 | loss/normal:0.275 | loss/reshading:0.200 | loss/total:1.343
+[pcgrad] epoch 1 step 400: loss/depth_euclidean:3.959 | loss/normal:0.270 | loss/reshading:0.184 | loss/total:1.471
+[pcgrad] epoch 1 step 450: loss/depth_euclidean:5.482 | loss/normal:0.273 | loss/reshading:0.181 | loss/total:1.979
+[pcgrad] epoch 1 step 500: loss/depth_euclidean:5.705 | loss/normal:0.232 | loss/reshading:0.177 | loss/total:2.038
+[pcgrad] epoch 1 step 550: loss/depth_euclidean:4.669 | loss/normal:0.242 | loss/reshading:0.169 | loss/total:1.693
+[pcgrad] epoch 1 step 600: loss/depth_euclidean:5.441 | loss/normal:0.236 | loss/reshading:0.164 | loss/total:1.947
+[pcgrad] epoch 1 step 650: loss/depth_euclidean:4.111 | loss/normal:0.238 | loss/reshading:0.172 | loss/total:1.507
+[pcgrad] epoch 1 step 700: loss/depth_euclidean:2.899 | loss/normal:0.225 | loss/reshading:0.175 | loss/total:1.100
+[pcgrad] epoch 1 step 750: loss/depth_euclidean:6.531 | loss/normal:0.220 | loss/reshading:0.163 | loss/total:2.305
+[pcgrad] epoch 1 step 800: loss/depth_euclidean:2.270 | loss/normal:0.222 | loss/reshading:0.156 | loss/total:0.883
+[pcgrad] epoch 1 step 850: loss/depth_euclidean:4.226 | loss/normal:0.233 | loss/reshading:0.172 | loss/total:1.544
+[pcgrad] epoch 1 step 900: loss/depth_euclidean:6.015 | loss/normal:0.242 | loss/reshading:0.171 | loss/total:2.143
+[pcgrad] epoch 1 step 950: loss/depth_euclidean:3.373 | loss/normal:0.208 | loss/reshading:0.157 | loss/total:1.246
+[pcgrad] epoch 1 step 1000: loss/depth_euclidean:4.084 | loss/normal:0.196 | loss/reshading:0.159 | loss/total:1.479
+[pcgrad] epoch 1 step 1050: loss/depth_euclidean:6.258 | loss/normal:0.215 | loss/reshading:0.165 | loss/total:2.213
+[pcgrad] epoch 1 step 1100: loss/depth_euclidean:5.238 | loss/normal:0.230 | loss/reshading:0.170 | loss/total:1.879
+[pcgrad] epoch 1 step 1150: loss/depth_euclidean:3.725 | loss/normal:0.219 | loss/reshading:0.160 | loss/total:1.368
+[pcgrad] epoch 1 step 1200: loss/depth_euclidean:4.775 | loss/normal:0.228 | loss/reshading:0.161 | loss/total:1.721
+[pcgrad] epoch 1 step 1250: loss/depth_euclidean:6.126 | loss/normal:0.231 | loss/reshading:0.168 | loss/total:2.175
+[pcgrad] epoch 1 step 1300: loss/depth_euclidean:3.935 | loss/normal:0.260 | loss/reshading:0.180 | loss/total:1.458
+[pcgrad] epoch 1 step 1350: loss/depth_euclidean:4.306 | loss/normal:0.203 | loss/reshading:0.163 | loss/total:1.557
+[pcgrad] epoch 1 step 1400: loss/depth_euclidean:3.195 | loss/normal:0.198 | loss/reshading:0.155 | loss/total:1.183
+[pcgrad] epoch 1 step 1450: loss/depth_euclidean:3.688 | loss/normal:0.213 | loss/reshading:0.159 | loss/total:1.353
+[pcgrad] epoch 1 step 1500: loss/depth_euclidean:2.089 | loss/normal:0.207 | loss/reshading:0.156 | loss/total:0.818
+[pcgrad] epoch 1 step 1550: loss/depth_euclidean:4.386 | loss/normal:0.226 | loss/reshading:0.166 | loss/total:1.593
+[pcgrad] epoch 1 step 1600: loss/depth_euclidean:3.363 | loss/normal:0.212 | loss/reshading:0.170 | loss/total:1.249
+[pcgrad] epoch 1 step 1650: loss/depth_euclidean:4.067 | loss/normal:0.232 | loss/reshading:0.189 | loss/total:1.496
+[pcgrad] epoch 1 step 1700: loss/depth_euclidean:2.465 | loss/normal:0.179 | loss/reshading:0.162 | loss/total:0.935
+[pcgrad] epoch 1 step 1750: loss/depth_euclidean:4.611 | loss/normal:0.217 | loss/reshading:0.171 | loss/total:1.666
+[pcgrad] epoch 1 step 1800: loss/depth_euclidean:5.914 | loss/normal:0.197 | loss/reshading:0.151 | loss/total:2.087
+[pcgrad] epoch 1 step 1850: loss/depth_euclidean:2.856 | loss/normal:0.189 | loss/reshading:0.150 | loss/total:1.065
+[pcgrad] epoch 1 step 1900: loss/depth_euclidean:3.021 | loss/normal:0.228 | loss/reshading:0.188 | loss/total:1.146
+[pcgrad] epoch 1 step 1950: loss/depth_euclidean:4.013 | loss/normal:0.214 | loss/reshading:0.168 | loss/total:1.465
+[pcgrad] epoch 1 step 2000: loss/depth_euclidean:4.829 | loss/normal:0.189 | loss/reshading:0.161 | loss/total:1.726
+[pcgrad] epoch 1 step 2050: loss/depth_euclidean:2.773 | loss/normal:0.209 | loss/reshading:0.154 | loss/total:1.045
+[pcgrad] epoch 1 step 2100: loss/depth_euclidean:4.085 | loss/normal:0.204 | loss/reshading:0.147 | loss/total:1.479
+[pcgrad] epoch 1 step 2150: loss/depth_euclidean:2.952 | loss/normal:0.190 | loss/reshading:0.154 | loss/total:1.099
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[pcgrad] epoch 1 step 2200: loss/depth_euclidean:2.613 | loss/normal:0.209 | loss/reshading:0.165 | loss/total:0.995
+[pcgrad] epoch 1 step 2250: loss/depth_euclidean:3.428 | loss/normal:0.195 | loss/reshading:0.150 | loss/total:1.258
+[pcgrad] epoch 1 step 2300: loss/depth_euclidean:3.128 | loss/normal:0.182 | loss/reshading:0.154 | loss/total:1.155
+[pcgrad] epoch 1 step 2350: loss/depth_euclidean:2.607 | loss/normal:0.192 | loss/reshading:0.151 | loss/total:0.983
+[pcgrad] epoch 1 step 2400: loss/depth_euclidean:4.171 | loss/normal:0.194 | loss/reshading:0.152 | loss/total:1.506
+[pcgrad] epoch 1 step 2450: loss/depth_euclidean:4.578 | loss/normal:0.221 | loss/reshading:0.157 | loss/total:1.652
+[pcgrad] epoch 1 step 2500: loss/depth_euclidean:4.860 | loss/normal:0.217 | loss/reshading:0.164 | loss/total:1.747
+[pcgrad] epoch 1 step 2550: loss/depth_euclidean:3.140 | loss/normal:0.188 | loss/reshading:0.160 | loss/total:1.163
+[pcgrad] epoch 1 step 2600: loss/depth_euclidean:3.315 | loss/normal:0.181 | loss/reshading:0.154 | loss/total:1.217
+[pcgrad] epoch 1 step 2650: loss/depth_euclidean:5.021 | loss/normal:0.218 | loss/reshading:0.161 | loss/total:1.800
+[pcgrad] epoch 1 step 2700: loss/depth_euclidean:3.857 | loss/normal:0.201 | loss/reshading:0.163 | loss/total:1.407
+[pcgrad] epoch 1 step 2750: loss/depth_euclidean:5.115 | loss/normal:0.204 | loss/reshading:0.158 | loss/total:1.826
+[pcgrad] epoch 1 step 2800: loss/depth_euclidean:2.608 | loss/normal:0.165 | loss/reshading:0.148 | loss/total:0.973
+[pcgrad] epoch 1 step 2850: loss/depth_euclidean:4.398 | loss/normal:0.193 | loss/reshading:0.135 | loss/total:1.575
+[pcgrad] epoch 1 step 2900: loss/depth_euclidean:2.987 | loss/normal:0.174 | loss/reshading:0.153 | loss/total:1.105
+[pcgrad] epoch 1 step 2950: loss/depth_euclidean:2.859 | loss/normal:0.164 | loss/reshading:0.139 | loss/total:1.054
+[pcgrad] epoch 1 step 3000: loss/depth_euclidean:5.694 | loss/normal:0.189 | loss/reshading:0.154 | loss/total:2.012
+[pcgrad] epoch 1 step 3050: loss/depth_euclidean:5.816 | loss/normal:0.199 | loss/reshading:0.159 | loss/total:2.058
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[pcgrad] epoch 1 step 3100: loss/depth_euclidean:3.412 | loss/normal:0.190 | loss/reshading:0.157 | loss/total:1.253
+[pcgrad] epoch 1 step 3150: loss/depth_euclidean:2.048 | loss/normal:0.186 | loss/reshading:0.167 | loss/total:0.800
+[pcgrad] epoch 1 step 3200: loss/depth_euclidean:2.677 | loss/normal:0.185 | loss/reshading:0.146 | loss/total:1.003
+[pcgrad] epoch 1 step 3250: loss/depth_euclidean:2.381 | loss/normal:0.161 | loss/reshading:0.145 | loss/total:0.896
+[pcgrad] epoch 1 step 3300: loss/depth_euclidean:2.700 | loss/normal:0.151 | loss/reshading:0.143 | loss/total:0.998
+[pcgrad] epoch 1 step 3350: loss/depth_euclidean:2.822 | loss/normal:0.173 | loss/reshading:0.161 | loss/total:1.052
+[pcgrad] epoch 1 step 3400: loss/depth_euclidean:2.513 | loss/normal:0.164 | loss/reshading:0.149 | loss/total:0.942
+[pcgrad] epoch 1 step 3450: loss/depth_euclidean:2.855 | loss/normal:0.170 | loss/reshading:0.156 | loss/total:1.060
+[pcgrad] epoch 1 step 3500: loss/depth_euclidean:3.808 | loss/normal:0.181 | loss/reshading:0.152 | loss/total:1.380
+[pcgrad] epoch 1 step 3550: loss/depth_euclidean:2.804 | loss/normal:0.195 | loss/reshading:0.143 | loss/total:1.048
+[pcgrad] epoch 1 step 3600: loss/depth_euclidean:3.633 | loss/normal:0.185 | loss/reshading:0.154 | loss/total:1.324
+[pcgrad] epoch 1 step 3650: loss/depth_euclidean:5.671 | loss/normal:0.191 | loss/reshading:0.149 | loss/total:2.004
+[pcgrad] epoch 1 step 3700: loss/depth_euclidean:3.802 | loss/normal:0.169 | loss/reshading:0.137 | loss/total:1.369
+[pcgrad] epoch 1 step 3750: loss/depth_euclidean:1.993 | loss/normal:0.182 | loss/reshading:0.153 | loss/total:0.776
+[pcgrad] epoch 1 step 3800: loss/depth_euclidean:2.737 | loss/normal:0.150 | loss/reshading:0.131 | loss/total:1.006
+[pcgrad] epoch 1 step 3850: loss/depth_euclidean:3.724 | loss/normal:0.149 | loss/reshading:0.150 | loss/total:1.341
+[pcgrad] epoch 1 step 3900: loss/depth_euclidean:2.322 | loss/normal:0.173 | loss/reshading:0.149 | loss/total:0.882
+[pcgrad] epoch 1 step 3950: loss/depth_euclidean:5.163 | loss/normal:0.188 | loss/reshading:0.152 | loss/total:1.835
+[pcgrad] epoch 1 step 4000: loss/depth_euclidean:3.088 | loss/normal:0.157 | loss/reshading:0.136 | loss/total:1.127
+[pcgrad] epoch 1 step 4050: loss/depth_euclidean:3.835 | loss/normal:0.187 | loss/reshading:0.156 | loss/total:1.392
+[pcgrad] epoch 1 step 4100: loss/depth_euclidean:6.219 | loss/normal:0.208 | loss/reshading:0.156 | loss/total:2.195
+[pcgrad] epoch 1 step 4150: loss/depth_euclidean:3.332 | loss/normal:0.177 | loss/reshading:0.150 | loss/total:1.220
+[pcgrad] epoch 1 step 4200: loss/depth_euclidean:3.512 | loss/normal:0.168 | loss/reshading:0.143 | loss/total:1.274
+[pcgrad] epoch 1 step 4250: loss/depth_euclidean:4.235 | loss/normal:0.175 | loss/reshading:0.141 | loss/total:1.517
+[pcgrad] epoch 1 step 4300: loss/depth_euclidean:3.563 | loss/normal:0.175 | loss/reshading:0.137 | loss/total:1.292
+[pcgrad] epoch 1 step 4350: loss/depth_euclidean:3.168 | loss/normal:0.172 | loss/reshading:0.145 | loss/total:1.161
+[pcgrad] epoch 1 step 4400: loss/depth_euclidean:3.550 | loss/normal:0.161 | loss/reshading:0.147 | loss/total:1.286
+[pcgrad] epoch 1 step 4450: loss/depth_euclidean:3.946 | loss/normal:0.185 | loss/reshading:0.151 | loss/total:1.427
+[pcgrad] epoch 1 step 4500: loss/depth_euclidean:2.519 | loss/normal:0.140 | loss/reshading:0.135 | loss/total:0.931
+[pcgrad] epoch 1 step 4550: loss/depth_euclidean:5.714 | loss/normal:0.186 | loss/reshading:0.157 | loss/total:2.019
+[pcgrad] epoch 1 step 4600: loss/depth_euclidean:3.007 | loss/normal:0.160 | loss/reshading:0.136 | loss/total:1.101
+[pcgrad] epoch 1 step 4650: loss/depth_euclidean:4.771 | loss/normal:0.182 | loss/reshading:0.158 | loss/total:1.704
+[pcgrad] epoch 1 step 4700: loss/depth_euclidean:3.050 | loss/normal:0.145 | loss/reshading:0.138 | loss/total:1.111
+[pcgrad] epoch 1 step 4750: loss/depth_euclidean:4.330 | loss/normal:0.160 | loss/reshading:0.137 | loss/total:1.542
+[pcgrad] epoch 1 step 4800: loss/depth_euclidean:4.140 | loss/normal:0.166 | loss/reshading:0.136 | loss/total:1.481
+[pcgrad] epoch 1 step 4850: loss/depth_euclidean:4.934 | loss/normal:0.180 | loss/reshading:0.134 | loss/total:1.750
+[pcgrad] epoch 1 step 4900: loss/depth_euclidean:2.366 | loss/normal:0.167 | loss/reshading:0.140 | loss/total:0.891
+[pcgrad] epoch 1 step 4950: loss/depth_euclidean:4.166 | loss/normal:0.165 | loss/reshading:0.144 | loss/total:1.492
+[pcgrad] epoch 1 step 5000: loss/depth_euclidean:4.631 | loss/normal:0.198 | loss/reshading:0.154 | loss/total:1.661
+[pcgrad] epoch 1 step 5050: loss/depth_euclidean:5.405 | loss/normal:0.192 | loss/reshading:0.138 | loss/total:1.912
+[pcgrad] epoch 1 step 5100: loss/depth_euclidean:2.703 | loss/normal:0.150 | loss/reshading:0.127 | loss/total:0.993
+[pcgrad] epoch 1 step 5150: loss/depth_euclidean:3.534 | loss/normal:0.167 | loss/reshading:0.133 | loss/total:1.278
+[pcgrad] epoch 1 step 5200: loss/depth_euclidean:3.554 | loss/normal:0.167 | loss/reshading:0.146 | loss/total:1.289
+[pcgrad] epoch 1 step 5250: loss/depth_euclidean:3.942 | loss/normal:0.157 | loss/reshading:0.156 | loss/total:1.418
+[pcgrad] epoch 1 step 5300: loss/depth_euclidean:4.344 | loss/normal:0.169 | loss/reshading:0.180 | loss/total:1.564
+[pcgrad] epoch 1 step 5350: loss/depth_euclidean:2.403 | loss/normal:0.152 | loss/reshading:0.141 | loss/total:0.899
+[pcgrad] epoch 1 step 5400: loss/depth_euclidean:3.595 | loss/normal:0.162 | loss/reshading:0.141 | loss/total:1.299
+[pcgrad] epoch 1 step 5450: loss/depth_euclidean:3.104 | loss/normal:0.156 | loss/reshading:0.157 | loss/total:1.139
+[pcgrad] epoch 1 step 5500: loss/depth_euclidean:4.637 | loss/normal:0.162 | loss/reshading:0.157 | loss/total:1.652
+[pcgrad] epoch 1 step 5550: loss/depth_euclidean:2.928 | loss/normal:0.153 | loss/reshading:0.136 | loss/total:1.072
+[pcgrad] epoch 1 step 5600: loss/depth_euclidean:5.520 | loss/normal:0.187 | loss/reshading:0.159 | loss/total:1.955
+[pcgrad] epoch 1 step 5650: loss/depth_euclidean:3.216 | loss/normal:0.200 | loss/reshading:0.150 | loss/total:1.189
+[pcgrad] epoch 1 step 5700: loss/depth_euclidean:2.610 | loss/normal:0.165 | loss/reshading:0.145 | loss/total:0.973
+[pcgrad] epoch 1 step 5750: loss/depth_euclidean:4.153 | loss/normal:0.165 | loss/reshading:0.145 | loss/total:1.488
+[pcgrad] epoch 1 step 5800: loss/depth_euclidean:2.812 | loss/normal:0.159 | loss/reshading:0.144 | loss/total:1.038
+[pcgrad] epoch 1 step 5850: loss/depth_euclidean:5.050 | loss/normal:0.198 | loss/reshading:0.150 | loss/total:1.799
+[pcgrad] epoch 1 step 5900: loss/depth_euclidean:5.514 | loss/normal:0.180 | loss/reshading:0.167 | loss/total:1.954
+[pcgrad] epoch 1 step 5950: loss/depth_euclidean:2.901 | loss/normal:0.142 | loss/reshading:0.122 | loss/total:1.055
+[pcgrad] epoch 1 step 6000: loss/depth_euclidean:3.009 | loss/normal:0.152 | loss/reshading:0.135 | loss/total:1.099
+[pcgrad] epoch 1 step 6050: loss/depth_euclidean:6.223 | loss/normal:0.172 | loss/reshading:0.144 | loss/total:2.180
+[pcgrad] epoch 1 step 6100: loss/depth_euclidean:4.106 | loss/normal:0.154 | loss/reshading:0.132 | loss/total:1.464
+[pcgrad] epoch 1 step 6150: loss/depth_euclidean:3.013 | loss/normal:0.146 | loss/reshading:0.130 | loss/total:1.096
+[pcgrad] epoch 1 step 6200: loss/depth_euclidean:2.840 | loss/normal:0.149 | loss/reshading:0.130 | loss/total:1.040
+[pcgrad] epoch 1 step 6250: loss/depth_euclidean:3.520 | loss/normal:0.182 | loss/reshading:0.143 | loss/total:1.282
+[pcgrad] epoch 1 step 6300: loss/depth_euclidean:3.075 | loss/normal:0.161 | loss/reshading:0.133 | loss/total:1.123
+[pcgrad] epoch 1 step 6350: loss/depth_euclidean:2.563 | loss/normal:0.164 | loss/reshading:0.132 | loss/total:0.953
+[pcgrad] epoch 1 step 6400: loss/depth_euclidean:2.845 | loss/normal:0.155 | loss/reshading:0.129 | loss/total:1.043
+[pcgrad] epoch 1 step 6450: loss/depth_euclidean:4.265 | loss/normal:0.148 | loss/reshading:0.126 | loss/total:1.513
+[pcgrad] epoch 1 step 6500: loss/depth_euclidean:2.588 | loss/normal:0.160 | loss/reshading:0.142 | loss/total:0.963
+[pcgrad] epoch 1 step 6550: loss/depth_euclidean:2.766 | loss/normal:0.163 | loss/reshading:0.142 | loss/total:1.024
+[pcgrad] epoch 1 step 6600: loss/depth_euclidean:2.565 | loss/normal:0.172 | loss/reshading:0.140 | loss/total:0.959
+[pcgrad] epoch 1 step 6650: loss/depth_euclidean:2.620 | loss/normal:0.145 | loss/reshading:0.140 | loss/total:0.968
+[pcgrad] epoch 1 step 6700: loss/depth_euclidean:2.820 | loss/normal:0.148 | loss/reshading:0.134 | loss/total:1.034
+[pcgrad] epoch 1 step 6750: loss/depth_euclidean:2.544 | loss/normal:0.139 | loss/reshading:0.140 | loss/total:0.941
+[pcgrad] epoch 1 step 6800: loss/depth_euclidean:4.248 | loss/normal:0.169 | loss/reshading:0.146 | loss/total:1.521
+[pcgrad] epoch 1 step 6850: loss/depth_euclidean:2.154 | loss/normal:0.169 | loss/reshading:0.132 | loss/total:0.818
+[pcgrad] epoch 1 step 6900: loss/depth_euclidean:1.745 | loss/normal:0.142 | loss/reshading:0.133 | loss/total:0.673
+[pcgrad] epoch 1 step 6950: loss/depth_euclidean:2.001 | loss/normal:0.137 | loss/reshading:0.140 | loss/total:0.759
+[pcgrad] epoch 1 step 7000: loss/depth_euclidean:2.041 | loss/normal:0.144 | loss/reshading:0.145 | loss/total:0.777
+[pcgrad] epoch 1 step 7050: loss/depth_euclidean:3.144 | loss/normal:0.136 | loss/reshading:0.122 | loss/total:1.134
+[pcgrad] epoch 1 step 7100: loss/depth_euclidean:2.756 | loss/normal:0.154 | loss/reshading:0.151 | loss/total:1.020
+[pcgrad] epoch 1 step 7150: loss/depth_euclidean:2.688 | loss/normal:0.150 | loss/reshading:0.146 | loss/total:0.995
+[pcgrad] epoch 1 step 7200: loss/depth_euclidean:2.543 | loss/normal:0.157 | loss/reshading:0.135 | loss/total:0.945
+[pcgrad] epoch 1 step 7250: loss/depth_euclidean:4.035 | loss/normal:0.160 | loss/reshading:0.137 | loss/total:1.444
+[pcgrad] epoch 1 step 7300: loss/depth_euclidean:2.751 | loss/normal:0.149 | loss/reshading:0.125 | loss/total:1.008
+[pcgrad] epoch 1 step 7350: loss/depth_euclidean:3.010 | loss/normal:0.141 | loss/reshading:0.124 | loss/total:1.092
+[pcgrad] epoch 1 step 7400: loss/depth_euclidean:2.523 | loss/normal:0.137 | loss/reshading:0.131 | loss/total:0.930
+[pcgrad] epoch 1 step 7450: loss/depth_euclidean:2.776 | loss/normal:0.144 | loss/reshading:0.138 | loss/total:1.019
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[pcgrad] epoch 1 step 7500: loss/depth_euclidean:3.230 | loss/normal:0.146 | loss/reshading:0.128 | loss/total:1.168
+[pcgrad] epoch 1 step 7550: loss/depth_euclidean:4.174 | loss/normal:0.157 | loss/reshading:0.132 | loss/total:1.487
+[pcgrad] epoch 1 step 7600: loss/depth_euclidean:2.386 | loss/normal:0.143 | loss/reshading:0.130 | loss/total:0.886
+[pcgrad] epoch 1 step 7650: loss/depth_euclidean:2.592 | loss/normal:0.140 | loss/reshading:0.129 | loss/total:0.954
+[pcgrad] epoch 1 step 7700: loss/depth_euclidean:3.241 | loss/normal:0.139 | loss/reshading:0.132 | loss/total:1.171
+[pcgrad] epoch 1 step 7750: loss/depth_euclidean:4.770 | loss/normal:0.179 | loss/reshading:0.143 | loss/total:1.697
+[pcgrad] epoch 1 step 7800: loss/depth_euclidean:2.383 | loss/normal:0.152 | loss/reshading:0.132 | loss/total:0.889
+[pcgrad] epoch 1 step 7850: loss/depth_euclidean:2.892 | loss/normal:0.160 | loss/reshading:0.133 | loss/total:1.062
+[pcgrad] epoch 1 step 7900: loss/depth_euclidean:2.857 | loss/normal:0.146 | loss/reshading:0.127 | loss/total:1.043
+[pcgrad] epoch 1 step 7950: loss/depth_euclidean:2.448 | loss/normal:0.145 | loss/reshading:0.127 | loss/total:0.907
+[pcgrad] epoch 1 step 8000: loss/depth_euclidean:2.647 | loss/normal:0.137 | loss/reshading:0.131 | loss/total:0.972
+[pcgrad] epoch 1 step 8050: loss/depth_euclidean:2.444 | loss/normal:0.128 | loss/reshading:0.138 | loss/total:0.903
+[pcgrad] epoch 1 step 8100: loss/depth_euclidean:3.721 | loss/normal:0.149 | loss/reshading:0.138 | loss/total:1.336
+[pcgrad] epoch 1 step 8150: loss/depth_euclidean:2.736 | loss/normal:0.153 | loss/reshading:0.122 | loss/total:1.004
+[pcgrad] epoch 1 step 8200: loss/depth_euclidean:3.919 | loss/normal:0.162 | loss/reshading:0.146 | loss/total:1.409
+[pcgrad] epoch 1 step 8250: loss/depth_euclidean:2.501 | loss/normal:0.152 | loss/reshading:0.142 | loss/total:0.931
+[pcgrad] epoch 1 step 8300: loss/depth_euclidean:1.909 | loss/normal:0.137 | loss/reshading:0.137 | loss/total:0.727
+[pcgrad] epoch 1 step 8350: loss/depth_euclidean:3.709 | loss/normal:0.162 | loss/reshading:0.131 | loss/total:1.334
+[pcgrad] epoch 1 step 8400: loss/depth_euclidean:3.821 | loss/normal:0.144 | loss/reshading:0.134 | loss/total:1.366
+[pcgrad] epoch 1 step 8450: loss/depth_euclidean:2.046 | loss/normal:0.134 | loss/reshading:0.125 | loss/total:0.768
+[pcgrad] epoch 1 step 8500: loss/depth_euclidean:2.353 | loss/normal:0.127 | loss/reshading:0.122 | loss/total:0.867
+[pcgrad] epoch 1 step 8550: loss/depth_euclidean:1.839 | loss/normal:0.153 | loss/reshading:0.145 | loss/total:0.712
+[pcgrad] epoch 1 step 8600: loss/depth_euclidean:1.987 | loss/normal:0.127 | loss/reshading:0.119 | loss/total:0.744
+[pcgrad] epoch 1 step 8650: loss/depth_euclidean:2.682 | loss/normal:0.130 | loss/reshading:0.116 | loss/total:0.976
+[pcgrad] epoch 1 step 8700: loss/depth_euclidean:3.035 | loss/normal:0.145 | loss/reshading:0.122 | loss/total:1.101
+[pcgrad] epoch 1 step 8750: loss/depth_euclidean:1.799 | loss/normal:0.130 | loss/reshading:0.113 | loss/total:0.681
+[pcgrad] epoch 1 step 8800: loss/depth_euclidean:3.938 | loss/normal:0.153 | loss/reshading:0.131 | loss/total:1.407
+[pcgrad] epoch 1 step 8850: loss/depth_euclidean:2.474 | loss/normal:0.122 | loss/reshading:0.117 | loss/total:0.904
+[pcgrad] epoch 1 done in 63.5 min
+[pcgrad] [VAL] epoch 1: {'depth_euclidean': {'rmse': 18.729708472887676, 'mae': 3.734381769473354, 'absrel': 0.7194999251514673}, 'normal': {'mean_deg': 23.417824308077495, 'median_deg': 15.857972254355749, '11.25deg': 0.39467783194656175, '22.5deg': 0.6225106076647838, '30deg': 0.7247960455715656}, 'reshading': {'mae': 0.13219560601282865}}
+Saved pcgrad checkpoint to experiments/all_methods_smoke/pcgrad_seed0/pcgrad_seed0.pt
+[pcgrad] [TEST]: {'depth_euclidean': {'rmse': 18.729708472887676, 'mae': 3.734381769473354, 'absrel': 0.7194999251514673}, 'normal': {'mean_deg': 23.417824308077495, 'median_deg': 15.857972254355749, '11.25deg': 0.39467783194656175, '22.5deg': 0.6225106076647838, '30deg': 0.7247960455715656}, 'reshading': {'mae': 0.13219560601282865}}
+
+=== Running method=cagrad, seed=0, out_dir=experiments/all_methods_smoke/cagrad_seed0 ===
+[cagrad] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/mean:3.383 | loss/normal:0.829 | loss/reshading:0.394
+[cagrad] epoch 1 step 50: loss/depth_euclidean:5.391 | loss/mean:1.992 | loss/normal:0.357 | loss/reshading:0.227
+[cagrad] epoch 1 step 100: loss/depth_euclidean:6.729 | loss/mean:2.443 | loss/normal:0.371 | loss/reshading:0.228
+[cagrad] epoch 1 step 150: loss/depth_euclidean:3.877 | loss/mean:1.463 | loss/normal:0.298 | loss/reshading:0.216
+[cagrad] epoch 1 step 200: loss/depth_euclidean:4.062 | loss/mean:1.514 | loss/normal:0.286 | loss/reshading:0.195
+[cagrad] epoch 1 step 250: loss/depth_euclidean:5.366 | loss/mean:1.937 | loss/normal:0.261 | loss/reshading:0.182
+[cagrad] epoch 1 step 300: loss/depth_euclidean:4.811 | loss/mean:1.750 | loss/normal:0.263 | loss/reshading:0.177
+[cagrad] epoch 1 step 350: loss/depth_euclidean:3.509 | loss/mean:1.330 | loss/normal:0.282 | loss/reshading:0.199
+[cagrad] epoch 1 step 400: loss/depth_euclidean:3.907 | loss/mean:1.443 | loss/normal:0.250 | loss/reshading:0.174
+[cagrad] epoch 1 step 450: loss/depth_euclidean:5.485 | loss/mean:1.969 | loss/normal:0.249 | loss/reshading:0.172
+[cagrad] epoch 1 step 500: loss/depth_euclidean:5.689 | loss/mean:2.031 | loss/normal:0.229 | loss/reshading:0.174
+[cagrad] epoch 1 step 550: loss/depth_euclidean:4.653 | loss/mean:1.682 | loss/normal:0.227 | loss/reshading:0.167
+[cagrad] epoch 1 step 600: loss/depth_euclidean:5.377 | loss/mean:1.921 | loss/normal:0.222 | loss/reshading:0.164
+[cagrad] epoch 1 step 650: loss/depth_euclidean:4.083 | loss/mean:1.493 | loss/normal:0.230 | loss/reshading:0.168
+[cagrad] epoch 1 step 700: loss/depth_euclidean:2.884 | loss/mean:1.090 | loss/normal:0.219 | loss/reshading:0.166
+[cagrad] epoch 1 step 750: loss/depth_euclidean:6.426 | loss/mean:2.266 | loss/normal:0.210 | loss/reshading:0.162
+[cagrad] epoch 1 step 800: loss/depth_euclidean:2.362 | loss/mean:0.912 | loss/normal:0.215 | loss/reshading:0.159
+[cagrad] epoch 1 step 850: loss/depth_euclidean:4.233 | loss/mean:1.543 | loss/normal:0.221 | loss/reshading:0.174
+[cagrad] epoch 1 step 900: loss/depth_euclidean:5.896 | loss/mean:2.097 | loss/normal:0.227 | loss/reshading:0.168
+[cagrad] epoch 1 step 950: loss/depth_euclidean:3.322 | loss/mean:1.227 | loss/normal:0.198 | loss/reshading:0.162
+[cagrad] epoch 1 step 1000: loss/depth_euclidean:4.014 | loss/mean:1.453 | loss/normal:0.187 | loss/reshading:0.159
+[cagrad] epoch 1 step 1050: loss/depth_euclidean:6.175 | loss/mean:2.176 | loss/normal:0.195 | loss/reshading:0.158
+[cagrad] epoch 1 step 1100: loss/depth_euclidean:5.129 | loss/mean:1.831 | loss/normal:0.205 | loss/reshading:0.160
+[cagrad] epoch 1 step 1150: loss/depth_euclidean:3.616 | loss/mean:1.325 | loss/normal:0.203 | loss/reshading:0.156
+[cagrad] epoch 1 step 1200: loss/depth_euclidean:4.767 | loss/mean:1.711 | loss/normal:0.209 | loss/reshading:0.156
+[cagrad] epoch 1 step 1250: loss/depth_euclidean:5.996 | loss/mean:2.118 | loss/normal:0.200 | loss/reshading:0.157
+[cagrad] epoch 1 step 1300: loss/depth_euclidean:3.599 | loss/mean:1.317 | loss/normal:0.192 | loss/reshading:0.159
+[cagrad] epoch 1 step 1350: loss/depth_euclidean:4.214 | loss/mean:1.518 | loss/normal:0.179 | loss/reshading:0.160
+[cagrad] epoch 1 step 1400: loss/depth_euclidean:3.454 | loss/mean:1.261 | loss/normal:0.178 | loss/reshading:0.152
+[cagrad] epoch 1 step 1450: loss/depth_euclidean:3.593 | loss/mean:1.314 | loss/normal:0.194 | loss/reshading:0.155
+[cagrad] epoch 1 step 1500: loss/depth_euclidean:2.108 | loss/mean:0.812 | loss/normal:0.180 | loss/reshading:0.147
+[cagrad] epoch 1 step 1550: loss/depth_euclidean:4.207 | loss/mean:1.523 | loss/normal:0.199 | loss/reshading:0.162
+[cagrad] epoch 1 step 1600: loss/depth_euclidean:3.148 | loss/mean:1.166 | loss/normal:0.188 | loss/reshading:0.163
+[cagrad] epoch 1 step 1650: loss/depth_euclidean:3.792 | loss/mean:1.389 | loss/normal:0.196 | loss/reshading:0.180
+[cagrad] epoch 1 step 1700: loss/depth_euclidean:2.686 | loss/mean:1.008 | loss/normal:0.182 | loss/reshading:0.157
+[cagrad] epoch 1 step 1750: loss/depth_euclidean:4.512 | loss/mean:1.618 | loss/normal:0.183 | loss/reshading:0.160
+[cagrad] epoch 1 step 1800: loss/depth_euclidean:6.020 | loss/mean:2.110 | loss/normal:0.171 | loss/reshading:0.138
+[cagrad] epoch 1 step 1850: loss/depth_euclidean:2.782 | loss/mean:1.028 | loss/normal:0.162 | loss/reshading:0.140
+[cagrad] epoch 1 step 1900: loss/depth_euclidean:3.161 | loss/mean:1.180 | loss/normal:0.204 | loss/reshading:0.175
+[cagrad] epoch 1 step 1950: loss/depth_euclidean:3.689 | loss/mean:1.353 | loss/normal:0.199 | loss/reshading:0.171
+[cagrad] epoch 1 step 2000: loss/depth_euclidean:4.727 | loss/mean:1.685 | loss/normal:0.175 | loss/reshading:0.152
+[cagrad] epoch 1 step 2050: loss/depth_euclidean:2.783 | loss/mean:1.037 | loss/normal:0.168 | loss/reshading:0.161
+[cagrad] epoch 1 step 2100: loss/depth_euclidean:3.935 | loss/mean:1.413 | loss/normal:0.165 | loss/reshading:0.140
+[cagrad] epoch 1 step 2150: loss/depth_euclidean:3.047 | loss/mean:1.120 | loss/normal:0.166 | loss/reshading:0.147
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[cagrad] epoch 1 step 2200: loss/depth_euclidean:2.473 | loss/mean:0.939 | loss/normal:0.189 | loss/reshading:0.155
+[cagrad] epoch 1 step 2250: loss/depth_euclidean:3.698 | loss/mean:1.341 | loss/normal:0.172 | loss/reshading:0.155
+[cagrad] epoch 1 step 2300: loss/depth_euclidean:2.875 | loss/mean:1.059 | loss/normal:0.160 | loss/reshading:0.143
+[cagrad] epoch 1 step 2350: loss/depth_euclidean:2.737 | loss/mean:1.014 | loss/normal:0.157 | loss/reshading:0.147
+[cagrad] epoch 1 step 2400: loss/depth_euclidean:4.161 | loss/mean:1.496 | loss/normal:0.174 | loss/reshading:0.153
+[cagrad] epoch 1 step 2450: loss/depth_euclidean:4.713 | loss/mean:1.672 | loss/normal:0.157 | loss/reshading:0.146
+[cagrad] epoch 1 step 2500: loss/depth_euclidean:4.188 | loss/mean:1.498 | loss/normal:0.165 | loss/reshading:0.140
+[cagrad] epoch 1 step 2550: loss/depth_euclidean:3.209 | loss/mean:1.167 | loss/normal:0.153 | loss/reshading:0.139
+[cagrad] epoch 1 step 2600: loss/depth_euclidean:3.463 | loss/mean:1.252 | loss/normal:0.151 | loss/reshading:0.143
+[cagrad] epoch 1 step 2650: loss/depth_euclidean:4.886 | loss/mean:1.746 | loss/normal:0.192 | loss/reshading:0.160
+[cagrad] epoch 1 step 2700: loss/depth_euclidean:3.766 | loss/mean:1.358 | loss/normal:0.169 | loss/reshading:0.140
+[cagrad] epoch 1 step 2750: loss/depth_euclidean:5.191 | loss/mean:1.840 | loss/normal:0.181 | loss/reshading:0.147
+[cagrad] epoch 1 step 2800: loss/depth_euclidean:2.820 | loss/mean:1.036 | loss/normal:0.147 | loss/reshading:0.142
+[cagrad] epoch 1 step 2850: loss/depth_euclidean:4.471 | loss/mean:1.590 | loss/normal:0.166 | loss/reshading:0.134
+[cagrad] epoch 1 step 2900: loss/depth_euclidean:3.081 | loss/mean:1.131 | loss/normal:0.159 | loss/reshading:0.154
+[cagrad] epoch 1 step 2950: loss/depth_euclidean:2.717 | loss/mean:0.994 | loss/normal:0.141 | loss/reshading:0.123
+[cagrad] epoch 1 step 3000: loss/depth_euclidean:5.446 | loss/mean:1.920 | loss/normal:0.166 | loss/reshading:0.147
+[cagrad] epoch 1 step 3050: loss/depth_euclidean:5.772 | loss/mean:2.027 | loss/normal:0.162 | loss/reshading:0.148
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[cagrad] epoch 1 step 3100: loss/depth_euclidean:3.406 | loss/mean:1.238 | loss/normal:0.155 | loss/reshading:0.153
+[cagrad] epoch 1 step 3150: loss/depth_euclidean:2.159 | loss/mean:0.841 | loss/normal:0.197 | loss/reshading:0.167
+[cagrad] epoch 1 step 3200: loss/depth_euclidean:2.585 | loss/mean:0.955 | loss/normal:0.141 | loss/reshading:0.139
+[cagrad] epoch 1 step 3250: loss/depth_euclidean:2.230 | loss/mean:0.837 | loss/normal:0.144 | loss/reshading:0.137
+[cagrad] epoch 1 step 3300: loss/depth_euclidean:2.765 | loss/mean:1.015 | loss/normal:0.145 | loss/reshading:0.135
+[cagrad] epoch 1 step 3350: loss/depth_euclidean:2.518 | loss/mean:0.932 | loss/normal:0.136 | loss/reshading:0.142
+[cagrad] epoch 1 step 3400: loss/depth_euclidean:2.475 | loss/mean:0.919 | loss/normal:0.143 | loss/reshading:0.138
+[cagrad] epoch 1 step 3450: loss/depth_euclidean:2.779 | loss/mean:1.021 | loss/normal:0.138 | loss/reshading:0.147
+[cagrad] epoch 1 step 3500: loss/depth_euclidean:3.782 | loss/mean:1.360 | loss/normal:0.148 | loss/reshading:0.149
+[cagrad] epoch 1 step 3550: loss/depth_euclidean:2.491 | loss/mean:0.910 | loss/normal:0.119 | loss/reshading:0.122
+[cagrad] epoch 1 step 3600: loss/depth_euclidean:3.953 | loss/mean:1.418 | loss/normal:0.157 | loss/reshading:0.143
+[cagrad] epoch 1 step 3650: loss/depth_euclidean:5.599 | loss/mean:1.971 | loss/normal:0.170 | loss/reshading:0.144
+[cagrad] epoch 1 step 3700: loss/depth_euclidean:3.816 | loss/mean:1.363 | loss/normal:0.143 | loss/reshading:0.129
+[cagrad] epoch 1 step 3750: loss/depth_euclidean:1.951 | loss/mean:0.743 | loss/normal:0.141 | loss/reshading:0.137
+[cagrad] epoch 1 step 3800: loss/depth_euclidean:2.545 | loss/mean:0.931 | loss/normal:0.122 | loss/reshading:0.126
+[cagrad] epoch 1 step 3850: loss/depth_euclidean:4.049 | loss/mean:1.443 | loss/normal:0.140 | loss/reshading:0.141
+[cagrad] epoch 1 step 3900: loss/depth_euclidean:2.349 | loss/mean:0.879 | loss/normal:0.148 | loss/reshading:0.139
+[cagrad] epoch 1 step 3950: loss/depth_euclidean:5.071 | loss/mean:1.792 | loss/normal:0.160 | loss/reshading:0.144
+[cagrad] epoch 1 step 4000: loss/depth_euclidean:3.067 | loss/mean:1.105 | loss/normal:0.125 | loss/reshading:0.125
+[cagrad] epoch 1 step 4050: loss/depth_euclidean:3.699 | loss/mean:1.333 | loss/normal:0.158 | loss/reshading:0.142
+[cagrad] epoch 1 step 4100: loss/depth_euclidean:5.855 | loss/mean:2.060 | loss/normal:0.181 | loss/reshading:0.145
+[cagrad] epoch 1 step 4150: loss/depth_euclidean:3.485 | loss/mean:1.263 | loss/normal:0.165 | loss/reshading:0.138
+[cagrad] epoch 1 step 4200: loss/depth_euclidean:3.685 | loss/mean:1.328 | loss/normal:0.151 | loss/reshading:0.146
+[cagrad] epoch 1 step 4250: loss/depth_euclidean:4.132 | loss/mean:1.470 | loss/normal:0.147 | loss/reshading:0.132
+[cagrad] epoch 1 step 4300: loss/depth_euclidean:3.535 | loss/mean:1.272 | loss/normal:0.156 | loss/reshading:0.125
+[cagrad] epoch 1 step 4350: loss/depth_euclidean:2.859 | loss/mean:1.040 | loss/normal:0.133 | loss/reshading:0.129
+[cagrad] epoch 1 step 4400: loss/depth_euclidean:3.661 | loss/mean:1.311 | loss/normal:0.142 | loss/reshading:0.131
+[cagrad] epoch 1 step 4450: loss/depth_euclidean:3.861 | loss/mean:1.391 | loss/normal:0.158 | loss/reshading:0.153
+[cagrad] epoch 1 step 4500: loss/depth_euclidean:2.609 | loss/mean:0.954 | loss/normal:0.125 | loss/reshading:0.126
+[cagrad] epoch 1 step 4550: loss/depth_euclidean:5.644 | loss/mean:1.976 | loss/normal:0.149 | loss/reshading:0.133
+[cagrad] epoch 1 step 4600: loss/depth_euclidean:3.030 | loss/mean:1.096 | loss/normal:0.135 | loss/reshading:0.124
+[cagrad] epoch 1 step 4650: loss/depth_euclidean:4.916 | loss/mean:1.735 | loss/normal:0.144 | loss/reshading:0.145
+[cagrad] epoch 1 step 4700: loss/depth_euclidean:3.426 | loss/mean:1.224 | loss/normal:0.120 | loss/reshading:0.127
+[cagrad] epoch 1 step 4750: loss/depth_euclidean:4.284 | loss/mean:1.512 | loss/normal:0.126 | loss/reshading:0.126
+[cagrad] epoch 1 step 4800: loss/depth_euclidean:3.286 | loss/mean:1.175 | loss/normal:0.119 | loss/reshading:0.121
+[cagrad] epoch 1 step 4850: loss/depth_euclidean:4.613 | loss/mean:1.624 | loss/normal:0.140 | loss/reshading:0.120
+[cagrad] epoch 1 step 4900: loss/depth_euclidean:2.380 | loss/mean:0.879 | loss/normal:0.126 | loss/reshading:0.132
+[cagrad] epoch 1 step 4950: loss/depth_euclidean:4.207 | loss/mean:1.496 | loss/normal:0.140 | loss/reshading:0.139
+[cagrad] epoch 1 step 5000: loss/depth_euclidean:4.274 | loss/mean:1.524 | loss/normal:0.157 | loss/reshading:0.140
+[cagrad] epoch 1 step 5050: loss/depth_euclidean:5.296 | loss/mean:1.857 | loss/normal:0.150 | loss/reshading:0.124
+[cagrad] epoch 1 step 5100: loss/depth_euclidean:2.913 | loss/mean:1.052 | loss/normal:0.120 | loss/reshading:0.123
+[cagrad] epoch 1 step 5150: loss/depth_euclidean:3.483 | loss/mean:1.248 | loss/normal:0.126 | loss/reshading:0.135
+[cagrad] epoch 1 step 5200: loss/depth_euclidean:3.381 | loss/mean:1.219 | loss/normal:0.141 | loss/reshading:0.136
+[cagrad] epoch 1 step 5250: loss/depth_euclidean:3.914 | loss/mean:1.393 | loss/normal:0.134 | loss/reshading:0.132
+[cagrad] epoch 1 step 5300: loss/depth_euclidean:4.036 | loss/mean:1.436 | loss/normal:0.142 | loss/reshading:0.129
+[cagrad] epoch 1 step 5350: loss/depth_euclidean:2.161 | loss/mean:0.794 | loss/normal:0.108 | loss/reshading:0.112
+[cagrad] epoch 1 step 5400: loss/depth_euclidean:3.170 | loss/mean:1.142 | loss/normal:0.131 | loss/reshading:0.123
+[cagrad] epoch 1 step 5450: loss/depth_euclidean:3.007 | loss/mean:1.086 | loss/normal:0.114 | loss/reshading:0.138
+[cagrad] epoch 1 step 5500: loss/depth_euclidean:4.357 | loss/mean:1.539 | loss/normal:0.116 | loss/reshading:0.143
+[cagrad] epoch 1 step 5550: loss/depth_euclidean:2.675 | loss/mean:0.976 | loss/normal:0.127 | loss/reshading:0.124
+[cagrad] epoch 1 step 5600: loss/depth_euclidean:5.186 | loss/mean:1.826 | loss/normal:0.152 | loss/reshading:0.139
+[cagrad] epoch 1 step 5650: loss/depth_euclidean:3.355 | loss/mean:1.210 | loss/normal:0.142 | loss/reshading:0.134
+[cagrad] epoch 1 step 5700: loss/depth_euclidean:2.576 | loss/mean:0.936 | loss/normal:0.112 | loss/reshading:0.119
+[cagrad] epoch 1 step 5750: loss/depth_euclidean:3.937 | loss/mean:1.398 | loss/normal:0.127 | loss/reshading:0.131
+[cagrad] epoch 1 step 5800: loss/depth_euclidean:2.895 | loss/mean:1.051 | loss/normal:0.124 | loss/reshading:0.135
+[cagrad] epoch 1 step 5850: loss/depth_euclidean:4.570 | loss/mean:1.620 | loss/normal:0.157 | loss/reshading:0.135
+[cagrad] epoch 1 step 5900: loss/depth_euclidean:4.992 | loss/mean:1.762 | loss/normal:0.147 | loss/reshading:0.146
+[cagrad] epoch 1 step 5950: loss/depth_euclidean:2.841 | loss/mean:1.027 | loss/normal:0.124 | loss/reshading:0.117
+[cagrad] epoch 1 step 6000: loss/depth_euclidean:2.695 | loss/mean:0.977 | loss/normal:0.119 | loss/reshading:0.117
+[cagrad] epoch 1 step 6050: loss/depth_euclidean:5.838 | loss/mean:2.040 | loss/normal:0.148 | loss/reshading:0.133
+[cagrad] epoch 1 step 6100: loss/depth_euclidean:4.340 | loss/mean:1.531 | loss/normal:0.128 | loss/reshading:0.126
+[cagrad] epoch 1 step 6150: loss/depth_euclidean:2.655 | loss/mean:0.963 | loss/normal:0.115 | loss/reshading:0.119
+[cagrad] epoch 1 step 6200: loss/depth_euclidean:2.629 | loss/mean:0.954 | loss/normal:0.113 | loss/reshading:0.119
+[cagrad] epoch 1 step 6250: loss/depth_euclidean:3.276 | loss/mean:1.180 | loss/normal:0.135 | loss/reshading:0.128
+[cagrad] epoch 1 step 6300: loss/depth_euclidean:2.631 | loss/mean:0.957 | loss/normal:0.120 | loss/reshading:0.119
+[cagrad] epoch 1 step 6350: loss/depth_euclidean:2.780 | loss/mean:1.006 | loss/normal:0.120 | loss/reshading:0.119
+[cagrad] epoch 1 step 6400: loss/depth_euclidean:2.669 | loss/mean:0.970 | loss/normal:0.116 | loss/reshading:0.125
+[cagrad] epoch 1 step 6450: loss/depth_euclidean:4.036 | loss/mean:1.424 | loss/normal:0.123 | loss/reshading:0.113
+[cagrad] epoch 1 step 6500: loss/depth_euclidean:2.453 | loss/mean:0.900 | loss/normal:0.119 | loss/reshading:0.127
+[cagrad] epoch 1 step 6550: loss/depth_euclidean:2.020 | loss/mean:0.763 | loss/normal:0.133 | loss/reshading:0.136
+[cagrad] epoch 1 step 6600: loss/depth_euclidean:2.543 | loss/mean:0.938 | loss/normal:0.140 | loss/reshading:0.130
+[cagrad] epoch 1 step 6650: loss/depth_euclidean:2.021 | loss/mean:0.746 | loss/normal:0.107 | loss/reshading:0.111
+[cagrad] epoch 1 step 6700: loss/depth_euclidean:2.539 | loss/mean:0.926 | loss/normal:0.121 | loss/reshading:0.118
+[cagrad] epoch 1 step 6750: loss/depth_euclidean:2.335 | loss/mean:0.852 | loss/normal:0.115 | loss/reshading:0.108
+[cagrad] epoch 1 step 6800: loss/depth_euclidean:3.781 | loss/mean:1.342 | loss/normal:0.126 | loss/reshading:0.119
+[cagrad] epoch 1 step 6850: loss/depth_euclidean:1.713 | loss/mean:0.651 | loss/normal:0.123 | loss/reshading:0.118
+[cagrad] epoch 1 step 6900: loss/depth_euclidean:1.501 | loss/mean:0.572 | loss/normal:0.103 | loss/reshading:0.114
+[cagrad] epoch 1 step 6950: loss/depth_euclidean:1.847 | loss/mean:0.688 | loss/normal:0.107 | loss/reshading:0.109
+[cagrad] epoch 1 step 7000: loss/depth_euclidean:2.008 | loss/mean:0.751 | loss/normal:0.112 | loss/reshading:0.134
+[cagrad] epoch 1 step 7050: loss/depth_euclidean:3.431 | loss/mean:1.217 | loss/normal:0.109 | loss/reshading:0.112
+[cagrad] epoch 1 step 7100: loss/depth_euclidean:2.222 | loss/mean:0.822 | loss/normal:0.113 | loss/reshading:0.131
+[cagrad] epoch 1 step 7150: loss/depth_euclidean:2.147 | loss/mean:0.796 | loss/normal:0.112 | loss/reshading:0.130
+[cagrad] epoch 1 step 7200: loss/depth_euclidean:2.252 | loss/mean:0.827 | loss/normal:0.108 | loss/reshading:0.121
+[cagrad] epoch 1 step 7250: loss/depth_euclidean:3.173 | loss/mean:1.142 | loss/normal:0.117 | loss/reshading:0.138
+[cagrad] epoch 1 step 7300: loss/depth_euclidean:2.433 | loss/mean:0.887 | loss/normal:0.115 | loss/reshading:0.112
+[cagrad] epoch 1 step 7350: loss/depth_euclidean:2.834 | loss/mean:1.017 | loss/normal:0.108 | loss/reshading:0.111
+[cagrad] epoch 1 step 7400: loss/depth_euclidean:2.656 | loss/mean:0.961 | loss/normal:0.108 | loss/reshading:0.119
+[cagrad] epoch 1 step 7450: loss/depth_euclidean:2.371 | loss/mean:0.873 | loss/normal:0.129 | loss/reshading:0.118
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[cagrad] epoch 1 step 7500: loss/depth_euclidean:3.199 | loss/mean:1.142 | loss/normal:0.116 | loss/reshading:0.111
+[cagrad] epoch 1 step 7550: loss/depth_euclidean:3.529 | loss/mean:1.254 | loss/normal:0.115 | loss/reshading:0.119
+[cagrad] epoch 1 step 7600: loss/depth_euclidean:2.215 | loss/mean:0.816 | loss/normal:0.111 | loss/reshading:0.122
+[cagrad] epoch 1 step 7650: loss/depth_euclidean:2.296 | loss/mean:0.840 | loss/normal:0.110 | loss/reshading:0.113
+[cagrad] epoch 1 step 7700: loss/depth_euclidean:2.739 | loss/mean:0.989 | loss/normal:0.108 | loss/reshading:0.121
+[cagrad] epoch 1 step 7750: loss/depth_euclidean:4.528 | loss/mean:1.596 | loss/normal:0.136 | loss/reshading:0.125
+[cagrad] epoch 1 step 7800: loss/depth_euclidean:2.211 | loss/mean:0.814 | loss/normal:0.115 | loss/reshading:0.116
+[cagrad] epoch 1 step 7850: loss/depth_euclidean:2.391 | loss/mean:0.876 | loss/normal:0.107 | loss/reshading:0.131
+[cagrad] epoch 1 step 7900: loss/depth_euclidean:2.537 | loss/mean:0.920 | loss/normal:0.108 | loss/reshading:0.116
+[cagrad] epoch 1 step 7950: loss/depth_euclidean:2.236 | loss/mean:0.817 | loss/normal:0.105 | loss/reshading:0.109
+[cagrad] epoch 1 step 8000: loss/depth_euclidean:2.704 | loss/mean:0.978 | loss/normal:0.110 | loss/reshading:0.119
+[cagrad] epoch 1 step 8050: loss/depth_euclidean:2.244 | loss/mean:0.822 | loss/normal:0.098 | loss/reshading:0.123
+[cagrad] epoch 1 step 8100: loss/depth_euclidean:3.579 | loss/mean:1.269 | loss/normal:0.107 | loss/reshading:0.121
+[cagrad] epoch 1 step 8150: loss/depth_euclidean:2.619 | loss/mean:0.949 | loss/normal:0.113 | loss/reshading:0.115
+[cagrad] epoch 1 step 8200: loss/depth_euclidean:3.486 | loss/mean:1.240 | loss/normal:0.122 | loss/reshading:0.112
+[cagrad] epoch 1 step 8250: loss/depth_euclidean:2.292 | loss/mean:0.847 | loss/normal:0.128 | loss/reshading:0.122
+[cagrad] epoch 1 step 8300: loss/depth_euclidean:1.740 | loss/mean:0.651 | loss/normal:0.094 | loss/reshading:0.118
+[cagrad] epoch 1 step 8350: loss/depth_euclidean:3.486 | loss/mean:1.246 | loss/normal:0.135 | loss/reshading:0.118
+[cagrad] epoch 1 step 8400: loss/depth_euclidean:3.492 | loss/mean:1.239 | loss/normal:0.109 | loss/reshading:0.117
+[cagrad] epoch 1 step 8450: loss/depth_euclidean:1.868 | loss/mean:0.692 | loss/normal:0.094 | loss/reshading:0.113
+[cagrad] epoch 1 step 8500: loss/depth_euclidean:2.268 | loss/mean:0.841 | loss/normal:0.104 | loss/reshading:0.150
+[cagrad] epoch 1 step 8550: loss/depth_euclidean:2.038 | loss/mean:0.764 | loss/normal:0.117 | loss/reshading:0.139
+[cagrad] epoch 1 step 8600: loss/depth_euclidean:1.769 | loss/mean:0.658 | loss/normal:0.099 | loss/reshading:0.106
+[cagrad] epoch 1 step 8650: loss/depth_euclidean:2.276 | loss/mean:0.829 | loss/normal:0.100 | loss/reshading:0.109
+[cagrad] epoch 1 step 8700: loss/depth_euclidean:2.668 | loss/mean:0.965 | loss/normal:0.116 | loss/reshading:0.111
+[cagrad] epoch 1 step 8750: loss/depth_euclidean:1.641 | loss/mean:0.614 | loss/normal:0.101 | loss/reshading:0.101
+[cagrad] epoch 1 step 8800: loss/depth_euclidean:4.094 | loss/mean:1.445 | loss/normal:0.122 | loss/reshading:0.121
+[cagrad] epoch 1 step 8850: loss/depth_euclidean:2.430 | loss/mean:0.878 | loss/normal:0.100 | loss/reshading:0.104
+[cagrad] epoch 1 done in 65.0 min
+[cagrad] [VAL] epoch 1: {'depth_euclidean': {'rmse': 18.765425716837246, 'mae': 3.812940249219537, 'absrel': 0.8262306737403075}, 'normal': {'mean_deg': 21.050350894530613, 'median_deg': 12.700294772783915, '11.25deg': 0.4606378865428269, '22.5deg': 0.6905178527037302, '30deg': 0.7764041097834706}, 'reshading': {'mae': 0.1230704615979145}}
+Saved cagrad checkpoint to experiments/all_methods_smoke/cagrad_seed0/cagrad_seed0.pt
+[cagrad] [TEST]: {'depth_euclidean': {'rmse': 18.765425716837246, 'mae': 3.812940249219537, 'absrel': 0.8262306737403075}, 'normal': {'mean_deg': 21.050350894530613, 'median_deg': 12.700294772783915, '11.25deg': 0.4606378865428269, '22.5deg': 0.6905178527037302, '30deg': 0.7764041097834706}, 'reshading': {'mae': 0.1230704615979145}}
+
+=== Running method=adatask, seed=0, out_dir=experiments/all_methods_smoke/adatask_seed0 ===
+[adatask] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:10.150
+[adatask] epoch 1 step 50: loss/depth_euclidean:5.104 | loss/normal:0.455 | loss/reshading:0.237 | loss/total:5.795
+[adatask] epoch 1 step 100: loss/depth_euclidean:6.727 | loss/normal:0.402 | loss/reshading:0.234 | loss/total:7.363
+[adatask] epoch 1 step 150: loss/depth_euclidean:3.920 | loss/normal:0.351 | loss/reshading:0.216 | loss/total:4.487
+[adatask] epoch 1 step 200: loss/depth_euclidean:4.100 | loss/normal:0.348 | loss/reshading:0.199 | loss/total:4.647
+[adatask] epoch 1 step 250: loss/depth_euclidean:5.423 | loss/normal:0.347 | loss/reshading:0.192 | loss/total:5.962
+[adatask] epoch 1 step 300: loss/depth_euclidean:4.863 | loss/normal:0.326 | loss/reshading:0.182 | loss/total:5.371
+[adatask] epoch 1 step 350: loss/depth_euclidean:3.599 | loss/normal:0.333 | loss/reshading:0.208 | loss/total:4.140
+[adatask] epoch 1 step 400: loss/depth_euclidean:3.940 | loss/normal:0.336 | loss/reshading:0.190 | loss/total:4.466
+[adatask] epoch 1 step 450: loss/depth_euclidean:5.423 | loss/normal:0.315 | loss/reshading:0.180 | loss/total:5.918
+[adatask] epoch 1 step 500: loss/depth_euclidean:5.631 | loss/normal:0.271 | loss/reshading:0.175 | loss/total:6.076
+[adatask] epoch 1 step 550: loss/depth_euclidean:4.610 | loss/normal:0.271 | loss/reshading:0.182 | loss/total:5.063
+[adatask] epoch 1 step 600: loss/depth_euclidean:5.256 | loss/normal:0.275 | loss/reshading:0.174 | loss/total:5.705
+[adatask] epoch 1 step 650: loss/depth_euclidean:4.159 | loss/normal:0.267 | loss/reshading:0.179 | loss/total:4.606
+[adatask] epoch 1 step 700: loss/depth_euclidean:3.082 | loss/normal:0.247 | loss/reshading:0.190 | loss/total:3.519
+[adatask] epoch 1 step 750: loss/depth_euclidean:6.336 | loss/normal:0.238 | loss/reshading:0.175 | loss/total:6.749
+[adatask] epoch 1 step 800: loss/depth_euclidean:2.511 | loss/normal:0.246 | loss/reshading:0.166 | loss/total:2.922
+[adatask] epoch 1 step 850: loss/depth_euclidean:4.289 | loss/normal:0.257 | loss/reshading:0.177 | loss/total:4.723
+[adatask] epoch 1 step 900: loss/depth_euclidean:5.915 | loss/normal:0.252 | loss/reshading:0.172 | loss/total:6.339
+[adatask] epoch 1 step 950: loss/depth_euclidean:3.324 | loss/normal:0.226 | loss/reshading:0.166 | loss/total:3.716
+[adatask] epoch 1 step 1000: loss/depth_euclidean:4.041 | loss/normal:0.213 | loss/reshading:0.162 | loss/total:4.415
+[adatask] epoch 1 step 1050: loss/depth_euclidean:5.944 | loss/normal:0.207 | loss/reshading:0.160 | loss/total:6.311
+[adatask] epoch 1 step 1100: loss/depth_euclidean:4.982 | loss/normal:0.235 | loss/reshading:0.170 | loss/total:5.388
+[adatask] epoch 1 step 1150: loss/depth_euclidean:3.695 | loss/normal:0.216 | loss/reshading:0.164 | loss/total:4.075
+[adatask] epoch 1 step 1200: loss/depth_euclidean:4.524 | loss/normal:0.232 | loss/reshading:0.171 | loss/total:4.927
+[adatask] epoch 1 step 1250: loss/depth_euclidean:6.210 | loss/normal:0.227 | loss/reshading:0.162 | loss/total:6.599
+[adatask] epoch 1 step 1300: loss/depth_euclidean:3.824 | loss/normal:0.219 | loss/reshading:0.166 | loss/total:4.209
+[adatask] epoch 1 step 1350: loss/depth_euclidean:4.407 | loss/normal:0.198 | loss/reshading:0.164 | loss/total:4.769
+[adatask] epoch 1 step 1400: loss/depth_euclidean:3.973 | loss/normal:0.203 | loss/reshading:0.156 | loss/total:4.332
+[adatask] epoch 1 step 1450: loss/depth_euclidean:3.567 | loss/normal:0.208 | loss/reshading:0.161 | loss/total:3.936
+[adatask] epoch 1 step 1500: loss/depth_euclidean:2.109 | loss/normal:0.202 | loss/reshading:0.155 | loss/total:2.466
+[adatask] epoch 1 step 1550: loss/depth_euclidean:4.379 | loss/normal:0.230 | loss/reshading:0.164 | loss/total:4.772
+[adatask] epoch 1 step 1600: loss/depth_euclidean:3.142 | loss/normal:0.193 | loss/reshading:0.166 | loss/total:3.501
+[adatask] epoch 1 step 1650: loss/depth_euclidean:3.869 | loss/normal:0.217 | loss/reshading:0.181 | loss/total:4.267
+[adatask] epoch 1 step 1700: loss/depth_euclidean:2.353 | loss/normal:0.184 | loss/reshading:0.166 | loss/total:2.704
+[adatask] epoch 1 step 1750: loss/depth_euclidean:4.559 | loss/normal:0.201 | loss/reshading:0.161 | loss/total:4.921
+[adatask] epoch 1 step 1800: loss/depth_euclidean:6.021 | loss/normal:0.191 | loss/reshading:0.149 | loss/total:6.361
+[adatask] epoch 1 step 1850: loss/depth_euclidean:2.802 | loss/normal:0.174 | loss/reshading:0.143 | loss/total:3.120
+[adatask] epoch 1 step 1900: loss/depth_euclidean:3.188 | loss/normal:0.210 | loss/reshading:0.174 | loss/total:3.571
+[adatask] epoch 1 step 1950: loss/depth_euclidean:4.180 | loss/normal:0.220 | loss/reshading:0.169 | loss/total:4.569
+[adatask] epoch 1 step 2000: loss/depth_euclidean:5.043 | loss/normal:0.176 | loss/reshading:0.163 | loss/total:5.382
+[adatask] epoch 1 step 2050: loss/depth_euclidean:3.420 | loss/normal:0.187 | loss/reshading:0.157 | loss/total:3.764
+[adatask] epoch 1 step 2100: loss/depth_euclidean:3.952 | loss/normal:0.180 | loss/reshading:0.150 | loss/total:4.282
+[adatask] epoch 1 step 2150: loss/depth_euclidean:3.077 | loss/normal:0.174 | loss/reshading:0.154 | loss/total:3.404
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[adatask] epoch 1 step 2200: loss/depth_euclidean:2.621 | loss/normal:0.196 | loss/reshading:0.154 | loss/total:2.970
+[adatask] epoch 1 step 2250: loss/depth_euclidean:3.518 | loss/normal:0.182 | loss/reshading:0.152 | loss/total:3.852
+[adatask] epoch 1 step 2300: loss/depth_euclidean:3.121 | loss/normal:0.160 | loss/reshading:0.148 | loss/total:3.429
+[adatask] epoch 1 step 2350: loss/depth_euclidean:2.601 | loss/normal:0.164 | loss/reshading:0.139 | loss/total:2.905
+[adatask] epoch 1 step 2400: loss/depth_euclidean:4.177 | loss/normal:0.173 | loss/reshading:0.152 | loss/total:4.502
+[adatask] epoch 1 step 2450: loss/depth_euclidean:4.669 | loss/normal:0.174 | loss/reshading:0.142 | loss/total:4.986
+[adatask] epoch 1 step 2500: loss/depth_euclidean:4.251 | loss/normal:0.168 | loss/reshading:0.145 | loss/total:4.564
+[adatask] epoch 1 step 2550: loss/depth_euclidean:2.872 | loss/normal:0.152 | loss/reshading:0.135 | loss/total:3.158
+[adatask] epoch 1 step 2600: loss/depth_euclidean:3.151 | loss/normal:0.151 | loss/reshading:0.145 | loss/total:3.447
+[adatask] epoch 1 step 2650: loss/depth_euclidean:4.829 | loss/normal:0.176 | loss/reshading:0.147 | loss/total:5.153
+[adatask] epoch 1 step 2700: loss/depth_euclidean:3.566 | loss/normal:0.166 | loss/reshading:0.135 | loss/total:3.867
+[adatask] epoch 1 step 2750: loss/depth_euclidean:5.197 | loss/normal:0.171 | loss/reshading:0.142 | loss/total:5.510
+[adatask] epoch 1 step 2800: loss/depth_euclidean:2.733 | loss/normal:0.147 | loss/reshading:0.137 | loss/total:3.017
+[adatask] epoch 1 step 2850: loss/depth_euclidean:4.443 | loss/normal:0.165 | loss/reshading:0.132 | loss/total:4.740
+[adatask] epoch 1 step 2900: loss/depth_euclidean:2.872 | loss/normal:0.148 | loss/reshading:0.139 | loss/total:3.159
+[adatask] epoch 1 step 2950: loss/depth_euclidean:2.622 | loss/normal:0.137 | loss/reshading:0.126 | loss/total:2.886
+[adatask] epoch 1 step 3000: loss/depth_euclidean:5.706 | loss/normal:0.163 | loss/reshading:0.140 | loss/total:6.009
+[adatask] epoch 1 step 3050: loss/depth_euclidean:5.716 | loss/normal:0.168 | loss/reshading:0.145 | loss/total:6.029
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[adatask] epoch 1 step 3100: loss/depth_euclidean:3.403 | loss/normal:0.152 | loss/reshading:0.147 | loss/total:3.701
+[adatask] epoch 1 step 3150: loss/depth_euclidean:2.193 | loss/normal:0.155 | loss/reshading:0.149 | loss/total:2.497
+[adatask] epoch 1 step 3200: loss/depth_euclidean:2.709 | loss/normal:0.147 | loss/reshading:0.131 | loss/total:2.988
+[adatask] epoch 1 step 3250: loss/depth_euclidean:2.078 | loss/normal:0.135 | loss/reshading:0.135 | loss/total:2.349
+[adatask] epoch 1 step 3300: loss/depth_euclidean:2.528 | loss/normal:0.132 | loss/reshading:0.125 | loss/total:2.786
+[adatask] epoch 1 step 3350: loss/depth_euclidean:2.649 | loss/normal:0.134 | loss/reshading:0.146 | loss/total:2.930
+[adatask] epoch 1 step 3400: loss/depth_euclidean:2.563 | loss/normal:0.145 | loss/reshading:0.138 | loss/total:2.846
+[adatask] epoch 1 step 3450: loss/depth_euclidean:2.717 | loss/normal:0.138 | loss/reshading:0.141 | loss/total:2.996
+[adatask] epoch 1 step 3500: loss/depth_euclidean:3.661 | loss/normal:0.155 | loss/reshading:0.143 | loss/total:3.960
+[adatask] epoch 1 step 3550: loss/depth_euclidean:3.056 | loss/normal:0.126 | loss/reshading:0.118 | loss/total:3.299
+[adatask] epoch 1 step 3600: loss/depth_euclidean:3.759 | loss/normal:0.156 | loss/reshading:0.133 | loss/total:4.048
+[adatask] epoch 1 step 3650: loss/depth_euclidean:5.201 | loss/normal:0.155 | loss/reshading:0.128 | loss/total:5.485
+[adatask] epoch 1 step 3700: loss/depth_euclidean:3.878 | loss/normal:0.137 | loss/reshading:0.128 | loss/total:4.142
+[adatask] epoch 1 step 3750: loss/depth_euclidean:1.940 | loss/normal:0.146 | loss/reshading:0.135 | loss/total:2.221
+[adatask] epoch 1 step 3800: loss/depth_euclidean:2.572 | loss/normal:0.124 | loss/reshading:0.117 | loss/total:2.813
+[adatask] epoch 1 step 3850: loss/depth_euclidean:3.604 | loss/normal:0.129 | loss/reshading:0.133 | loss/total:3.866
+[adatask] epoch 1 step 3900: loss/depth_euclidean:2.343 | loss/normal:0.145 | loss/reshading:0.131 | loss/total:2.619
+[adatask] epoch 1 step 3950: loss/depth_euclidean:5.106 | loss/normal:0.166 | loss/reshading:0.147 | loss/total:5.419
+[adatask] epoch 1 step 4000: loss/depth_euclidean:2.890 | loss/normal:0.122 | loss/reshading:0.128 | loss/total:3.139
+[adatask] epoch 1 step 4050: loss/depth_euclidean:3.828 | loss/normal:0.154 | loss/reshading:0.140 | loss/total:4.121
+[adatask] epoch 1 step 4100: loss/depth_euclidean:5.920 | loss/normal:0.180 | loss/reshading:0.135 | loss/total:6.236
+[adatask] epoch 1 step 4150: loss/depth_euclidean:2.844 | loss/normal:0.142 | loss/reshading:0.130 | loss/total:3.116
+[adatask] epoch 1 step 4200: loss/depth_euclidean:3.679 | loss/normal:0.137 | loss/reshading:0.122 | loss/total:3.938
+[adatask] epoch 1 step 4250: loss/depth_euclidean:4.004 | loss/normal:0.140 | loss/reshading:0.122 | loss/total:4.266
+[adatask] epoch 1 step 4300: loss/depth_euclidean:3.259 | loss/normal:0.141 | loss/reshading:0.118 | loss/total:3.518
+[adatask] epoch 1 step 4350: loss/depth_euclidean:2.712 | loss/normal:0.129 | loss/reshading:0.120 | loss/total:2.962
+[adatask] epoch 1 step 4400: loss/depth_euclidean:3.436 | loss/normal:0.130 | loss/reshading:0.121 | loss/total:3.687
+[adatask] epoch 1 step 4450: loss/depth_euclidean:3.662 | loss/normal:0.145 | loss/reshading:0.136 | loss/total:3.944
+[adatask] epoch 1 step 4500: loss/depth_euclidean:2.243 | loss/normal:0.113 | loss/reshading:0.117 | loss/total:2.473
+[adatask] epoch 1 step 4550: loss/depth_euclidean:5.615 | loss/normal:0.146 | loss/reshading:0.130 | loss/total:5.891
+[adatask] epoch 1 step 4600: loss/depth_euclidean:2.864 | loss/normal:0.134 | loss/reshading:0.123 | loss/total:3.120
+[adatask] epoch 1 step 4650: loss/depth_euclidean:4.738 | loss/normal:0.133 | loss/reshading:0.139 | loss/total:5.010
+[adatask] epoch 1 step 4700: loss/depth_euclidean:4.006 | loss/normal:0.123 | loss/reshading:0.133 | loss/total:4.261
+[adatask] epoch 1 step 4750: loss/depth_euclidean:3.310 | loss/normal:0.120 | loss/reshading:0.117 | loss/total:3.547
+[adatask] epoch 1 step 4800: loss/depth_euclidean:3.127 | loss/normal:0.116 | loss/reshading:0.113 | loss/total:3.357
+[adatask] epoch 1 step 4850: loss/depth_euclidean:4.391 | loss/normal:0.138 | loss/reshading:0.116 | loss/total:4.645
+[adatask] epoch 1 step 4900: loss/depth_euclidean:2.234 | loss/normal:0.126 | loss/reshading:0.127 | loss/total:2.486
+[adatask] epoch 1 step 4950: loss/depth_euclidean:3.809 | loss/normal:0.126 | loss/reshading:0.123 | loss/total:4.058
+[adatask] epoch 1 step 5000: loss/depth_euclidean:4.531 | loss/normal:0.152 | loss/reshading:0.135 | loss/total:4.818
+[adatask] epoch 1 step 5050: loss/depth_euclidean:4.902 | loss/normal:0.154 | loss/reshading:0.125 | loss/total:5.182
+[adatask] epoch 1 step 5100: loss/depth_euclidean:2.589 | loss/normal:0.109 | loss/reshading:0.111 | loss/total:2.809
+[adatask] epoch 1 step 5150: loss/depth_euclidean:3.312 | loss/normal:0.127 | loss/reshading:0.121 | loss/total:3.559
+[adatask] epoch 1 step 5200: loss/depth_euclidean:3.292 | loss/normal:0.127 | loss/reshading:0.122 | loss/total:3.541
+[adatask] epoch 1 step 5250: loss/depth_euclidean:2.852 | loss/normal:0.122 | loss/reshading:0.127 | loss/total:3.102
+[adatask] epoch 1 step 5300: loss/depth_euclidean:3.692 | loss/normal:0.136 | loss/reshading:0.121 | loss/total:3.949
+[adatask] epoch 1 step 5350: loss/depth_euclidean:2.188 | loss/normal:0.101 | loss/reshading:0.112 | loss/total:2.401
+[adatask] epoch 1 step 5400: loss/depth_euclidean:2.963 | loss/normal:0.124 | loss/reshading:0.111 | loss/total:3.198
+[adatask] epoch 1 step 5450: loss/depth_euclidean:2.619 | loss/normal:0.112 | loss/reshading:0.130 | loss/total:2.861
+[adatask] epoch 1 step 5500: loss/depth_euclidean:3.849 | loss/normal:0.107 | loss/reshading:0.127 | loss/total:4.082
+[adatask] epoch 1 step 5550: loss/depth_euclidean:2.597 | loss/normal:0.118 | loss/reshading:0.113 | loss/total:2.828
+[adatask] epoch 1 step 5600: loss/depth_euclidean:5.167 | loss/normal:0.146 | loss/reshading:0.133 | loss/total:5.446
+[adatask] epoch 1 step 5650: loss/depth_euclidean:2.908 | loss/normal:0.129 | loss/reshading:0.126 | loss/total:3.164
+[adatask] epoch 1 step 5700: loss/depth_euclidean:2.540 | loss/normal:0.110 | loss/reshading:0.114 | loss/total:2.764
+[adatask] epoch 1 step 5750: loss/depth_euclidean:3.994 | loss/normal:0.120 | loss/reshading:0.121 | loss/total:4.235
+[adatask] epoch 1 step 5800: loss/depth_euclidean:2.665 | loss/normal:0.112 | loss/reshading:0.119 | loss/total:2.896
+[adatask] epoch 1 step 5850: loss/depth_euclidean:4.686 | loss/normal:0.152 | loss/reshading:0.126 | loss/total:4.964
+[adatask] epoch 1 step 5900: loss/depth_euclidean:4.703 | loss/normal:0.130 | loss/reshading:0.136 | loss/total:4.970
+[adatask] epoch 1 step 5950: loss/depth_euclidean:2.761 | loss/normal:0.109 | loss/reshading:0.111 | loss/total:2.980
+[adatask] epoch 1 step 6000: loss/depth_euclidean:2.659 | loss/normal:0.109 | loss/reshading:0.106 | loss/total:2.873
+[adatask] epoch 1 step 6050: loss/depth_euclidean:6.050 | loss/normal:0.137 | loss/reshading:0.122 | loss/total:6.309
+[adatask] epoch 1 step 6100: loss/depth_euclidean:3.271 | loss/normal:0.110 | loss/reshading:0.113 | loss/total:3.495
+[adatask] epoch 1 step 6150: loss/depth_euclidean:2.706 | loss/normal:0.104 | loss/reshading:0.112 | loss/total:2.921
+[adatask] epoch 1 step 6200: loss/depth_euclidean:2.344 | loss/normal:0.106 | loss/reshading:0.109 | loss/total:2.559
+[adatask] epoch 1 step 6250: loss/depth_euclidean:3.220 | loss/normal:0.122 | loss/reshading:0.122 | loss/total:3.464
+[adatask] epoch 1 step 6300: loss/depth_euclidean:2.744 | loss/normal:0.115 | loss/reshading:0.110 | loss/total:2.970
+[adatask] epoch 1 step 6350: loss/depth_euclidean:2.343 | loss/normal:0.111 | loss/reshading:0.114 | loss/total:2.567
+[adatask] epoch 1 step 6400: loss/depth_euclidean:2.799 | loss/normal:0.109 | loss/reshading:0.113 | loss/total:3.022
+[adatask] epoch 1 step 6450: loss/depth_euclidean:3.418 | loss/normal:0.106 | loss/reshading:0.103 | loss/total:3.627
+[adatask] epoch 1 step 6500: loss/depth_euclidean:2.356 | loss/normal:0.112 | loss/reshading:0.111 | loss/total:2.579
+[adatask] epoch 1 step 6550: loss/depth_euclidean:2.328 | loss/normal:0.109 | loss/reshading:0.123 | loss/total:2.560
+[adatask] epoch 1 step 6600: loss/depth_euclidean:2.381 | loss/normal:0.112 | loss/reshading:0.116 | loss/total:2.609
+[adatask] epoch 1 step 6650: loss/depth_euclidean:2.094 | loss/normal:0.099 | loss/reshading:0.100 | loss/total:2.293
+[adatask] epoch 1 step 6700: loss/depth_euclidean:2.384 | loss/normal:0.109 | loss/reshading:0.110 | loss/total:2.603
+[adatask] epoch 1 step 6750: loss/depth_euclidean:2.374 | loss/normal:0.103 | loss/reshading:0.101 | loss/total:2.577
+[adatask] epoch 1 step 6800: loss/depth_euclidean:3.913 | loss/normal:0.123 | loss/reshading:0.118 | loss/total:4.153
+[adatask] epoch 1 step 6850: loss/depth_euclidean:1.796 | loss/normal:0.106 | loss/reshading:0.107 | loss/total:2.009
+[adatask] epoch 1 step 6900: loss/depth_euclidean:1.442 | loss/normal:0.096 | loss/reshading:0.103 | loss/total:1.642
+[adatask] epoch 1 step 6950: loss/depth_euclidean:1.723 | loss/normal:0.090 | loss/reshading:0.096 | loss/total:1.909
+[adatask] epoch 1 step 7000: loss/depth_euclidean:2.271 | loss/normal:0.101 | loss/reshading:0.118 | loss/total:2.490
+[adatask] epoch 1 step 7050: loss/depth_euclidean:3.055 | loss/normal:0.099 | loss/reshading:0.100 | loss/total:3.253
+[adatask] epoch 1 step 7100: loss/depth_euclidean:2.149 | loss/normal:0.105 | loss/reshading:0.117 | loss/total:2.371
+[adatask] epoch 1 step 7150: loss/depth_euclidean:2.060 | loss/normal:0.098 | loss/reshading:0.115 | loss/total:2.272
+[adatask] epoch 1 step 7200: loss/depth_euclidean:2.316 | loss/normal:0.098 | loss/reshading:0.108 | loss/total:2.522
+[adatask] epoch 1 step 7250: loss/depth_euclidean:3.573 | loss/normal:0.109 | loss/reshading:0.102 | loss/total:3.784
+[adatask] epoch 1 step 7300: loss/depth_euclidean:1.973 | loss/normal:0.105 | loss/reshading:0.101 | loss/total:2.179
+[adatask] epoch 1 step 7350: loss/depth_euclidean:2.682 | loss/normal:0.098 | loss/reshading:0.098 | loss/total:2.879
+[adatask] epoch 1 step 7400: loss/depth_euclidean:2.000 | loss/normal:0.097 | loss/reshading:0.103 | loss/total:2.200
+[adatask] epoch 1 step 7450: loss/depth_euclidean:2.131 | loss/normal:0.096 | loss/reshading:0.101 | loss/total:2.327
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[adatask] epoch 1 step 7500: loss/depth_euclidean:2.976 | loss/normal:0.107 | loss/reshading:0.104 | loss/total:3.187
+[adatask] epoch 1 step 7550: loss/depth_euclidean:3.787 | loss/normal:0.113 | loss/reshading:0.112 | loss/total:4.012
+[adatask] epoch 1 step 7600: loss/depth_euclidean:2.306 | loss/normal:0.098 | loss/reshading:0.102 | loss/total:2.506
+[adatask] epoch 1 step 7650: loss/depth_euclidean:2.260 | loss/normal:0.105 | loss/reshading:0.104 | loss/total:2.469
+[adatask] epoch 1 step 7700: loss/depth_euclidean:2.777 | loss/normal:0.101 | loss/reshading:0.101 | loss/total:2.979
+[adatask] epoch 1 step 7750: loss/depth_euclidean:3.980 | loss/normal:0.118 | loss/reshading:0.107 | loss/total:4.205
+[adatask] epoch 1 step 7800: loss/depth_euclidean:2.486 | loss/normal:0.114 | loss/reshading:0.108 | loss/total:2.708
+[adatask] epoch 1 step 7850: loss/depth_euclidean:2.023 | loss/normal:0.094 | loss/reshading:0.108 | loss/total:2.225
+[adatask] epoch 1 step 7900: loss/depth_euclidean:2.452 | loss/normal:0.097 | loss/reshading:0.102 | loss/total:2.651
+[adatask] epoch 1 step 7950: loss/depth_euclidean:1.822 | loss/normal:0.090 | loss/reshading:0.102 | loss/total:2.014
+[adatask] epoch 1 step 8000: loss/depth_euclidean:2.621 | loss/normal:0.101 | loss/reshading:0.097 | loss/total:2.819
+[adatask] epoch 1 step 8050: loss/depth_euclidean:2.081 | loss/normal:0.089 | loss/reshading:0.108 | loss/total:2.278
+[adatask] epoch 1 step 8100: loss/depth_euclidean:3.068 | loss/normal:0.090 | loss/reshading:0.103 | loss/total:3.261
+[adatask] epoch 1 step 8150: loss/depth_euclidean:2.350 | loss/normal:0.096 | loss/reshading:0.094 | loss/total:2.540
+[adatask] epoch 1 step 8200: loss/depth_euclidean:3.170 | loss/normal:0.115 | loss/reshading:0.111 | loss/total:3.396
+[adatask] epoch 1 step 8250: loss/depth_euclidean:2.210 | loss/normal:0.121 | loss/reshading:0.117 | loss/total:2.447
+[adatask] epoch 1 step 8300: loss/depth_euclidean:1.675 | loss/normal:0.087 | loss/reshading:0.103 | loss/total:1.865
+[adatask] epoch 1 step 8350: loss/depth_euclidean:3.107 | loss/normal:0.110 | loss/reshading:0.105 | loss/total:3.322
+[adatask] epoch 1 step 8400: loss/depth_euclidean:3.510 | loss/normal:0.099 | loss/reshading:0.104 | loss/total:3.712
+[adatask] epoch 1 step 8450: loss/depth_euclidean:1.685 | loss/normal:0.082 | loss/reshading:0.096 | loss/total:1.863
+[adatask] epoch 1 step 8500: loss/depth_euclidean:1.976 | loss/normal:0.083 | loss/reshading:0.093 | loss/total:2.152
+[adatask] epoch 1 step 8550: loss/depth_euclidean:1.606 | loss/normal:0.099 | loss/reshading:0.114 | loss/total:1.819
+[adatask] epoch 1 step 8600: loss/depth_euclidean:1.595 | loss/normal:0.086 | loss/reshading:0.093 | loss/total:1.773
+[adatask] epoch 1 step 8650: loss/depth_euclidean:2.210 | loss/normal:0.078 | loss/reshading:0.093 | loss/total:2.382
+[adatask] epoch 1 step 8700: loss/depth_euclidean:2.602 | loss/normal:0.107 | loss/reshading:0.096 | loss/total:2.806
+[adatask] epoch 1 step 8750: loss/depth_euclidean:1.755 | loss/normal:0.084 | loss/reshading:0.091 | loss/total:1.930
+[adatask] epoch 1 step 8800: loss/depth_euclidean:3.408 | loss/normal:0.100 | loss/reshading:0.106 | loss/total:3.613
+[adatask] epoch 1 step 8850: loss/depth_euclidean:2.182 | loss/normal:0.082 | loss/reshading:0.090 | loss/total:2.353
+[adatask] epoch 1 done in 71.2 min
+[adatask] [VAL] epoch 1: {'depth_euclidean': {'rmse': 19.284093489249546, 'mae': 3.9524769795437655, 'absrel': 0.7830044734291732}, 'normal': {'mean_deg': 19.679777801036835, 'median_deg': 10.986601024866104, '11.25deg': 0.5088751126701633, '22.5deg': 0.7266488987952471, '30deg': 0.8014877342308561}, 'reshading': {'mae': 0.1155770382611081}}
+Saved adatask checkpoint to experiments/all_methods_smoke/adatask_seed0/adatask_seed0.pt
+[adatask] [TEST]: {'depth_euclidean': {'rmse': 19.284093489249546, 'mae': 3.9524769795437655, 'absrel': 0.7830044734291732}, 'normal': {'mean_deg': 19.679777801036835, 'median_deg': 10.986601024866104, '11.25deg': 0.5088751126701633, '22.5deg': 0.7266488987952471, '30deg': 0.8014877342308561}, 'reshading': {'mae': 0.1155770382611081}}
+
+=== Running method=sel_update, seed=0, out_dir=experiments/all_methods_smoke/sel_update_seed0 ===
+[sel_update] epoch 1 step 0: loss/group0:9.321 | loss/group1:0.827 | loss/total:10.148
+[sel_update] epoch 1 step 50: loss/group0:5.911 | loss/total:5.911
+[sel_update] epoch 1 step 100: loss/group0:7.392 | loss/total:7.392
+[sel_update] epoch 1 step 150: loss/group0:4.487 | loss/total:4.487
+[sel_update] epoch 1 step 200: loss/group0:4.654 | loss/total:4.654
+[sel_update] epoch 1 step 250: loss/group0:5.894 | loss/total:5.894
+[sel_update] epoch 1 step 300: loss/group0:5.354 | loss/total:5.354
+[sel_update] epoch 1 step 350: loss/group0:4.052 | loss/total:4.052
+[sel_update] epoch 1 step 400: loss/group0:4.447 | loss/total:4.447
+[sel_update] epoch 1 step 450: loss/group0:5.947 | loss/total:5.947
+[sel_update] epoch 1 step 500: loss/group0:6.173 | loss/total:6.173
+[sel_update] epoch 1 step 550: loss/group0:5.124 | loss/total:5.124
+[sel_update] epoch 1 step 600: loss/group0:5.888 | loss/total:5.888
+[sel_update] epoch 1 step 650: loss/group0:4.527 | loss/total:4.527
+[sel_update] epoch 1 step 700: loss/group0:3.402 | loss/total:3.402
+[sel_update] epoch 1 step 750: loss/group0:6.812 | loss/total:6.812
+[sel_update] epoch 1 step 800: loss/group0:2.782 | loss/total:2.782
+[sel_update] epoch 1 step 850: loss/group0:4.688 | loss/total:4.688
+[sel_update] epoch 1 step 900: loss/group0:6.352 | loss/total:6.352
+[sel_update] epoch 1 step 950: loss/group0:3.679 | loss/total:3.679
+[sel_update] epoch 1 step 1000: loss/group0:4.329 | loss/total:4.329
+[sel_update] epoch 1 step 1050: loss/group0:6.433 | loss/total:6.433
+[sel_update] epoch 1 step 1100: loss/group0:5.596 | loss/total:5.596
+[sel_update] epoch 1 step 1150: loss/group0:4.082 | loss/total:4.082
+[sel_update] epoch 1 step 1200: loss/group0:5.031 | loss/total:5.031
+[sel_update] epoch 1 step 1250: loss/group0:6.487 | loss/total:6.487
+[sel_update] epoch 1 step 1300: loss/group0:4.081 | loss/total:4.081
+[sel_update] epoch 1 step 1350: loss/group0:4.723 | loss/total:4.723
+[sel_update] epoch 1 step 1400: loss/group0:4.057 | loss/total:4.057
+[sel_update] epoch 1 step 1450: loss/group0:4.005 | loss/total:4.005
+[sel_update] epoch 1 step 1500: loss/group0:2.430 | loss/total:2.430
+[sel_update] epoch 1 step 1550: loss/group0:4.538 | loss/total:4.538
+[sel_update] epoch 1 step 1600: loss/group0:3.520 | loss/total:3.520
+[sel_update] epoch 1 step 1650: loss/group0:4.409 | loss/total:4.409
+[sel_update] epoch 1 step 1700: loss/group0:3.066 | loss/total:3.066
+[sel_update] epoch 1 step 1750: loss/group0:5.035 | loss/total:5.035
+[sel_update] epoch 1 step 1800: loss/group0:6.350 | loss/total:6.350
+[sel_update] epoch 1 step 1850: loss/group0:3.254 | loss/total:3.254
+[sel_update] epoch 1 step 1900: loss/group0:3.620 | loss/total:3.620
+[sel_update] epoch 1 step 1950: loss/group0:4.502 | loss/total:4.502
+[sel_update] epoch 1 step 2000: loss/group0:5.310 | loss/total:5.310
+[sel_update] epoch 1 step 2050: loss/group0:3.792 | loss/total:3.792
+[sel_update] epoch 1 step 2100: loss/group0:4.545 | loss/total:4.545
+[sel_update] epoch 1 step 2150: loss/group0:3.443 | loss/total:3.443
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[sel_update] epoch 1 step 2200: loss/group0:2.949 | loss/total:2.949
+[sel_update] epoch 1 step 2250: loss/group0:3.781 | loss/total:3.781
+[sel_update] epoch 1 step 2300: loss/group0:3.375 | loss/total:3.375
+[sel_update] epoch 1 step 2350: loss/group0:2.990 | loss/total:2.990
+[sel_update] epoch 1 step 2400: loss/group0:4.942 | loss/total:4.942
+[sel_update] epoch 1 step 2450: loss/group0:5.074 | loss/total:5.074
+[sel_update] epoch 1 step 2500: loss/group0:4.981 | loss/total:4.981
+[sel_update] epoch 1 step 2550: loss/group0:3.478 | loss/total:3.478
+[sel_update] epoch 1 step 2600: loss/group0:3.885 | loss/total:3.885
+[sel_update] epoch 1 step 2650: loss/group0:5.593 | loss/total:5.593
+[sel_update] epoch 1 step 2700: loss/group0:4.095 | loss/total:4.095
+[sel_update] epoch 1 step 2750: loss/group0:5.454 | loss/total:5.454
+[sel_update] epoch 1 step 2800: loss/group0:3.230 | loss/total:3.230
+[sel_update] epoch 1 step 2850: loss/group0:4.906 | loss/total:4.906
+[sel_update] epoch 1 step 2900: loss/group0:3.277 | loss/total:3.277
+[sel_update] epoch 1 step 2950: loss/group0:3.328 | loss/total:3.328
+[sel_update] epoch 1 step 3000: loss/group0:6.143 | loss/total:6.143
+[sel_update] epoch 1 step 3050: loss/group0:6.244 | loss/total:6.244
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[sel_update] epoch 1 step 3100: loss/group0:4.034 | loss/total:4.034
+[sel_update] epoch 1 step 3150: loss/group0:2.689 | loss/total:2.689
+[sel_update] epoch 1 step 3200: loss/group0:3.162 | loss/total:3.162
+[sel_update] epoch 1 step 3250: loss/group0:2.664 | loss/total:2.664
+[sel_update] epoch 1 step 3300: loss/group0:3.149 | loss/total:3.149
+[sel_update] epoch 1 step 3350: loss/group0:3.304 | loss/total:3.304
+[sel_update] epoch 1 step 3400: loss/group0:2.802 | loss/total:2.802
+[sel_update] epoch 1 step 3450: loss/group0:3.752 | loss/total:3.752
+[sel_update] epoch 1 step 3500: loss/group0:3.817 | loss/total:3.817
+[sel_update] epoch 1 step 3550: loss/group0:2.913 | loss/total:2.913
+[sel_update] epoch 1 step 3600: loss/group0:4.073 | loss/total:4.073
+[sel_update] epoch 1 step 3650: loss/group0:6.033 | loss/total:6.033
+[sel_update] epoch 1 step 3700: loss/group0:4.152 | loss/total:4.152
+[sel_update] epoch 1 step 3750: loss/group0:2.403 | loss/total:2.403
+[sel_update] epoch 1 step 3800: loss/group0:3.129 | loss/total:3.129
+[sel_update] epoch 1 step 3850: loss/group0:3.962 | loss/total:3.962
+[sel_update] epoch 1 step 3900: loss/group0:2.843 | loss/total:2.843
+[sel_update] epoch 1 step 3950: loss/group0:5.799 | loss/total:5.799
+[sel_update] epoch 1 step 4000: loss/group0:3.257 | loss/total:3.257
+[sel_update] epoch 1 step 4050: loss/group0:4.275 | loss/total:4.275
+[sel_update] epoch 1 step 4100: loss/group0:6.853 | loss/total:6.853
+[sel_update] epoch 1 step 4150: loss/group0:3.831 | loss/total:3.831
+[sel_update] epoch 1 step 4200: loss/group0:3.686 | loss/total:3.686
+[sel_update] epoch 1 step 4250: loss/group0:4.327 | loss/total:4.327
+[sel_update] epoch 1 step 4300: loss/group0:3.980 | loss/total:3.980
+[sel_update] epoch 1 step 4350: loss/group0:3.451 | loss/total:3.451
+[sel_update] epoch 1 step 4400: loss/group0:3.925 | loss/total:3.925
+[sel_update] epoch 1 step 4450: loss/group0:3.968 | loss/total:3.968
+[sel_update] epoch 1 step 4500: loss/group0:2.651 | loss/total:2.651
+[sel_update] epoch 1 step 4550: loss/group0:5.659 | loss/total:5.659
+[sel_update] epoch 1 step 4600: loss/group0:3.329 | loss/total:3.329
+[sel_update] epoch 1 step 4650: loss/group0:5.318 | loss/total:5.318
+[sel_update] epoch 1 step 4700: loss/group0:3.771 | loss/total:3.771
+[sel_update] epoch 1 step 4750: loss/group0:4.921 | loss/total:4.921
+[sel_update] epoch 1 step 4800: loss/group0:4.156 | loss/total:4.156
+[sel_update] epoch 1 step 4850: loss/group0:4.968 | loss/total:4.968
+[sel_update] epoch 1 step 4900: loss/group0:2.884 | loss/total:2.884
+[sel_update] epoch 1 step 4950: loss/group0:4.409 | loss/total:4.409
+[sel_update] epoch 1 step 5000: loss/group0:4.771 | loss/total:4.771
+[sel_update] epoch 1 step 5050: loss/group0:6.087 | loss/total:6.087
+[sel_update] epoch 1 step 5100: loss/group0:2.924 | loss/total:2.924
+[sel_update] epoch 1 step 5150: loss/group0:3.988 | loss/total:3.988
+[sel_update] epoch 1 step 5200: loss/group0:3.846 | loss/total:3.846
+[sel_update] epoch 1 step 5250: loss/group0:4.616 | loss/total:4.616
+[sel_update] epoch 1 step 5300: loss/group0:4.308 | loss/total:4.308
+[sel_update] epoch 1 step 5350: loss/group0:2.842 | loss/total:2.842
+[sel_update] epoch 1 step 5400: loss/group0:3.854 | loss/total:3.854
+[sel_update] epoch 1 step 5450: loss/group0:3.421 | loss/total:3.421
+[sel_update] epoch 1 step 5500: loss/group0:4.885 | loss/total:4.885
+[sel_update] epoch 1 step 5550: loss/group0:2.770 | loss/total:2.770
+[sel_update] epoch 1 step 5600: loss/group0:5.922 | loss/total:5.922
+[sel_update] epoch 1 step 5650: loss/group0:3.325 | loss/total:3.325
+[sel_update] epoch 1 step 5700: loss/group0:2.926 | loss/total:2.926
+[sel_update] epoch 1 step 5750: loss/group0:4.713 | loss/total:4.713
+[sel_update] epoch 1 step 5800: loss/group0:2.932 | loss/total:2.932
+[sel_update] epoch 1 step 5850: loss/group0:5.654 | loss/total:5.654
+[sel_update] epoch 1 step 5900: loss/group0:5.506 | loss/total:5.506
+[sel_update] epoch 1 step 5950: loss/group0:3.170 | loss/total:3.170
+[sel_update] epoch 1 step 6000: loss/group0:3.077 | loss/total:3.077
+[sel_update] epoch 1 step 6050: loss/group0:6.928 | loss/total:6.928
+[sel_update] epoch 1 step 6100: loss/group0:5.020 | loss/total:5.020
+[sel_update] epoch 1 step 6150: loss/group0:3.050 | loss/total:3.050
+[sel_update] epoch 1 step 6200: loss/group0:2.989 | loss/total:2.989
+[sel_update] epoch 1 step 6250: loss/group0:3.793 | loss/total:3.793
+[sel_update] epoch 1 step 6300: loss/group0:3.209 | loss/total:3.209
+[sel_update] epoch 1 step 6350: loss/group0:2.983 | loss/total:2.983
+[sel_update] epoch 1 step 6400: loss/group0:3.265 | loss/total:3.265
+[sel_update] epoch 1 step 6450: loss/group0:4.811 | loss/total:4.811
+[sel_update] epoch 1 step 6500: loss/group0:2.765 | loss/total:2.765
+[sel_update] epoch 1 step 6550: loss/group0:2.806 | loss/total:2.806
+[sel_update] epoch 1 step 6600: loss/group0:2.885 | loss/total:2.885
+[sel_update] epoch 1 step 6650: loss/group0:3.027 | loss/total:3.027
+[sel_update] epoch 1 step 6700: loss/group0:3.410 | loss/total:3.410
+[sel_update] epoch 1 step 6750: loss/group0:2.747 | loss/total:2.747
+[sel_update] epoch 1 step 6800: loss/group0:4.982 | loss/total:4.982
+[sel_update] epoch 1 step 6850: loss/group0:2.083 | loss/total:2.083
+[sel_update] epoch 1 step 6900: loss/group0:1.823 | loss/total:1.823
+[sel_update] epoch 1 step 6950: loss/group0:2.110 | loss/total:2.110
+[sel_update] epoch 1 step 7000: loss/group0:2.338 | loss/total:2.338
+[sel_update] epoch 1 step 7050: loss/group0:3.669 | loss/total:3.669
+[sel_update] epoch 1 step 7100: loss/group0:2.789 | loss/total:2.789
+[sel_update] epoch 1 step 7150: loss/group0:2.343 | loss/total:2.343
+[sel_update] epoch 1 step 7200: loss/group0:2.912 | loss/total:2.912
+[sel_update] epoch 1 step 7250: loss/group0:4.256 | loss/total:4.256
+[sel_update] epoch 1 step 7300: loss/group0:3.063 | loss/total:3.063
+[sel_update] epoch 1 step 7350: loss/group0:3.290 | loss/total:3.290
+[sel_update] epoch 1 step 7400: loss/group0:3.083 | loss/total:3.083
+[sel_update] epoch 1 step 7450: loss/group0:3.088 | loss/total:3.088
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[sel_update] epoch 1 step 7500: loss/group0:3.597 | loss/total:3.597
+[sel_update] epoch 1 step 7550: loss/group0:4.446 | loss/total:4.446
+[sel_update] epoch 1 step 7600: loss/group0:2.847 | loss/total:2.847
+[sel_update] epoch 1 step 7650: loss/group0:2.663 | loss/total:2.663
+[sel_update] epoch 1 step 7700: loss/group0:3.287 | loss/total:3.287
+[sel_update] epoch 1 step 7750: loss/group0:5.364 | loss/total:5.364
+[sel_update] epoch 1 step 7800: loss/group0:3.016 | loss/total:3.016
+[sel_update] epoch 1 step 7850: loss/group0:2.919 | loss/total:2.919
+[sel_update] epoch 1 step 7900: loss/group0:3.389 | loss/total:3.389
+[sel_update] epoch 1 step 7950: loss/group0:2.326 | loss/total:2.326
+[sel_update] epoch 1 step 8000: loss/group0:3.196 | loss/total:3.196
+[sel_update] epoch 1 step 8050: loss/group0:2.816 | loss/total:2.816
+[sel_update] epoch 1 step 8100: loss/group0:4.561 | loss/total:4.561
+[sel_update] epoch 1 step 8150: loss/group0:3.048 | loss/total:3.048
+[sel_update] epoch 1 step 8200: loss/group0:4.248 | loss/total:4.248
+[sel_update] epoch 1 step 8250: loss/group0:2.623 | loss/total:2.623
+[sel_update] epoch 1 step 8300: loss/group0:2.207 | loss/total:2.207
+[sel_update] epoch 1 step 8350: loss/group0:3.773 | loss/total:3.773
+[sel_update] epoch 1 step 8400: loss/group0:4.262 | loss/total:4.262
+[sel_update] epoch 1 step 8450: loss/group0:2.393 | loss/total:2.393
+[sel_update] epoch 1 step 8500: loss/group0:2.439 | loss/total:2.439
+[sel_update] epoch 1 step 8550: loss/group0:2.148 | loss/total:2.148
+[sel_update] epoch 1 step 8600: loss/group0:2.198 | loss/total:2.198
+[sel_update] epoch 1 step 8650: loss/group0:2.999 | loss/total:2.999
+[sel_update] epoch 1 step 8700: loss/group0:3.071 | loss/total:3.071
+[sel_update] epoch 1 step 8750: loss/group0:2.323 | loss/total:2.323
+[sel_update] epoch 1 step 8800: loss/group0:4.762 | loss/total:4.762
+[sel_update] epoch 1 step 8850: loss/group0:2.841 | loss/total:2.841
+[sel_update] epoch 1 done in 108.9 min
+[sel_update] [VAL] epoch 1: {'depth_euclidean': {'rmse': 20.037987157702446, 'mae': 4.284600677589576, 'absrel': 0.9898167522624135}, 'normal': {'mean_deg': 23.599954396486282, 'median_deg': 15.468609601259232, '11.25deg': 0.40816015486295026, '22.5deg': 0.6250519358242551, '30deg': 0.7231272552162409}, 'reshading': {'mae': 0.13905535851760456}}
+Saved sel_update checkpoint to experiments/all_methods_smoke/sel_update_seed0/sel_update_seed0.pt
+[sel_update] [TEST]: {'depth_euclidean': {'rmse': 20.037987157702446, 'mae': 4.284600677589576, 'absrel': 0.9898167522624135}, 'normal': {'mean_deg': 23.599954396486282, 'median_deg': 15.468609601259232, '11.25deg': 0.40816015486295026, '22.5deg': 0.6250519358242551, '30deg': 0.7231272552162409}, 'reshading': {'mae': 0.13905535851760456}}
+
+=== Running method=nashmtl, seed=0, out_dir=experiments/all_methods_smoke/nashmtl_seed0 ===
+[nashmtl] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:0.410
+[nashmtl] epoch 1 step 50: loss/depth_euclidean:5.487 | loss/normal:0.451 | loss/reshading:0.235 | loss/total:0.253
+[nashmtl] epoch 1 step 100: loss/depth_euclidean:6.817 | loss/normal:0.410 | loss/reshading:0.239 | loss/total:2.815
+[nashmtl] epoch 1 step 150: loss/depth_euclidean:3.971 | loss/normal:0.365 | loss/reshading:0.221 | loss/total:1.795
+[nashmtl] epoch 1 step 200: loss/depth_euclidean:4.222 | loss/normal:0.354 | loss/reshading:0.210 | loss/total:0.210
+[nashmtl] epoch 1 step 250: loss/depth_euclidean:5.479 | loss/normal:0.348 | loss/reshading:0.193 | loss/total:0.348
+[nashmtl] epoch 1 step 300: loss/depth_euclidean:4.953 | loss/normal:0.339 | loss/reshading:0.203 | loss/total:2.183
+[nashmtl] epoch 1 step 350: loss/depth_euclidean:3.641 | loss/normal:0.329 | loss/reshading:0.210 | loss/total:1.595
+[nashmtl] epoch 1 step 400: loss/depth_euclidean:4.009 | loss/normal:0.311 | loss/reshading:0.191 | loss/total:2.297
+[nashmtl] epoch 1 step 450: loss/depth_euclidean:5.632 | loss/normal:0.307 | loss/reshading:0.191 | loss/total:2.578
+[nashmtl] epoch 1 step 500: loss/depth_euclidean:5.699 | loss/normal:0.255 | loss/reshading:0.179 | loss/total:2.333
+[nashmtl] epoch 1 step 550: loss/depth_euclidean:4.729 | loss/normal:0.269 | loss/reshading:0.178 | loss/total:3.720
+[nashmtl] epoch 1 step 600: loss/depth_euclidean:5.472 | loss/normal:0.258 | loss/reshading:0.169 | loss/total:2.181
+[nashmtl] epoch 1 step 650: loss/depth_euclidean:4.122 | loss/normal:0.259 | loss/reshading:0.175 | loss/total:1.830
+[nashmtl] epoch 1 step 700: loss/depth_euclidean:2.898 | loss/normal:0.239 | loss/reshading:0.176 | loss/total:1.236
+[nashmtl] epoch 1 step 750: loss/depth_euclidean:6.549 | loss/normal:0.242 | loss/reshading:0.177 | loss/total:2.533
+[nashmtl] epoch 1 step 800: loss/depth_euclidean:2.310 | loss/normal:0.240 | loss/reshading:0.165 | loss/total:1.042
+[nashmtl] epoch 1 step 850: loss/depth_euclidean:4.335 | loss/normal:0.262 | loss/reshading:0.180 | loss/total:1.902
+[nashmtl] epoch 1 step 900: loss/depth_euclidean:6.013 | loss/normal:0.265 | loss/reshading:0.172 | loss/total:2.490
+[nashmtl] epoch 1 step 950: loss/depth_euclidean:3.511 | loss/normal:0.239 | loss/reshading:0.173 | loss/total:1.428
+[nashmtl] epoch 1 step 1000: loss/depth_euclidean:4.130 | loss/normal:0.219 | loss/reshading:0.165 | loss/total:1.803
+[nashmtl] epoch 1 step 1050: loss/depth_euclidean:6.291 | loss/normal:0.231 | loss/reshading:0.169 | loss/total:2.540
+[nashmtl] epoch 1 step 1100: loss/depth_euclidean:5.404 | loss/normal:0.233 | loss/reshading:0.172 | loss/total:2.096
+[nashmtl] epoch 1 step 1150: loss/depth_euclidean:3.793 | loss/normal:0.242 | loss/reshading:0.172 | loss/total:1.390
+[nashmtl] epoch 1 step 1200: loss/depth_euclidean:5.200 | loss/normal:0.259 | loss/reshading:0.171 | loss/total:2.001
+[nashmtl] epoch 1 step 1250: loss/depth_euclidean:6.129 | loss/normal:0.237 | loss/reshading:0.165 | loss/total:2.569
+[nashmtl] epoch 1 step 1300: loss/depth_euclidean:3.818 | loss/normal:0.233 | loss/reshading:0.169 | loss/total:1.546
+[nashmtl] epoch 1 step 1350: loss/depth_euclidean:4.512 | loss/normal:0.227 | loss/reshading:0.175 | loss/total:1.961
+[nashmtl] epoch 1 step 1400: loss/depth_euclidean:3.318 | loss/normal:0.214 | loss/reshading:0.166 | loss/total:3.318
+[nashmtl] epoch 1 step 1450: loss/depth_euclidean:3.574 | loss/normal:0.222 | loss/reshading:0.168 | loss/total:0.252
+[nashmtl] epoch 1 step 1500: loss/depth_euclidean:2.045 | loss/normal:0.225 | loss/reshading:0.165 | loss/total:0.916
+[nashmtl] epoch 1 step 1550: loss/depth_euclidean:4.567 | loss/normal:0.250 | loss/reshading:0.178 | loss/total:3.298
+[nashmtl] epoch 1 step 1600: loss/depth_euclidean:3.247 | loss/normal:0.211 | loss/reshading:0.183 | loss/total:1.384
+[nashmtl] epoch 1 step 1650: loss/depth_euclidean:3.999 | loss/normal:0.238 | loss/reshading:0.191 | loss/total:1.779
+[nashmtl] epoch 1 step 1700: loss/depth_euclidean:2.360 | loss/normal:0.199 | loss/reshading:0.178 | loss/total:1.028
+[nashmtl] epoch 1 step 1750: loss/depth_euclidean:4.763 | loss/normal:0.228 | loss/reshading:0.175 | loss/total:1.998
+[nashmtl] epoch 1 step 1800: loss/depth_euclidean:6.580 | loss/normal:0.218 | loss/reshading:0.152 | loss/total:2.665
+[nashmtl] epoch 1 step 1850: loss/depth_euclidean:3.274 | loss/normal:0.211 | loss/reshading:0.158 | loss/total:1.367
+[nashmtl] epoch 1 step 1900: loss/depth_euclidean:3.237 | loss/normal:0.232 | loss/reshading:0.191 | loss/total:0.800
+[nashmtl] epoch 1 step 1950: loss/depth_euclidean:4.291 | loss/normal:0.245 | loss/reshading:0.177 | loss/total:1.665
+[nashmtl] epoch 1 step 2000: loss/depth_euclidean:4.933 | loss/normal:0.219 | loss/reshading:0.174 | loss/total:1.848
+[nashmtl] epoch 1 step 2050: loss/depth_euclidean:3.223 | loss/normal:0.217 | loss/reshading:0.165 | loss/total:2.862
+[nashmtl] epoch 1 step 2100: loss/depth_euclidean:4.199 | loss/normal:0.213 | loss/reshading:0.158 | loss/total:3.555
+[nashmtl] epoch 1 step 2150: loss/depth_euclidean:3.294 | loss/normal:0.218 | loss/reshading:0.171 | loss/total:1.409
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[nashmtl] epoch 1 step 2200: loss/depth_euclidean:2.594 | loss/normal:0.220 | loss/reshading:0.168 | loss/total:1.022
+[nashmtl] epoch 1 step 2250: loss/depth_euclidean:3.608 | loss/normal:0.209 | loss/reshading:0.159 | loss/total:0.185
+[nashmtl] epoch 1 step 2300: loss/depth_euclidean:3.100 | loss/normal:0.188 | loss/reshading:0.158 | loss/total:1.258
+[nashmtl] epoch 1 step 2350: loss/depth_euclidean:2.647 | loss/normal:0.211 | loss/reshading:0.157 | loss/total:1.094
+[nashmtl] epoch 1 step 2400: loss/depth_euclidean:4.633 | loss/normal:0.217 | loss/reshading:0.161 | loss/total:1.839
+[nashmtl] epoch 1 step 2450: loss/depth_euclidean:4.822 | loss/normal:0.201 | loss/reshading:0.155 | loss/total:0.179
+[nashmtl] epoch 1 step 2500: loss/depth_euclidean:4.509 | loss/normal:0.203 | loss/reshading:0.163 | loss/total:1.704
+[nashmtl] epoch 1 step 2550: loss/depth_euclidean:3.473 | loss/normal:0.206 | loss/reshading:0.166 | loss/total:1.512
+[nashmtl] epoch 1 step 2600: loss/depth_euclidean:3.772 | loss/normal:0.193 | loss/reshading:0.152 | loss/total:3.736
+[nashmtl] epoch 1 step 2650: loss/depth_euclidean:5.266 | loss/normal:0.226 | loss/reshading:0.167 | loss/total:2.675
+[nashmtl] epoch 1 step 2700: loss/depth_euclidean:3.911 | loss/normal:0.205 | loss/reshading:0.154 | loss/total:1.652
+[nashmtl] epoch 1 step 2750: loss/depth_euclidean:5.215 | loss/normal:0.211 | loss/reshading:0.160 | loss/total:0.188
+[nashmtl] epoch 1 step 2800: loss/depth_euclidean:3.169 | loss/normal:0.187 | loss/reshading:0.154 | loss/total:0.253
+[nashmtl] epoch 1 step 2850: loss/depth_euclidean:4.997 | loss/normal:0.211 | loss/reshading:0.153 | loss/total:4.997
+[nashmtl] epoch 1 step 2900: loss/depth_euclidean:3.377 | loss/normal:0.187 | loss/reshading:0.162 | loss/total:1.279
+[nashmtl] epoch 1 step 2950: loss/depth_euclidean:2.656 | loss/normal:0.169 | loss/reshading:0.143 | loss/total:2.037
+[nashmtl] epoch 1 step 3000: loss/depth_euclidean:6.301 | loss/normal:0.227 | loss/reshading:0.177 | loss/total:2.550
+[nashmtl] epoch 1 step 3050: loss/depth_euclidean:6.245 | loss/normal:0.214 | loss/reshading:0.170 | loss/total:2.717
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[nashmtl] epoch 1 step 3100: loss/depth_euclidean:3.415 | loss/normal:0.200 | loss/reshading:0.167 | loss/total:1.501
+[nashmtl] epoch 1 step 3150: loss/depth_euclidean:2.452 | loss/normal:0.204 | loss/reshading:0.170 | loss/total:1.327
+[nashmtl] epoch 1 step 3200: loss/depth_euclidean:3.131 | loss/normal:0.203 | loss/reshading:0.166 | loss/total:0.185
+[nashmtl] epoch 1 step 3250: loss/depth_euclidean:2.407 | loss/normal:0.174 | loss/reshading:0.155 | loss/total:1.021
+[nashmtl] epoch 1 step 3300: loss/depth_euclidean:2.604 | loss/normal:0.170 | loss/reshading:0.153 | loss/total:1.050
+[nashmtl] epoch 1 step 3350: loss/depth_euclidean:3.025 | loss/normal:0.186 | loss/reshading:0.172 | loss/total:1.286
+[nashmtl] epoch 1 step 3400: loss/depth_euclidean:2.455 | loss/normal:0.174 | loss/reshading:0.156 | loss/total:1.050
+[nashmtl] epoch 1 step 3450: loss/depth_euclidean:3.513 | loss/normal:0.173 | loss/reshading:0.163 | loss/total:0.168
+[nashmtl] epoch 1 step 3500: loss/depth_euclidean:4.194 | loss/normal:0.193 | loss/reshading:0.160 | loss/total:0.178
+[nashmtl] epoch 1 step 3550: loss/depth_euclidean:2.688 | loss/normal:0.157 | loss/reshading:0.136 | loss/total:1.008
+[nashmtl] epoch 1 step 3600: loss/depth_euclidean:4.207 | loss/normal:0.196 | loss/reshading:0.168 | loss/total:1.493
+[nashmtl] epoch 1 step 3650: loss/depth_euclidean:6.154 | loss/normal:0.216 | loss/reshading:0.164 | loss/total:2.263
+[nashmtl] epoch 1 step 3700: loss/depth_euclidean:4.022 | loss/normal:0.186 | loss/reshading:0.147 | loss/total:1.532
+[nashmtl] epoch 1 step 3750: loss/depth_euclidean:2.238 | loss/normal:0.192 | loss/reshading:0.158 | loss/total:0.177
+[nashmtl] epoch 1 step 3800: loss/depth_euclidean:2.909 | loss/normal:0.164 | loss/reshading:0.136 | loss/total:0.982
+[nashmtl] epoch 1 step 3850: loss/depth_euclidean:3.631 | loss/normal:0.162 | loss/reshading:0.156 | loss/total:0.162
+[nashmtl] epoch 1 step 3900: loss/depth_euclidean:2.375 | loss/normal:0.188 | loss/reshading:0.151 | loss/total:0.989
+[nashmtl] epoch 1 step 3950: loss/depth_euclidean:5.948 | loss/normal:0.211 | loss/reshading:0.171 | loss/total:2.412
+[nashmtl] epoch 1 step 4000: loss/depth_euclidean:3.271 | loss/normal:0.155 | loss/reshading:0.141 | loss/total:1.263
+[nashmtl] epoch 1 step 4050: loss/depth_euclidean:4.554 | loss/normal:0.199 | loss/reshading:0.162 | loss/total:1.965
+[nashmtl] epoch 1 step 4100: loss/depth_euclidean:6.464 | loss/normal:0.220 | loss/reshading:0.162 | loss/total:2.532
+[nashmtl] epoch 1 step 4150: loss/depth_euclidean:3.587 | loss/normal:0.189 | loss/reshading:0.160 | loss/total:1.482
+[nashmtl] epoch 1 step 4200: loss/depth_euclidean:3.993 | loss/normal:0.175 | loss/reshading:0.146 | loss/total:0.161
+[nashmtl] epoch 1 step 4250: loss/depth_euclidean:4.721 | loss/normal:0.184 | loss/reshading:0.142 | loss/total:1.874
+[nashmtl] epoch 1 step 4300: loss/depth_euclidean:3.663 | loss/normal:0.182 | loss/reshading:0.141 | loss/total:1.545
+[nashmtl] epoch 1 step 4350: loss/depth_euclidean:3.331 | loss/normal:0.175 | loss/reshading:0.153 | loss/total:1.314
+[nashmtl] epoch 1 step 4400: loss/depth_euclidean:4.289 | loss/normal:0.175 | loss/reshading:0.154 | loss/total:0.165
+[nashmtl] epoch 1 step 4450: loss/depth_euclidean:4.498 | loss/normal:0.186 | loss/reshading:0.155 | loss/total:1.378
+[nashmtl] epoch 1 step 4500: loss/depth_euclidean:2.570 | loss/normal:0.151 | loss/reshading:0.141 | loss/total:1.090
+[nashmtl] epoch 1 step 4550: loss/depth_euclidean:6.153 | loss/normal:0.198 | loss/reshading:0.153 | loss/total:0.176
+[nashmtl] epoch 1 step 4600: loss/depth_euclidean:3.214 | loss/normal:0.177 | loss/reshading:0.144 | loss/total:1.411
+[nashmtl] epoch 1 step 4650: loss/depth_euclidean:5.794 | loss/normal:0.209 | loss/reshading:0.185 | loss/total:2.331
+[nashmtl] epoch 1 step 4700: loss/depth_euclidean:3.669 | loss/normal:0.153 | loss/reshading:0.151 | loss/total:1.011
+[nashmtl] epoch 1 step 4750: loss/depth_euclidean:5.202 | loss/normal:0.170 | loss/reshading:0.147 | loss/total:0.160
+[nashmtl] epoch 1 step 4800: loss/depth_euclidean:4.281 | loss/normal:0.180 | loss/reshading:0.150 | loss/total:1.483
+[nashmtl] epoch 1 step 4850: loss/depth_euclidean:4.862 | loss/normal:0.179 | loss/reshading:0.136 | loss/total:1.939
+[nashmtl] epoch 1 step 4900: loss/depth_euclidean:3.328 | loss/normal:0.181 | loss/reshading:0.154 | loss/total:1.043
+[nashmtl] epoch 1 step 4950: loss/depth_euclidean:4.671 | loss/normal:0.175 | loss/reshading:0.139 | loss/total:4.606
+[nashmtl] epoch 1 step 5000: loss/depth_euclidean:5.155 | loss/normal:0.211 | loss/reshading:0.169 | loss/total:2.133
+[nashmtl] epoch 1 step 5050: loss/depth_euclidean:6.036 | loss/normal:0.199 | loss/reshading:0.144 | loss/total:5.776
+[nashmtl] epoch 1 step 5100: loss/depth_euclidean:2.728 | loss/normal:0.150 | loss/reshading:0.127 | loss/total:1.089
+[nashmtl] epoch 1 step 5150: loss/depth_euclidean:3.967 | loss/normal:0.170 | loss/reshading:0.149 | loss/total:0.174
+[nashmtl] epoch 1 step 5200: loss/depth_euclidean:3.990 | loss/normal:0.186 | loss/reshading:0.156 | loss/total:1.611
+[nashmtl] epoch 1 step 5250: loss/depth_euclidean:5.046 | loss/normal:0.181 | loss/reshading:0.153 | loss/total:1.954
+[nashmtl] epoch 1 step 5300: loss/depth_euclidean:4.616 | loss/normal:0.175 | loss/reshading:0.148 | loss/total:0.161
+[nashmtl] epoch 1 step 5350: loss/depth_euclidean:2.676 | loss/normal:0.146 | loss/reshading:0.139 | loss/total:1.083
+[nashmtl] epoch 1 step 5400: loss/depth_euclidean:3.682 | loss/normal:0.181 | loss/reshading:0.144 | loss/total:1.468
+[nashmtl] epoch 1 step 5450: loss/depth_euclidean:3.255 | loss/normal:0.169 | loss/reshading:0.161 | loss/total:1.287
+[nashmtl] epoch 1 step 5500: loss/depth_euclidean:5.025 | loss/normal:0.149 | loss/reshading:0.163 | loss/total:2.124
+[nashmtl] epoch 1 step 5550: loss/depth_euclidean:3.161 | loss/normal:0.162 | loss/reshading:0.139 | loss/total:0.150
+[nashmtl] epoch 1 step 5600: loss/depth_euclidean:6.337 | loss/normal:0.197 | loss/reshading:0.161 | loss/total:2.518
+[nashmtl] epoch 1 step 5650: loss/depth_euclidean:3.798 | loss/normal:0.174 | loss/reshading:0.152 | loss/total:3.414
+[nashmtl] epoch 1 step 5700: loss/depth_euclidean:2.861 | loss/normal:0.154 | loss/reshading:0.144 | loss/total:1.657
+[nashmtl] epoch 1 step 5750: loss/depth_euclidean:4.203 | loss/normal:0.162 | loss/reshading:0.153 | loss/total:3.669
+[nashmtl] epoch 1 step 5800: loss/depth_euclidean:3.202 | loss/normal:0.167 | loss/reshading:0.154 | loss/total:0.681
+[nashmtl] epoch 1 step 5850: loss/depth_euclidean:5.552 | loss/normal:0.204 | loss/reshading:0.159 | loss/total:2.127
+[nashmtl] epoch 1 step 5900: loss/depth_euclidean:6.190 | loss/normal:0.200 | loss/reshading:0.185 | loss/total:2.174
+[nashmtl] epoch 1 step 5950: loss/depth_euclidean:3.496 | loss/normal:0.153 | loss/reshading:0.129 | loss/total:1.287
+[nashmtl] epoch 1 step 6000: loss/depth_euclidean:3.998 | loss/normal:0.165 | loss/reshading:0.137 | loss/total:1.185
+[nashmtl] epoch 1 step 6050: loss/depth_euclidean:6.886 | loss/normal:0.183 | loss/reshading:0.155 | loss/total:1.733
+[nashmtl] epoch 1 step 6100: loss/depth_euclidean:5.298 | loss/normal:0.166 | loss/reshading:0.143 | loss/total:1.958
+[nashmtl] epoch 1 step 6150: loss/depth_euclidean:3.176 | loss/normal:0.155 | loss/reshading:0.139 | loss/total:1.818
+[nashmtl] epoch 1 step 6200: loss/depth_euclidean:3.128 | loss/normal:0.152 | loss/reshading:0.148 | loss/total:0.150
+[nashmtl] epoch 1 step 6250: loss/depth_euclidean:3.810 | loss/normal:0.167 | loss/reshading:0.148 | loss/total:1.618
+[nashmtl] epoch 1 step 6300: loss/depth_euclidean:3.565 | loss/normal:0.156 | loss/reshading:0.137 | loss/total:1.523
+[nashmtl] epoch 1 step 6350: loss/depth_euclidean:2.764 | loss/normal:0.155 | loss/reshading:0.139 | loss/total:1.022
+[nashmtl] epoch 1 step 6400: loss/depth_euclidean:3.469 | loss/normal:0.151 | loss/reshading:0.136 | loss/total:2.840
+[nashmtl] epoch 1 step 6450: loss/depth_euclidean:5.360 | loss/normal:0.153 | loss/reshading:0.136 | loss/total:1.837
+[nashmtl] epoch 1 step 6500: loss/depth_euclidean:2.790 | loss/normal:0.159 | loss/reshading:0.147 | loss/total:0.153
+[nashmtl] epoch 1 step 6550: loss/depth_euclidean:2.598 | loss/normal:0.171 | loss/reshading:0.146 | loss/total:0.160
+[nashmtl] epoch 1 step 6600: loss/depth_euclidean:2.731 | loss/normal:0.180 | loss/reshading:0.140 | loss/total:1.139
+[nashmtl] epoch 1 step 6650: loss/depth_euclidean:2.749 | loss/normal:0.148 | loss/reshading:0.129 | loss/total:0.582
+[nashmtl] epoch 1 step 6700: loss/depth_euclidean:3.326 | loss/normal:0.157 | loss/reshading:0.134 | loss/total:2.487
+[nashmtl] epoch 1 step 6750: loss/depth_euclidean:2.949 | loss/normal:0.157 | loss/reshading:0.129 | loss/total:1.141
+[nashmtl] epoch 1 step 6800: loss/depth_euclidean:5.244 | loss/normal:0.176 | loss/reshading:0.156 | loss/total:2.103
+[nashmtl] epoch 1 step 6850: loss/depth_euclidean:2.244 | loss/normal:0.150 | loss/reshading:0.137 | loss/total:0.144
+[nashmtl] epoch 1 step 6900: loss/depth_euclidean:1.810 | loss/normal:0.148 | loss/reshading:0.135 | loss/total:1.081
+[nashmtl] epoch 1 step 6950: loss/depth_euclidean:2.343 | loss/normal:0.131 | loss/reshading:0.123 | loss/total:0.127
+[nashmtl] epoch 1 step 7000: loss/depth_euclidean:2.258 | loss/normal:0.147 | loss/reshading:0.146 | loss/total:0.987
+[nashmtl] epoch 1 step 7050: loss/depth_euclidean:4.172 | loss/normal:0.140 | loss/reshading:0.130 | loss/total:1.093
+[nashmtl] epoch 1 step 7100: loss/depth_euclidean:2.926 | loss/normal:0.153 | loss/reshading:0.152 | loss/total:0.710
+[nashmtl] epoch 1 step 7150: loss/depth_euclidean:2.847 | loss/normal:0.162 | loss/reshading:0.156 | loss/total:1.078
+[nashmtl] epoch 1 step 7200: loss/depth_euclidean:2.810 | loss/normal:0.141 | loss/reshading:0.140 | loss/total:0.141
+[nashmtl] epoch 1 step 7250: loss/depth_euclidean:4.277 | loss/normal:0.160 | loss/reshading:0.132 | loss/total:3.376
+[nashmtl] epoch 1 step 7300: loss/depth_euclidean:3.206 | loss/normal:0.158 | loss/reshading:0.131 | loss/total:1.329
+[nashmtl] epoch 1 step 7350: loss/depth_euclidean:3.822 | loss/normal:0.147 | loss/reshading:0.127 | loss/total:1.373
+[nashmtl] epoch 1 step 7400: loss/depth_euclidean:3.155 | loss/normal:0.135 | loss/reshading:0.132 | loss/total:1.132
+[nashmtl] epoch 1 step 7450: loss/depth_euclidean:3.477 | loss/normal:0.163 | loss/reshading:0.138 | loss/total:1.290
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[nashmtl] epoch 1 step 7500: loss/depth_euclidean:3.964 | loss/normal:0.162 | loss/reshading:0.135 | loss/total:2.092
+[nashmtl] epoch 1 step 7550: loss/depth_euclidean:4.430 | loss/normal:0.157 | loss/reshading:0.130 | loss/total:1.766
+[nashmtl] epoch 1 step 7600: loss/depth_euclidean:2.849 | loss/normal:0.158 | loss/reshading:0.138 | loss/total:1.223
+[nashmtl] epoch 1 step 7650: loss/depth_euclidean:2.752 | loss/normal:0.154 | loss/reshading:0.134 | loss/total:0.146
+[nashmtl] epoch 1 step 7700: loss/depth_euclidean:3.353 | loss/normal:0.151 | loss/reshading:0.143 | loss/total:1.190
+[nashmtl] epoch 1 step 7750: loss/depth_euclidean:6.379 | loss/normal:0.178 | loss/reshading:0.150 | loss/total:2.650
+[nashmtl] epoch 1 step 7800: loss/depth_euclidean:2.707 | loss/normal:0.169 | loss/reshading:0.131 | loss/total:0.151
+[nashmtl] epoch 1 step 7850: loss/depth_euclidean:3.136 | loss/normal:0.144 | loss/reshading:0.135 | loss/total:1.379
+[nashmtl] epoch 1 step 7900: loss/depth_euclidean:3.186 | loss/normal:0.146 | loss/reshading:0.132 | loss/total:1.259
+[nashmtl] epoch 1 step 7950: loss/depth_euclidean:3.692 | loss/normal:0.166 | loss/reshading:0.138 | loss/total:1.419
+[nashmtl] epoch 1 step 8000: loss/depth_euclidean:3.411 | loss/normal:0.142 | loss/reshading:0.137 | loss/total:1.658
+[nashmtl] epoch 1 step 8050: loss/depth_euclidean:2.667 | loss/normal:0.130 | loss/reshading:0.146 | loss/total:2.168
+[nashmtl] epoch 1 step 8100: loss/depth_euclidean:4.380 | loss/normal:0.151 | loss/reshading:0.140 | loss/total:3.360
+[nashmtl] epoch 1 step 8150: loss/depth_euclidean:2.914 | loss/normal:0.149 | loss/reshading:0.128 | loss/total:0.143
+[nashmtl] epoch 1 step 8200: loss/depth_euclidean:5.761 | loss/normal:0.173 | loss/reshading:0.141 | loss/total:2.119
+[nashmtl] epoch 1 step 8250: loss/depth_euclidean:2.956 | loss/normal:0.160 | loss/reshading:0.146 | loss/total:1.067
+[nashmtl] epoch 1 step 8300: loss/depth_euclidean:2.199 | loss/normal:0.133 | loss/reshading:0.136 | loss/total:0.623
+[nashmtl] epoch 1 step 8350: loss/depth_euclidean:3.984 | loss/normal:0.166 | loss/reshading:0.138 | loss/total:1.455
+[nashmtl] epoch 1 step 8400: loss/depth_euclidean:4.472 | loss/normal:0.158 | loss/reshading:0.139 | loss/total:0.749
+[nashmtl] epoch 1 step 8450: loss/depth_euclidean:2.389 | loss/normal:0.140 | loss/reshading:0.131 | loss/total:1.058
+[nashmtl] epoch 1 step 8500: loss/depth_euclidean:2.638 | loss/normal:0.135 | loss/reshading:0.132 | loss/total:0.132
+[nashmtl] epoch 1 step 8550: loss/depth_euclidean:2.336 | loss/normal:0.154 | loss/reshading:0.148 | loss/total:0.950
+[nashmtl] epoch 1 step 8600: loss/depth_euclidean:2.554 | loss/normal:0.136 | loss/reshading:0.120 | loss/total:0.129
+[nashmtl] epoch 1 step 8650: loss/depth_euclidean:3.170 | loss/normal:0.131 | loss/reshading:0.126 | loss/total:0.244
+[nashmtl] epoch 1 step 8700: loss/depth_euclidean:3.292 | loss/normal:0.156 | loss/reshading:0.125 | loss/total:2.235
+[nashmtl] epoch 1 step 8750: loss/depth_euclidean:2.446 | loss/normal:0.139 | loss/reshading:0.127 | loss/total:1.086
+[nashmtl] epoch 1 step 8800: loss/depth_euclidean:4.425 | loss/normal:0.164 | loss/reshading:0.142 | loss/total:1.668
+[nashmtl] epoch 1 step 8850: loss/depth_euclidean:2.745 | loss/normal:0.131 | loss/reshading:0.125 | loss/total:2.455
+[nashmtl] epoch 1 done in 85.4 min
+[nashmtl] [VAL] epoch 1: {'depth_euclidean': {'rmse': 18.813768550753593, 'mae': 3.9325430827836194, 'absrel': 0.7300191187920669}, 'normal': {'mean_deg': 24.313241203625996, 'median_deg': 16.091734116276104, '11.25deg': 0.3911147746257484, '22.5deg': 0.612596899891893, '30deg': 0.7129937000572681}, 'reshading': {'mae': 0.14120552005867162}}
+Saved nashmtl checkpoint to experiments/all_methods_smoke/nashmtl_seed0/nashmtl_seed0.pt
+[nashmtl] [TEST]: {'depth_euclidean': {'rmse': 18.813768550753593, 'mae': 3.9325430827836194, 'absrel': 0.7300191187920669}, 'normal': {'mean_deg': 24.313241203625996, 'median_deg': 16.091734116276104, '11.25deg': 0.3911147746257484, '22.5deg': 0.612596899891893, '30deg': 0.7129937000572681}, 'reshading': {'mae': 0.14120552005867162}}
+
+=== Running method=fairgrad, seed=0, out_dir=experiments/all_methods_smoke/fairgrad_seed0 ===
+[fairgrad] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/total:nan
+[fairgrad] epoch 1 step 50: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 1950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[fairgrad] epoch 1 step 2200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 2950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[fairgrad] epoch 1 step 3100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 3950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 4950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 5950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 6950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[fairgrad] epoch 1 step 7500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7900: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 7950: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8000: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8050: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8100: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8150: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8200: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8250: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8300: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8350: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8400: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8450: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8500: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8550: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8600: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8650: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8700: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8750: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8800: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 step 8850: loss/depth_euclidean:nan | loss/normal:nan | loss/reshading:nan | loss/total:nan
+[fairgrad] epoch 1 done in 108.5 min
+[fairgrad] [VAL] epoch 1: {'depth_euclidean': {'rmse': nan, 'mae': nan, 'absrel': nan}, 'normal': {'mean_deg': nan, 'median_deg': nan, '11.25deg': 0.0, '22.5deg': 0.0, '30deg': 0.0}, 'reshading': {'mae': nan}}
+Saved fairgrad checkpoint to experiments/all_methods_smoke/fairgrad_seed0/fairgrad_seed0.pt
+[fairgrad] [TEST]: {'depth_euclidean': {'rmse': nan, 'mae': nan, 'absrel': nan}, 'normal': {'mean_deg': nan, 'median_deg': nan, '11.25deg': 0.0, '22.5deg': 0.0, '30deg': 0.0}, 'reshading': {'mae': nan}}
+
+=== Running method=famo, seed=0, out_dir=experiments/all_methods_smoke/famo_seed0 ===
+[famo] epoch 1 step 0: loss/depth_euclidean:8.926 | loss/normal:0.829 | loss/reshading:0.394 | loss/weighted:0.278
+[famo] epoch 1 step 50: loss/depth_euclidean:5.402 | loss/normal:0.362 | loss/reshading:0.234 | loss/weighted:-0.111
+[famo] epoch 1 step 100: loss/depth_euclidean:6.719 | loss/normal:0.370 | loss/reshading:0.222 | loss/weighted:-0.091
+[famo] epoch 1 step 150: loss/depth_euclidean:3.862 | loss/normal:0.310 | loss/reshading:0.208 | loss/weighted:-0.168
+[famo] epoch 1 step 200: loss/depth_euclidean:4.066 | loss/normal:0.282 | loss/reshading:0.194 | loss/weighted:-0.169
+[famo] epoch 1 step 250: loss/depth_euclidean:5.397 | loss/normal:0.259 | loss/reshading:0.182 | loss/weighted:-0.145
+[famo] epoch 1 step 300: loss/depth_euclidean:4.834 | loss/normal:0.258 | loss/reshading:0.175 | loss/weighted:-0.157
+[famo] epoch 1 step 350: loss/depth_euclidean:3.531 | loss/normal:0.256 | loss/reshading:0.191 | loss/weighted:-0.187
+[famo] epoch 1 step 400: loss/depth_euclidean:3.948 | loss/normal:0.244 | loss/reshading:0.171 | loss/weighted:-0.178
+[famo] epoch 1 step 450: loss/depth_euclidean:5.474 | loss/normal:0.243 | loss/reshading:0.165 | loss/weighted:-0.147
+[famo] epoch 1 step 500: loss/depth_euclidean:5.719 | loss/normal:0.213 | loss/reshading:0.171 | loss/weighted:-0.144
+[famo] epoch 1 step 550: loss/depth_euclidean:4.689 | loss/normal:0.216 | loss/reshading:0.165 | loss/weighted:-0.163
+[famo] epoch 1 step 600: loss/depth_euclidean:5.457 | loss/normal:0.216 | loss/reshading:0.160 | loss/weighted:-0.149
+[famo] epoch 1 step 650: loss/depth_euclidean:4.091 | loss/normal:0.222 | loss/reshading:0.160 | loss/weighted:-0.176
+[famo] epoch 1 step 700: loss/depth_euclidean:2.897 | loss/normal:0.202 | loss/reshading:0.162 | loss/weighted:-0.204
+[famo] epoch 1 step 750: loss/depth_euclidean:6.599 | loss/normal:0.190 | loss/reshading:0.159 | loss/weighted:-0.138
+[famo] epoch 1 step 800: loss/depth_euclidean:2.261 | loss/normal:0.186 | loss/reshading:0.148 | loss/weighted:-0.221
+[famo] epoch 1 step 850: loss/depth_euclidean:4.288 | loss/normal:0.197 | loss/reshading:0.160 | loss/weighted:-0.174
+[famo] epoch 1 step 900: loss/depth_euclidean:6.045 | loss/normal:0.211 | loss/reshading:0.163 | loss/weighted:-0.143
+[famo] epoch 1 step 950: loss/depth_euclidean:3.470 | loss/normal:0.178 | loss/reshading:0.160 | loss/weighted:-0.192
+[famo] epoch 1 step 1000: loss/depth_euclidean:4.051 | loss/normal:0.159 | loss/reshading:0.153 | loss/weighted:-0.178
+[famo] epoch 1 step 1050: loss/depth_euclidean:6.197 | loss/normal:0.171 | loss/reshading:0.150 | loss/weighted:-0.146
+[famo] epoch 1 step 1100: loss/depth_euclidean:5.241 | loss/normal:0.189 | loss/reshading:0.150 | loss/weighted:-0.155
+[famo] epoch 1 step 1150: loss/depth_euclidean:3.624 | loss/normal:0.168 | loss/reshading:0.149 | loss/weighted:-0.185
+[famo] epoch 1 step 1200: loss/depth_euclidean:4.961 | loss/normal:0.185 | loss/reshading:0.153 | loss/weighted:-0.162
+[famo] epoch 1 step 1250: loss/depth_euclidean:5.995 | loss/normal:0.192 | loss/reshading:0.151 | loss/weighted:-0.146
+[famo] epoch 1 step 1300: loss/depth_euclidean:3.830 | loss/normal:0.177 | loss/reshading:0.145 | loss/weighted:-0.181
+[famo] epoch 1 step 1350: loss/depth_euclidean:4.397 | loss/normal:0.159 | loss/reshading:0.144 | loss/weighted:-0.173
+[famo] epoch 1 step 1400: loss/depth_euclidean:3.692 | loss/normal:0.155 | loss/reshading:0.139 | loss/weighted:-0.183
+[famo] epoch 1 step 1450: loss/depth_euclidean:3.383 | loss/normal:0.167 | loss/reshading:0.137 | loss/weighted:-0.191
+[famo] epoch 1 step 1500: loss/depth_euclidean:2.068 | loss/normal:0.152 | loss/reshading:0.141 | loss/weighted:-0.220
+[famo] epoch 1 step 1550: loss/depth_euclidean:4.467 | loss/normal:0.179 | loss/reshading:0.150 | loss/weighted:-0.172
+[famo] epoch 1 step 1600: loss/depth_euclidean:2.994 | loss/normal:0.156 | loss/reshading:0.149 | loss/weighted:-0.199
+[famo] epoch 1 step 1650: loss/depth_euclidean:3.948 | loss/normal:0.178 | loss/reshading:0.167 | loss/weighted:-0.185
+[famo] epoch 1 step 1700: loss/depth_euclidean:2.465 | loss/normal:0.156 | loss/reshading:0.144 | loss/weighted:-0.212
+[famo] epoch 1 step 1750: loss/depth_euclidean:4.354 | loss/normal:0.161 | loss/reshading:0.146 | loss/weighted:-0.175
+[famo] epoch 1 step 1800: loss/depth_euclidean:6.465 | loss/normal:0.159 | loss/reshading:0.135 | loss/weighted:-0.145
+[famo] epoch 1 step 1850: loss/depth_euclidean:2.740 | loss/normal:0.136 | loss/reshading:0.128 | loss/weighted:-0.198
+[famo] epoch 1 step 1900: loss/depth_euclidean:3.236 | loss/normal:0.166 | loss/reshading:0.157 | loss/weighted:-0.196
+[famo] epoch 1 step 1950: loss/depth_euclidean:4.015 | loss/normal:0.178 | loss/reshading:0.154 | loss/weighted:-0.181
+[famo] epoch 1 step 2000: loss/depth_euclidean:4.742 | loss/normal:0.144 | loss/reshading:0.142 | loss/weighted:-0.166
+[famo] epoch 1 step 2050: loss/depth_euclidean:2.618 | loss/normal:0.142 | loss/reshading:0.142 | loss/weighted:-0.206
+[famo] epoch 1 step 2100: loss/depth_euclidean:3.906 | loss/normal:0.139 | loss/reshading:0.130 | loss/weighted:-0.178
+[famo] epoch 1 step 2150: loss/depth_euclidean:2.902 | loss/normal:0.131 | loss/reshading:0.131 | loss/weighted:-0.194
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/allensville/rgb/point_419_view_3_domain_rgb.png (unrecognized data stream contents when reading image file)
+[famo] epoch 1 step 2200: loss/depth_euclidean:2.600 | loss/normal:0.159 | loss/reshading:0.145 | loss/weighted:-0.210
+[famo] epoch 1 step 2250: loss/depth_euclidean:3.223 | loss/normal:0.149 | loss/reshading:0.138 | loss/weighted:-0.192
+[famo] epoch 1 step 2300: loss/depth_euclidean:3.064 | loss/normal:0.131 | loss/reshading:0.131 | loss/weighted:-0.192
+[famo] epoch 1 step 2350: loss/depth_euclidean:2.320 | loss/normal:0.135 | loss/reshading:0.125 | loss/weighted:-0.206
+[famo] epoch 1 step 2400: loss/depth_euclidean:4.236 | loss/normal:0.151 | loss/reshading:0.142 | loss/weighted:-0.176
+[famo] epoch 1 step 2450: loss/depth_euclidean:4.547 | loss/normal:0.143 | loss/reshading:0.130 | loss/weighted:-0.170
+[famo] epoch 1 step 2500: loss/depth_euclidean:3.961 | loss/normal:0.145 | loss/reshading:0.133 | loss/weighted:-0.180
+[famo] epoch 1 step 2550: loss/depth_euclidean:3.100 | loss/normal:0.128 | loss/reshading:0.125 | loss/weighted:-0.190
+[famo] epoch 1 step 2600: loss/depth_euclidean:3.276 | loss/normal:0.134 | loss/reshading:0.128 | loss/weighted:-0.187
+[famo] epoch 1 step 2650: loss/depth_euclidean:4.828 | loss/normal:0.149 | loss/reshading:0.132 | loss/weighted:-0.167
+[famo] epoch 1 step 2700: loss/depth_euclidean:3.775 | loss/normal:0.140 | loss/reshading:0.124 | loss/weighted:-0.180
+[famo] epoch 1 step 2750: loss/depth_euclidean:4.725 | loss/normal:0.147 | loss/reshading:0.130 | loss/weighted:-0.168
+[famo] epoch 1 step 2800: loss/depth_euclidean:2.545 | loss/normal:0.117 | loss/reshading:0.125 | loss/weighted:-0.197
+[famo] epoch 1 step 2850: loss/depth_euclidean:4.375 | loss/normal:0.145 | loss/reshading:0.124 | loss/weighted:-0.172
+[famo] epoch 1 step 2900: loss/depth_euclidean:2.759 | loss/normal:0.134 | loss/reshading:0.130 | loss/weighted:-0.200
+[famo] epoch 1 step 2950: loss/depth_euclidean:2.594 | loss/normal:0.118 | loss/reshading:0.122 | loss/weighted:-0.196
+[famo] epoch 1 step 3000: loss/depth_euclidean:5.381 | loss/normal:0.131 | loss/reshading:0.125 | loss/weighted:-0.159
+[famo] epoch 1 step 3050: loss/depth_euclidean:5.624 | loss/normal:0.138 | loss/reshading:0.127 | loss/weighted:-0.157
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/muleshoe/rgb/point_399_view_5_domain_rgb.png (unrecognized data stream contents when reading image file)
+[famo] epoch 1 step 3100: loss/depth_euclidean:3.544 | loss/normal:0.125 | loss/reshading:0.136 | loss/weighted:-0.183
+[famo] epoch 1 step 3150: loss/depth_euclidean:2.086 | loss/normal:0.134 | loss/reshading:0.139 | loss/weighted:-0.217
+[famo] epoch 1 step 3200: loss/depth_euclidean:2.579 | loss/normal:0.118 | loss/reshading:0.122 | loss/weighted:-0.196
+[famo] epoch 1 step 3250: loss/depth_euclidean:2.291 | loss/normal:0.118 | loss/reshading:0.124 | loss/weighted:-0.203
+[famo] epoch 1 step 3300: loss/depth_euclidean:2.454 | loss/normal:0.113 | loss/reshading:0.120 | loss/weighted:-0.197
+[famo] epoch 1 step 3350: loss/depth_euclidean:2.504 | loss/normal:0.117 | loss/reshading:0.125 | loss/weighted:-0.198
+[famo] epoch 1 step 3400: loss/depth_euclidean:2.381 | loss/normal:0.123 | loss/reshading:0.128 | loss/weighted:-0.203
+[famo] epoch 1 step 3450: loss/depth_euclidean:2.344 | loss/normal:0.111 | loss/reshading:0.128 | loss/weighted:-0.200
+[famo] epoch 1 step 3500: loss/depth_euclidean:3.562 | loss/normal:0.129 | loss/reshading:0.132 | loss/weighted:-0.184
+[famo] epoch 1 step 3550: loss/depth_euclidean:2.694 | loss/normal:0.105 | loss/reshading:0.107 | loss/weighted:-0.185
+[famo] epoch 1 step 3600: loss/depth_euclidean:3.857 | loss/normal:0.139 | loss/reshading:0.129 | loss/weighted:-0.182
+[famo] epoch 1 step 3650: loss/depth_euclidean:4.940 | loss/normal:0.134 | loss/reshading:0.120 | loss/weighted:-0.164
+[famo] epoch 1 step 3700: loss/depth_euclidean:3.557 | loss/normal:0.120 | loss/reshading:0.118 | loss/weighted:-0.179
+[famo] epoch 1 step 3750: loss/depth_euclidean:1.846 | loss/normal:0.119 | loss/reshading:0.120 | loss/weighted:-0.212
+[famo] epoch 1 step 3800: loss/depth_euclidean:2.567 | loss/normal:0.104 | loss/reshading:0.110 | loss/weighted:-0.188
+[famo] epoch 1 step 3850: loss/depth_euclidean:3.775 | loss/normal:0.116 | loss/reshading:0.123 | loss/weighted:-0.175
+[famo] epoch 1 step 3900: loss/depth_euclidean:1.935 | loss/normal:0.126 | loss/reshading:0.119 | loss/weighted:-0.212
+[famo] epoch 1 step 3950: loss/depth_euclidean:5.179 | loss/normal:0.138 | loss/reshading:0.130 | loss/weighted:-0.165
+[famo] epoch 1 step 4000: loss/depth_euclidean:2.973 | loss/normal:0.103 | loss/reshading:0.112 | loss/weighted:-0.181
+[famo] epoch 1 step 4050: loss/depth_euclidean:3.634 | loss/normal:0.131 | loss/reshading:0.128 | loss/weighted:-0.184
+[famo] epoch 1 step 4100: loss/depth_euclidean:5.791 | loss/normal:0.160 | loss/reshading:0.127 | loss/weighted:-0.157
+[famo] epoch 1 step 4150: loss/depth_euclidean:3.131 | loss/normal:0.128 | loss/reshading:0.121 | loss/weighted:-0.188
+[famo] epoch 1 step 4200: loss/depth_euclidean:3.584 | loss/normal:0.122 | loss/reshading:0.117 | loss/weighted:-0.179
+[famo] epoch 1 step 4250: loss/depth_euclidean:4.266 | loss/normal:0.119 | loss/reshading:0.117 | loss/weighted:-0.169
+[famo] epoch 1 step 4300: loss/depth_euclidean:3.156 | loss/normal:0.116 | loss/reshading:0.110 | loss/weighted:-0.182
+[famo] epoch 1 step 4350: loss/depth_euclidean:2.595 | loss/normal:0.109 | loss/reshading:0.111 | loss/weighted:-0.190
+[famo] epoch 1 step 4400: loss/depth_euclidean:3.271 | loss/normal:0.108 | loss/reshading:0.110 | loss/weighted:-0.179
+[famo] epoch 1 step 4450: loss/depth_euclidean:3.864 | loss/normal:0.125 | loss/reshading:0.125 | loss/weighted:-0.177
+[famo] epoch 1 step 4500: loss/depth_euclidean:2.492 | loss/normal:0.100 | loss/reshading:0.108 | loss/weighted:-0.187
+[famo] epoch 1 step 4550: loss/depth_euclidean:5.250 | loss/normal:0.127 | loss/reshading:0.119 | loss/weighted:-0.161
+[famo] epoch 1 step 4600: loss/depth_euclidean:2.824 | loss/normal:0.120 | loss/reshading:0.118 | loss/weighted:-0.191
+[famo] epoch 1 step 4650: loss/depth_euclidean:4.762 | loss/normal:0.124 | loss/reshading:0.134 | loss/weighted:-0.168
+[famo] epoch 1 step 4700: loss/depth_euclidean:3.308 | loss/normal:0.103 | loss/reshading:0.119 | loss/weighted:-0.178
+[famo] epoch 1 step 4750: loss/depth_euclidean:3.791 | loss/normal:0.107 | loss/reshading:0.109 | loss/weighted:-0.171
+[famo] epoch 1 step 4800: loss/depth_euclidean:3.847 | loss/normal:0.110 | loss/reshading:0.109 | loss/weighted:-0.170
+[famo] epoch 1 step 4850: loss/depth_euclidean:4.641 | loss/normal:0.123 | loss/reshading:0.110 | loss/weighted:-0.164
+[famo] epoch 1 step 4900: loss/depth_euclidean:2.975 | loss/normal:0.103 | loss/reshading:0.113 | loss/weighted:-0.183
+[famo] epoch 1 step 4950: loss/depth_euclidean:3.915 | loss/normal:0.110 | loss/reshading:0.114 | loss/weighted:-0.173
+[famo] epoch 1 step 5000: loss/depth_euclidean:4.184 | loss/normal:0.130 | loss/reshading:0.126 | loss/weighted:-0.175
+[famo] epoch 1 step 5050: loss/depth_euclidean:5.052 | loss/normal:0.134 | loss/reshading:0.114 | loss/weighted:-0.162
+[famo] epoch 1 step 5100: loss/depth_euclidean:2.666 | loss/normal:0.098 | loss/reshading:0.112 | loss/weighted:-0.185
+[famo] epoch 1 step 5150: loss/depth_euclidean:3.342 | loss/normal:0.107 | loss/reshading:0.117 | loss/weighted:-0.179
+[famo] epoch 1 step 5200: loss/depth_euclidean:3.281 | loss/normal:0.116 | loss/reshading:0.119 | loss/weighted:-0.183
+[famo] epoch 1 step 5250: loss/depth_euclidean:3.486 | loss/normal:0.107 | loss/reshading:0.118 | loss/weighted:-0.177
+[famo] epoch 1 step 5300: loss/depth_euclidean:4.032 | loss/normal:0.128 | loss/reshading:0.116 | loss/weighted:-0.175
+[famo] epoch 1 step 5350: loss/depth_euclidean:2.088 | loss/normal:0.093 | loss/reshading:0.102 | loss/weighted:-0.189
+[famo] epoch 1 step 5400: loss/depth_euclidean:2.847 | loss/normal:0.103 | loss/reshading:0.104 | loss/weighted:-0.181
+[famo] epoch 1 step 5450: loss/depth_euclidean:2.776 | loss/normal:0.096 | loss/reshading:0.120 | loss/weighted:-0.183
+[famo] epoch 1 step 5500: loss/depth_euclidean:4.080 | loss/normal:0.097 | loss/reshading:0.122 | loss/weighted:-0.167
+[famo] epoch 1 step 5550: loss/depth_euclidean:2.484 | loss/normal:0.103 | loss/reshading:0.106 | loss/weighted:-0.189
+[famo] epoch 1 step 5600: loss/depth_euclidean:5.062 | loss/normal:0.128 | loss/reshading:0.123 | loss/weighted:-0.163
+[famo] epoch 1 step 5650: loss/depth_euclidean:2.498 | loss/normal:0.112 | loss/reshading:0.116 | loss/weighted:-0.196
+[famo] epoch 1 step 5700: loss/depth_euclidean:2.380 | loss/normal:0.098 | loss/reshading:0.108 | loss/weighted:-0.188
+[famo] epoch 1 step 5750: loss/depth_euclidean:4.081 | loss/normal:0.111 | loss/reshading:0.115 | loss/weighted:-0.171
+[famo] epoch 1 step 5800: loss/depth_euclidean:2.904 | loss/normal:0.099 | loss/reshading:0.111 | loss/weighted:-0.181
+[famo] epoch 1 step 5850: loss/depth_euclidean:4.095 | loss/normal:0.124 | loss/reshading:0.116 | loss/weighted:-0.173
+[famo] epoch 1 step 5900: loss/depth_euclidean:4.832 | loss/normal:0.120 | loss/reshading:0.131 | loss/weighted:-0.166
+[famo] epoch 1 step 5950: loss/depth_euclidean:2.581 | loss/normal:0.097 | loss/reshading:0.102 | loss/weighted:-0.183
+[famo] epoch 1 step 6000: loss/depth_euclidean:2.545 | loss/normal:0.101 | loss/reshading:0.100 | loss/weighted:-0.184
+[famo] epoch 1 step 6050: loss/depth_euclidean:5.950 | loss/normal:0.125 | loss/reshading:0.121 | loss/weighted:-0.155
+[famo] epoch 1 step 6100: loss/depth_euclidean:3.556 | loss/normal:0.108 | loss/reshading:0.112 | loss/weighted:-0.176
+[famo] epoch 1 step 6150: loss/depth_euclidean:2.666 | loss/normal:0.093 | loss/reshading:0.109 | loss/weighted:-0.182
+[famo] epoch 1 step 6200: loss/depth_euclidean:2.202 | loss/normal:0.094 | loss/reshading:0.101 | loss/weighted:-0.188
+[famo] epoch 1 step 6250: loss/depth_euclidean:3.179 | loss/normal:0.110 | loss/reshading:0.118 | loss/weighted:-0.184
+[famo] epoch 1 step 6300: loss/depth_euclidean:2.513 | loss/normal:0.100 | loss/reshading:0.104 | loss/weighted:-0.186
+[famo] epoch 1 step 6350: loss/depth_euclidean:2.269 | loss/normal:0.101 | loss/reshading:0.104 | loss/weighted:-0.191
+[famo] epoch 1 step 6400: loss/depth_euclidean:2.617 | loss/normal:0.095 | loss/reshading:0.108 | loss/weighted:-0.183
+[famo] epoch 1 step 6450: loss/depth_euclidean:3.405 | loss/normal:0.096 | loss/reshading:0.097 | loss/weighted:-0.168
+[famo] epoch 1 step 6500: loss/depth_euclidean:2.088 | loss/normal:0.103 | loss/reshading:0.106 | loss/weighted:-0.197
+[famo] epoch 1 step 6550: loss/depth_euclidean:2.089 | loss/normal:0.092 | loss/reshading:0.118 | loss/weighted:-0.195
+[famo] epoch 1 step 6600: loss/depth_euclidean:2.143 | loss/normal:0.099 | loss/reshading:0.112 | loss/weighted:-0.195
+[famo] epoch 1 step 6650: loss/depth_euclidean:2.123 | loss/normal:0.090 | loss/reshading:0.098 | loss/weighted:-0.186
+[famo] epoch 1 step 6700: loss/depth_euclidean:2.643 | loss/normal:0.099 | loss/reshading:0.107 | loss/weighted:-0.184
+[famo] epoch 1 step 6750: loss/depth_euclidean:2.120 | loss/normal:0.092 | loss/reshading:0.094 | loss/weighted:-0.185
+[famo] epoch 1 step 6800: loss/depth_euclidean:3.591 | loss/normal:0.108 | loss/reshading:0.107 | loss/weighted:-0.174
+[famo] epoch 1 step 6850: loss/depth_euclidean:1.594 | loss/normal:0.093 | loss/reshading:0.097 | loss/weighted:-0.198
+[famo] epoch 1 step 6900: loss/depth_euclidean:1.430 | loss/normal:0.082 | loss/reshading:0.102 | loss/weighted:-0.197
+[famo] epoch 1 step 6950: loss/depth_euclidean:1.775 | loss/normal:0.082 | loss/reshading:0.091 | loss/weighted:-0.184
+[famo] epoch 1 step 7000: loss/depth_euclidean:1.799 | loss/normal:0.091 | loss/reshading:0.115 | loss/weighted:-0.199
+[famo] epoch 1 step 7050: loss/depth_euclidean:2.927 | loss/normal:0.089 | loss/reshading:0.096 | loss/weighted:-0.172
+[famo] epoch 1 step 7100: loss/depth_euclidean:1.835 | loss/normal:0.087 | loss/reshading:0.113 | loss/weighted:-0.195
+[famo] epoch 1 step 7150: loss/depth_euclidean:1.789 | loss/normal:0.085 | loss/reshading:0.109 | loss/weighted:-0.193
+[famo] epoch 1 step 7200: loss/depth_euclidean:2.111 | loss/normal:0.085 | loss/reshading:0.099 | loss/weighted:-0.183
+[famo] epoch 1 step 7250: loss/depth_euclidean:3.325 | loss/normal:0.105 | loss/reshading:0.099 | loss/weighted:-0.175
+[famo] epoch 1 step 7300: loss/depth_euclidean:2.131 | loss/normal:0.088 | loss/reshading:0.095 | loss/weighted:-0.183
+[famo] epoch 1 step 7350: loss/depth_euclidean:2.758 | loss/normal:0.089 | loss/reshading:0.095 | loss/weighted:-0.174
+[famo] epoch 1 step 7400: loss/depth_euclidean:2.133 | loss/normal:0.090 | loss/reshading:0.098 | loss/weighted:-0.185
+[famo] epoch 1 step 7450: loss/depth_euclidean:2.106 | loss/normal:0.084 | loss/reshading:0.096 | loss/weighted:-0.182
+[TaskonomyDataset] Skipping corrupt sample: /home/ubuntu/taskonomy-reshaped/train/newfields/rgb/point_1070_view_8_domain_rgb.png (unrecognized data stream contents when reading image file)
+[famo] epoch 1 step 7500: loss/depth_euclidean:2.390 | loss/normal:0.094 | loss/reshading:0.095 | loss/weighted:-0.182
+[famo] epoch 1 step 7550: loss/depth_euclidean:3.462 | loss/normal:0.095 | loss/reshading:0.103 | loss/weighted:-0.170
+[famo] epoch 1 step 7600: loss/depth_euclidean:2.238 | loss/normal:0.090 | loss/reshading:0.097 | loss/weighted:-0.183
+[famo] epoch 1 step 7650: loss/depth_euclidean:2.132 | loss/normal:0.093 | loss/reshading:0.099 | loss/weighted:-0.188
+[famo] epoch 1 step 7700: loss/depth_euclidean:2.709 | loss/normal:0.093 | loss/reshading:0.097 | loss/weighted:-0.177
+[famo] epoch 1 step 7750: loss/depth_euclidean:4.073 | loss/normal:0.105 | loss/reshading:0.104 | loss/weighted:-0.166
+[famo] epoch 1 step 7800: loss/depth_euclidean:2.054 | loss/normal:0.099 | loss/reshading:0.097 | loss/weighted:-0.191
+[famo] epoch 1 step 7850: loss/depth_euclidean:2.010 | loss/normal:0.085 | loss/reshading:0.102 | loss/weighted:-0.186
+[famo] epoch 1 step 7900: loss/depth_euclidean:2.405 | loss/normal:0.085 | loss/reshading:0.096 | loss/weighted:-0.177
+[famo] epoch 1 step 7950: loss/depth_euclidean:1.753 | loss/normal:0.077 | loss/reshading:0.094 | loss/weighted:-0.183
+[famo] epoch 1 step 8000: loss/depth_euclidean:2.299 | loss/normal:0.087 | loss/reshading:0.095 | loss/weighted:-0.180
+[famo] epoch 1 step 8050: loss/depth_euclidean:1.976 | loss/normal:0.081 | loss/reshading:0.105 | loss/weighted:-0.185
+[famo] epoch 1 step 8100: loss/depth_euclidean:3.207 | loss/normal:0.083 | loss/reshading:0.099 | loss/weighted:-0.167
+[famo] epoch 1 step 8150: loss/depth_euclidean:2.201 | loss/normal:0.085 | loss/reshading:0.096 | loss/weighted:-0.181
+[famo] epoch 1 step 8200: loss/depth_euclidean:3.402 | loss/normal:0.104 | loss/reshading:0.104 | loss/weighted:-0.176
+[famo] epoch 1 step 8250: loss/depth_euclidean:1.899 | loss/normal:0.102 | loss/reshading:0.100 | loss/weighted:-0.197
+[famo] epoch 1 step 8300: loss/depth_euclidean:1.746 | loss/normal:0.077 | loss/reshading:0.098 | loss/weighted:-0.184
+[famo] epoch 1 step 8350: loss/depth_euclidean:3.225 | loss/normal:0.103 | loss/reshading:0.103 | loss/weighted:-0.176
+[famo] epoch 1 step 8400: loss/depth_euclidean:3.153 | loss/normal:0.083 | loss/reshading:0.098 | loss/weighted:-0.166
+[famo] epoch 1 step 8450: loss/depth_euclidean:1.703 | loss/normal:0.075 | loss/reshading:0.094 | loss/weighted:-0.182
+[famo] epoch 1 step 8500: loss/depth_euclidean:2.032 | loss/normal:0.077 | loss/reshading:0.091 | loss/weighted:-0.176
+[famo] epoch 1 step 8550: loss/depth_euclidean:1.492 | loss/normal:0.083 | loss/reshading:0.104 | loss/weighted:-0.197
+[famo] epoch 1 step 8600: loss/depth_euclidean:1.451 | loss/normal:0.076 | loss/reshading:0.090 | loss/weighted:-0.186
+[famo] epoch 1 step 8650: loss/depth_euclidean:1.679 | loss/normal:0.073 | loss/reshading:0.088 | loss/weighted:-0.178
+[famo] epoch 1 step 8700: loss/depth_euclidean:2.469 | loss/normal:0.096 | loss/reshading:0.093 | loss/weighted:-0.181
+[famo] epoch 1 step 8750: loss/depth_euclidean:1.757 | loss/normal:0.079 | loss/reshading:0.092 | loss/weighted:-0.183
+[famo] epoch 1 step 8800: loss/depth_euclidean:3.443 | loss/normal:0.093 | loss/reshading:0.102 | loss/weighted:-0.169
+[famo] epoch 1 step 8850: loss/depth_euclidean:2.379 | loss/normal:0.079 | loss/reshading:0.087 | loss/weighted:-0.171
+[famo] epoch 1 done in 59.2 min
+[famo] [VAL] epoch 1: {'depth_euclidean': {'rmse': 18.211901729305584, 'mae': 3.588341279576222, 'absrel': 0.7642817688174546}, 'normal': {'mean_deg': 18.424563373128574, 'median_deg': 10.041510306298733, '11.25deg': 0.5348569803560773, '22.5deg': 0.7443038718774915, '30deg': 0.8151847822591662}, 'reshading': {'mae': 0.11583453164591144}}
+Saved famo checkpoint to experiments/all_methods_smoke/famo_seed0/famo_seed0.pt
+[famo] [TEST]: {'depth_euclidean': {'rmse': 18.211901729305584, 'mae': 3.588341279576222, 'absrel': 0.7642817688174546}, 'normal': {'mean_deg': 18.424563373128574, 'median_deg': 10.041510306298733, '11.25deg': 0.5348569803560773, '22.5deg': 0.7443038718774915, '30deg': 0.8151847822591662}, 'reshading': {'mae': 0.11583453164591144}}
+All methods completed successfully.

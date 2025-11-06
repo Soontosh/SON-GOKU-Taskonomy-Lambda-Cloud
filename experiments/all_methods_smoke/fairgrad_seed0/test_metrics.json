@@ -1,0 +1,17 @@
+{
+  "depth_euclidean": {
+    "rmse": NaN,
+    "mae": NaN,
+    "absrel": NaN
+  },
+  "normal": {
+    "mean_deg": NaN,
+    "median_deg": NaN,
+    "11.25deg": 0.0,
+    "22.5deg": 0.0,
+    "30deg": 0.0
+  },
+  "reshading": {
+    "mae": NaN
+  }
+}

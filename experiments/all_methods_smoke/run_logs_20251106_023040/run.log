@@ -1,0 +1,6 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_023040/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+/home/ubuntu/venvs/taskonomy-env/lib/python3.10/site-packages/torch/utils/data/dataloader.py:668: UserWarning: 'pin_memory' argument is set as true but no accelerator is found, then device pinned memory won't be used.
+  warnings.warn(warn_msg)
+[mgda] epoch 1 step 0: loss/depth_euclidean:4.692 | loss/normal:0.861 | loss/reshading:0.363 | loss/total:4.056

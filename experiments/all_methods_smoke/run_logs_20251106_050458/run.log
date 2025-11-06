@@ -1,0 +1,9 @@
+Logging to experiments/all_methods_smoke/run_logs_20251106_050458/run.log
+
+=== Running method=mgda, seed=0, out_dir=experiments/all_methods_smoke/mgda_seed0 ===
+
+[WARN] KeyboardInterrupt received. Finishing current logging before exit...
+[WARN] Skipping remaining seeds for method 'mgda' due to failure.
+[INFO] Early stop requested; skipping remaining methods.
+[INFO] Run interrupted by user. Logs and summaries are being finalized.
+[91mFailed methods: mgda-seed0 (interrupted)[0m
