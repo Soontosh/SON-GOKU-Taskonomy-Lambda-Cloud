@@ -5,8 +5,11 @@ from typing import List, Dict, Any, Optional, Tuple
 import torch
 from torch import nn
 
+from .base import MultiTaskMethod, register_method
 
-class CAGradMethod:
+
+@register_method("cagrad")
+class CAGradMethod(MultiTaskMethod):
     """
     Conflict-Averse Gradient Descent (CAGrad) for multi-task learning.
 
