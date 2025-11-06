@@ -134,14 +134,16 @@ class FAMOMethod(MultiTaskMethod):
         device: torch.device | str | None = None,
         **unused_kwargs: Any,
     ) -> None:
-        super().__init__(model=model, tasks=tasks, optimizer=optimizer,
-                         shared_param_filter=shared_param_filter)
+        self.model = model
+        self.tasks = list(tasks)
+        self.optimizer = optimizer
+        self.shared_param_filter = shared_param_filter
 
         if device is None:
             device = next(model.parameters()).device
         self.device = torch.device(device)
 
-        self.num_tasks = len(tasks)
+        self.num_tasks = len(self.tasks)
 
         # Default lower bounds: 0 for each task (works for non-negative losses).
         if min_losses is None:
