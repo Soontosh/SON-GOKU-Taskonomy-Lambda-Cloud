@@ -31,10 +31,28 @@ def run_download(args):
 
     print("[INFO] Running:", " ".join(cmd))
     try:
-        subprocess.run(cmd, check=True)
+        result = subprocess.run(
+            cmd,
+            check=True,
+            stdout=subprocess.PIPE,
+            stderr=subprocess.PIPE,
+            text=True,
+        )
     except FileNotFoundError:
         print("ERROR: 'omnitools.download' not found in PATH. Did you install 'omnidata-tools'?", file=sys.stderr)
         sys.exit(1)
+    except subprocess.CalledProcessError as exc:
+        print(f"[ERROR] omnitools.download exited with code {exc.returncode}.", file=sys.stderr)
+        if exc.stdout:
+            print("[omnitools stdout]\n" + exc.stdout, file=sys.stderr)
+        if exc.stderr:
+            print("[omnitools stderr]\n" + exc.stderr, file=sys.stderr)
+        raise
+    else:
+        if result.stdout:
+            print(result.stdout)
+        if result.stderr:
+            print(result.stderr, file=sys.stderr)
 
 
 def discover_layout(download_root: Path, component: str):
