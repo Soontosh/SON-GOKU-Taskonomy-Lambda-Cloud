@@ -473,6 +473,13 @@ You can later reattach with:
 tmux attach -t taskonomy
 ```
 
+### 9.4 Training Many Methods With Logging and Error Handling
+
+```bash
+python -m taskonomy_eval.runner   --data_root ~/taskonomy-reshaped   --split train   --val_split test   --test_split test   --tasks depth_euclidean normal reshading   --methods mgda pcgrad cagrad adatask sel_update nashmtl fairgrad famo   --epochs 1   --batch_size 32   --out_dir experiments/all_method
+s_smoke
+```
+
 ---
 
 ## Summary
