@@ -4,9 +4,12 @@ import argparse
 import json
 import os
 import random
+import sys
 import time
 from dataclasses import dataclass, asdict
+from datetime import datetime
 from typing import Any, Dict, Sequence, Tuple
+import traceback
 
 import numpy as np
 import torch
@@ -32,6 +35,21 @@ from taskonomy_eval.methods import sel_update_method as _sel_update_method  # no
 from taskonomy_eval.methods import nashmtl_method as _nashmtl_method     # noqa: F401
 from taskonomy_eval.methods import fairgrad_method as _fairgrad_method   # noqa: F401
 from taskonomy_eval.methods import famo_method as _famo_method           # noqa: F401
+
+
+class _Tee:
+    def __init__(self, *streams):
+        self.streams = streams
+
+    def write(self, data: str) -> None:
+        for stream in self.streams:
+            stream.write(data)
+        for stream in self.streams:
+            stream.flush()
+
+    def flush(self) -> None:
+        for stream in self.streams:
+            stream.flush()
 
 
 # ---------- shared helpers ----------
@@ -488,50 +506,95 @@ def parse_args() -> argparse.Namespace:
 
 def main():
     args = parse_args()
-    methods = args.methods
+    methods = list(args.methods)
     seeds = args.seeds
 
-    for m in methods:
-        if m not in METHOD_REGISTRY:
-            raise ValueError(f"Unknown method '{m}'. Known: {list(METHOD_REGISTRY.keys())}")
+    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+    os.makedirs(args.out_dir, exist_ok=True)
+    log_dir = os.path.join(args.out_dir, f"run_logs_{timestamp}")
+    os.makedirs(log_dir, exist_ok=True)
 
-    for method in methods:
-        for seed in seeds:
-            run_dir = os.path.join(args.out_dir, f"{method}_seed{seed}")
-            cfg = ExperimentConfig(
-                data_root=args.data_root,
-                split=args.split,
-                val_split=args.val_split,
-                test_split=args.test_split,
-                tasks=tuple(args.tasks),
-                resize=tuple(args.resize),
-                buildings_list=args.buildings_list,
-                seg_classes=args.seg_classes,
-                epochs=args.epochs,
-                batch_size=args.batch_size,
-                lr=args.lr,
-                base_channels=args.base_channels,
-                num_workers=args.num_workers,
-                device=args.device,
-                method=method,
-                seed=seed,
-                out_dir=run_dir,
-                refresh_period=args.refresh_period,
-                tau_initial=args.tau_initial,
-                tau_target=args.tau_target,
-                tau_kind=args.tau_kind,
-                tau_warmup=args.tau_warmup,
-                tau_anneal=args.tau_anneal,
-                ema_beta=args.ema_beta,
-                min_updates_per_cycle=args.min_updates_per_cycle,
-                gradnorm_alpha=args.gradnorm_alpha,
-                gradnorm_lr=args.gradnorm_lr,
-            )
-            print(f"\n=== Running method={method}, seed={seed}, out_dir={run_dir} ===")
-            os.makedirs(run_dir, exist_ok=True)
-            with open(os.path.join(run_dir, "config.json"), "w") as f:
-                json.dump(asdict(cfg), f, indent=2)
-            train_and_eval_once(cfg)
+    args_path = os.path.join(log_dir, "args.json")
+    with open(args_path, "w") as f:
+        json.dump(vars(args), f, indent=2)
+
+    log_path = os.path.join(log_dir, "run.log")
+    orig_stdout = sys.stdout
+    orig_stderr = sys.stderr
+    failed_methods: list[str] = []
+    valid_methods = [m for m in methods if m in METHOD_REGISTRY]
+    skipped_unknown = [m for m in methods if m not in METHOD_REGISTRY]
+
+    with open(log_path, "w") as log_file:
+        sys.stdout = _Tee(orig_stdout, log_file)
+        sys.stderr = _Tee(orig_stderr, log_file)
+        try:
+            print(f"Logging to {log_path}")
+            if skipped_unknown:
+                print(f"Unknown methods requested and skipped: {skipped_unknown}")
+                failed_methods.extend(f"{m} (unknown)" for m in skipped_unknown)
+
+            if not valid_methods:
+                print("No valid methods to run after filtering unknown entries.")
+            for method in valid_methods:
+                method_failed = False
+                for seed in seeds:
+                    run_dir = os.path.join(args.out_dir, f"{method}_seed{seed}")
+                    cfg = ExperimentConfig(
+                        data_root=args.data_root,
+                        split=args.split,
+                        val_split=args.val_split,
+                        test_split=args.test_split,
+                        tasks=tuple(args.tasks),
+                        resize=tuple(args.resize),
+                        buildings_list=args.buildings_list,
+                        seg_classes=args.seg_classes,
+                        epochs=args.epochs,
+                        batch_size=args.batch_size,
+                        lr=args.lr,
+                        base_channels=args.base_channels,
+                        num_workers=args.num_workers,
+                        device=args.device,
+                        method=method,
+                        seed=seed,
+                        out_dir=run_dir,
+                        refresh_period=args.refresh_period,
+                        tau_initial=args.tau_initial,
+                        tau_target=args.tau_target,
+                        tau_kind=args.tau_kind,
+                        tau_warmup=args.tau_warmup,
+                        tau_anneal=args.tau_anneal,
+                        ema_beta=args.ema_beta,
+                        min_updates_per_cycle=args.min_updates_per_cycle,
+                        gradnorm_alpha=args.gradnorm_alpha,
+                        gradnorm_lr=args.gradnorm_lr,
+                    )
+                    print(f"\n=== Running method={method}, seed={seed}, out_dir={run_dir} ===")
+                    os.makedirs(run_dir, exist_ok=True)
+                    with open(os.path.join(run_dir, "config.json"), "w") as f:
+                        json.dump(asdict(cfg), f, indent=2)
+                    try:
+                        train_and_eval_once(cfg)
+                    except Exception as exc:  # noqa: BLE001
+                        method_failed = True
+                        failed_methods.append(f"{method}-seed{seed}")
+                        print(f"[ERROR] Method '{method}' (seed {seed}) failed: {exc}")
+                        traceback.print_exc()
+                        break
+                if method_failed:
+                    print(f"[WARN] Skipping remaining seeds for method '{method}' due to failure.")
+                    continue
+
+            red = "\033[91m"
+            reset = "\033[0m"
+            if failed_methods:
+                formatted = ", ".join(failed_methods)
+                print(f"{red}Failed methods: {formatted}{reset}")
+            else:
+                print("All methods completed successfully.")
+        finally:
+            sys.stdout = orig_stdout
+            sys.stderr = orig_stderr
 
 
 if __name__ == "__main__":
