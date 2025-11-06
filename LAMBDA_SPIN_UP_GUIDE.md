@@ -4,9 +4,9 @@ Spin-up checklist for **Lambda Cloud + Taskonomy + SON-GOKU** on a **Virginia (u
 
 This assumes:
 
-* You’re on Windows with **WSL Ubuntu**.
-* You’re using **Lambda Cloud On-Demand**.
-* Your **filesystem and instance are in Virginia (`us-east-1`)**.
+- You’re on Windows with **WSL Ubuntu**.
+- You’re using **Lambda Cloud On-Demand**.
+- Your **filesystem and instance are in Virginia (`us-east-1`)**.
 
 ---
 
@@ -16,16 +16,15 @@ This assumes:
 2. In the left sidebar, go to **Storage → Filesystems**.
 3. Click **Create filesystem**.
 4. Choose:
-
-   * **Name:** e.g. `taskonomy`
-   * **Region:** `us-east-1 – Virginia, USA`
+   - **Name:** e.g. `taskonomy`
+   - **Region:** `us-east-1 – Virginia, USA`
 5. Click **Create filesystem**.
 
 Once attached to an instance, Lambda mounts the filesystem at:
 
 ```text
 /lambda/nfs/<FILESYSTEM_NAME>
-````
+```
 
 and also creates a **symlink in the `ubuntu` home directory** with the same name (e.g. `~/taskonomy`).
 
@@ -37,17 +36,17 @@ and also creates a **symlink in the `ubuntu` home directory** with the same name
 2. Click **Launch instance**.
 3. In the wizard:
 
-   * **Instance type:** pick your GPU (e.g. `A10`, `A100`, etc.).
-   * **Region:** `us-east-1 – Virginia, USA`.
-   * **Image:** a recent **Lambda Stack (Ubuntu)** image.
-   * **Filesystem:** select the filesystem you just created (`taskonomy`).
-   * **SSH key:** choose the SSH key you’ve added to Lambda (next section).
+   - **Instance type:** pick your GPU (e.g. `A10`, `A100`, etc.).
+   - **Region:** `us-east-1 – Virginia, USA`.
+   - **Image:** a recent **Lambda Stack (Ubuntu)** image.
+   - **Filesystem:** select the filesystem you just created (`taskonomy`).
+   - **SSH key:** choose the SSH key you’ve added to Lambda (next section).
 4. Confirm terms and click **Launch instance**.
 
 After boot, you’ll see the instance listed with:
 
-* **IP address**
-* **Attached filesystem** (in same region)
+- **IP address**
+- **Attached filesystem** (in same region)
 
 ---
 
@@ -65,8 +64,6 @@ ls ~/.ssh
 ssh-keygen -t ed25519 -C "lambda-cloud"
 # (press Enter to accept default path, optionally add a passphrase)
 ```
-
-Generating key pairs like this is the standard SSH setup on Ubuntu/WSL.
 
 Copy your **public** key:
 
@@ -124,8 +121,8 @@ sudo apt-get install -y \
     aria2 tmux tree
 ```
 
-* `aria2` is recommended by **Omnidata / omnitools** to support high-speed multi-connection downloads.
-* You can verify the GPU is visible:
+- `aria2` is recommended by **Omnidata / omnitools** to support high-speed multi-connection downloads.
+- You can verify the GPU is visible:
 
 ```bash
 nvidia-smi
@@ -135,22 +132,24 @@ nvidia-smi
 
 ---
 
-## 5. Create and activate a Python virtual environment
+## 5. Create and activate a GPU-aware Python virtual environment
+
+We want our venv to **see the CUDA-enabled PyTorch that comes with Lambda Stack**, not override it with a CPU-only wheel. The trick is to use `--system-site-packages`.
 
 On the instance:
 
 ```bash
 mkdir -p ~/venvs
-python3 -m venv ~/venvs/taskonomy-env
+python3 -m venv --system-site-packages ~/venvs/taskonomy-gpu
 
 # Activate
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 
 # Update pip
 python -m pip install --upgrade pip
 ```
 
-You’ll know the venv is active when your prompt is prefixed with `(taskonomy-env)`.
+You’ll know the venv is active when your prompt is prefixed with `(taskonomy-gpu)`.
 
 ---
 
@@ -167,8 +166,8 @@ cat ~/.ssh/id_ed25519.pub
 1. Copy the output.
 2. On GitHub:
 
-   * Go to **Settings → SSH and GPG keys → New SSH key**.
-   * Paste the key, give it a name, save.
+   - Go to **Settings → SSH and GPG keys → New SSH key**.
+   - Paste the key, give it a name, save.
 
 You can test from WSL:
 
@@ -183,7 +182,7 @@ SSH into the instance, activate your venv:
 
 ```bash
 ssh ubuntu@<INSTANCE_IP>
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 cd ~
 ```
 
@@ -197,32 +196,35 @@ cd SON-GOKU-Taskonomy-Lambda-Cloud
 (If you prefer HTTPS and the repo is public:
 `git clone https://github.com/Soontosh/SON-GOKU-Taskonomy-Lambda-Cloud.git`)
 
----
+### 6.3 Verify CUDA-enabled PyTorch via Lambda Stack
 
-## 6.3 Install a CUDA-enabled PyTorch build
+Because this venv was created with `--system-site-packages`, it can see the **GPU-enabled PyTorch installed by Lambda Stack**. You should **not** install `torch` via `pip` here (that risks overwriting it with a CPU-only wheel).
 
-PyTorch’s default `pip` wheel is CPU-only. Even if `nvidia-smi` shows the GH200, that build leaves `torch.cuda.is_available()` as `False` and the runner will train on the CPU.
-
-With the venv active:
+Check from inside `(taskonomy-gpu)`:
 
 ```bash
-source ~/venvs/taskonomy-env/bin/activate
-python - <<'PY'
+source ~/venvs/taskonomy-gpu/bin/activate
+
+python - << 'PY'
 import torch
 print("PyTorch:", torch.__version__)
 print("CUDA version:", torch.version.cuda)
 print("CUDA available:", torch.cuda.is_available())
+print("Device count:", torch.cuda.device_count())
 PY
 ```
 
-If the CUDA version prints `None` or `CUDA available` is `False`, reinstall PyTorch using the CUDA wheel that matches your stack (see <https://pytorch.org/get-started/locally/>). For CUDA 12.1:
+You want:
 
-```bash
-pip uninstall -y torch torchvision torchaudio
-pip install --upgrade torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu121
-```
+- `CUDA version:` to be non-`None`
+- `CUDA available: True`
+- `Device count: >= 1`
 
-Re-run the quick Python check to confirm it now reports `CUDA available: True` before proceeding.
+If CUDA is **not** available here:
+
+- Double-check you launched a **GPU instance** with a **Lambda Stack** image.
+- Make sure you’re not in a different venv.
+- Avoid `pip install torch` in this env; that can overshadow Lambda’s CUDA build.
 
 ---
 
@@ -232,12 +234,18 @@ From inside the repo:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 
 pip install -e .
 ```
 
 This uses the `pyproject.toml` to install `son_goku` in **editable mode**, so any local changes to the repo are picked up immediately.
+
+Install a few extra runtime deps if needed:
+
+```bash
+pip install omnidata-tools numpy tqdm
+```
 
 ---
 
@@ -245,11 +253,11 @@ This uses the `pyproject.toml` to install `son_goku` in **editable mode**, so an
 
 We’ll use:
 
-* **`omnitools.download`** to fetch Omnidata Taskonomy subsets.
-* Your **`prepare_taskonomy_data.py`** helper script to:
+- **`omnitools.download`** to fetch Omnidata Taskonomy subsets.
+- Your **`prepare_taskonomy_data.py`** helper script to:
 
-  * Restructure into `data_root/split/building/domain/*.png`
-  * Optionally create random train/val/test splits.
+  - Restructure into `data_root/split/building/domain/*.png`
+  - Optionally create random train/val/test splits.
 
 ### 8.1 Install Omnidata tools
 
@@ -263,19 +271,16 @@ pip install omnidata-tools
 
 ### 8.2 Place `prepare_taskonomy_data.py` in the repo
 
-Save the `prepare_taskonomy_data.py` script we wrote earlier into the repo root:
+Save the `prepare_taskonomy_data.py` script into the repo root:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-sudo mkdir -p /lambda/nfs/taskonomy && sudo chown ubuntu:ubuntu /lambda/nfs/taskonomy
-rm prepare_taskonomy_data.py
-touch prepare_taskonomy_data.py
 nano prepare_taskonomy_data.py
 # paste the full script here, then save+exit
 chmod +x prepare_taskonomy_data.py
 ```
 
-You MUST use this approach (run ALL the above commands) rather than using the script directly, so that you can grant it elevated priveleges. Otherwise, it won't work.
+No `sudo` is needed here: your filesystem is already mounted under `/lambda/nfs/<FILESYSTEM_NAME>` and writable by `ubuntu`.
 
 ### 8.3 Choose a filesystem path for raw + reshaped data
 
@@ -289,8 +294,8 @@ and symlinked into your home as `~/<FILESYSTEM_NAME>`.
 
 For example, if you named the filesystem `taskonomy`:
 
-* Raw downloads: `/lambda/nfs/taskonomy`
-* Reshaped data root: `/lambda/nfs/taskonomy/reshaped`
+- Raw downloads: `/lambda/nfs/taskonomy`
+- Reshaped data root: `/lambda/nfs/taskonomy/reshaped`
 
 Optional home symlink:
 
@@ -304,7 +309,7 @@ Example (using the **debug** subset for quick tests):
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 
 python prepare_taskonomy_data.py \
   --download-root /lambda/nfs/taskonomy \
@@ -323,17 +328,17 @@ python prepare_taskonomy_data.py \
 
 Notes:
 
-* `--subset` can be `debug`, `tiny`, `medium`, `full`, `fullplus` per Omnidata’s starter dataset variants.
-* `--domains` should always include `rgb` plus whatever tasks you train on (`depth_euclidean`, `normal`, `reshading`, etc.).
-* `--train-frac`, `--val-frac`, `--test-frac` control how **buildings** are split into splits.
+- `--subset` can be `debug`, `tiny`, `medium`, `full`, `fullplus` per Omnidata’s starter dataset variants.
+- `--domains` should always include `rgb` plus whatever tasks you train on (`depth_euclidean`, `normal`, `reshading`, etc.).
+- `--train-frac`, `--val-frac`, `--test-frac` control how **buildings** are split into splits.
 
 The script will:
 
-* Call `omnitools.download` for your chosen subset & domains.
+- Call `omnitools.download` for your chosen subset & domains.
 
-* Detect whether layout is `<dest>/<domain>/<component>/<building>` or `<dest>/<component>/<domain>/<building>`.
+- Detect whether layout is `<dest>/<domain>/<component>/<building>` or `<dest>/<component>/<domain>/<building>`.
 
-* Build a **Taskonomy-style tree**:
+- Build a **Taskonomy-style tree**:
 
   ```text
   /lambda/nfs/taskonomy/reshaped/
@@ -349,7 +354,7 @@ The script will:
       ...
   ```
 
-* Ensure that only views where **all requested tasks exist** are kept (multi-task samples).
+- Ensure that only views where **all requested tasks exist** are kept (multi-task samples).
 
 ---
 
@@ -371,7 +376,7 @@ cd ~/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_son_goku_eval
 nano run_example.sh
 ```
 
-Update the `--data_root` (and optionally splits) to match your reshaped tree:
+Update the `--data_root` (and splits) to match your reshaped tree:
 
 ```bash
 python -m taskonomy_eval.train_taskonomy \
@@ -384,15 +389,13 @@ python -m taskonomy_eval.train_taskonomy \
   --ema_beta 0.9 --min_updates_per_cycle 1
 ```
 
-(If you used `--no-split` in the prep script and only have a `train` split, you can temporarily set `--val_split train` for quick debugging.)
-
 > 🔎 This guide assumes your local repo already includes the small `TaskonomyDataset._path` patch you made earlier, which maps filenames like `domain_rgb` → `domain_depth_euclidean` / `domain_normal` / `domain_reshading`. Make sure those changes are committed or re-applied if you reclone.
 
 Run training:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud/taskonomy_son_goku_eval
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 bash run_example.sh
 ```
 
@@ -400,16 +403,16 @@ bash run_example.sh
 
 For **fair comparisons** across methods (SON-GOKU, GradNorm, future algorithms), use the unified runner. It:
 
-* Builds the **same Taskonomy dataset + splits** for all methods.
-* Builds the **same multi-task model** (shared backbone + per-task heads).
-* Uses the **same losses and metrics**.
-* Only changes *how* each method schedules/weights tasks and updates gradients.
+- Builds the **same Taskonomy dataset + splits** for all methods.
+- Builds the **same multi-task model** (shared backbone + per-task heads).
+- Uses the **same losses and metrics**.
+- Only changes *how* each method schedules/weights tasks and updates gradients.
 
 Example: run SON-GOKU and GradNorm back-to-back on the same split:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 
 python -m taskonomy_eval.runner \
   --data_root /home/ubuntu/taskonomy-reshaped \
@@ -427,16 +430,16 @@ python -m taskonomy_eval.runner \
 
 This will sequentially run:
 
-* SON-GOKU with seeds 0 and 1.
-* GradNorm with seeds 0 and 1.
+- SON-GOKU with seeds 0 and 1.
+- GradNorm with seeds 0 and 1.
 
 Each `(method, seed)` combination gets its own directory under `experiments/taskonomy_compare/`, containing:
 
-* `config.json` – the full experiment config.
-* `val_metrics_epoch*.json` – per-epoch validation metrics.
-* `<method>_seed<seed>.pt` – final model checkpoint.
+- `config.json` – the full experiment config.
+- `val_metrics_epoch*.json` – per-epoch validation metrics.
+- `<method>_seed<seed>.pt` – final model checkpoint.
 
-You can add more methods later (e.g., Uncertainty weighting, PCGrad) by implementing them under `taskonomy_eval/methods/` and registering them in the same way as `son_goku` and `gradnorm`.
+You can add more methods later (e.g., PCGrad, AdaTask, NashMTL, etc.) by implementing them under `taskonomy_eval/methods/` and registering them in the runner.
 
 ### 9.3 Long-running jobs with tmux
 
@@ -445,7 +448,7 @@ Whether you’re using the original SON-GOKU script or the multi-method runner, 
 ```bash
 tmux new -s taskonomy
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-source ~/venvs/taskonomy-env/bin/activate
+source ~/venvs/taskonomy-gpu/bin/activate
 
 # Example: SON-GOKU only
 bash taskonomy_son_goku_eval/run_example.sh
@@ -478,11 +481,11 @@ Once this is all scripted, spinning up a fresh environment on a new **Lambda Vir
 
 1. Create filesystem (`taskonomy`) in `us-east-1`.
 2. Launch instance in `us-east-1` and attach `taskonomy` + SSH key.
-3. SSH from WSL → install packages → create `taskonomy-env` venv.
-4. Clone repo → `pip install -e .` → `pip install omnidata-tools`.
+3. SSH from WSL → install packages → create `taskonomy-gpu` venv **with `--system-site-packages`** so it can see Lambda Stack’s CUDA-enabled PyTorch.
+4. Clone repo → `pip install -e .` → `pip install omnidata-tools numpy tqdm`.
 5. Run `prepare_taskonomy_data.py` into `/lambda/nfs/taskonomy/reshaped`.
 6. Point training scripts at `/home/ubuntu/taskonomy-reshaped`:
 
-   * Use `taskonomy_son_goku_eval/run_example.sh` for **SON-GOKU-only** runs.
-   * Use `python -m taskonomy_eval.runner --methods son_goku gradnorm ...` for **multi-method comparisons**.
+   - Use `taskonomy_son_goku_eval/run_example.sh` for **SON-GOKU-only** runs.
+   - Use `python -m taskonomy_eval.runner --methods son_goku gradnorm ...` for **multi-method comparisons**.
 7. Use `tmux` if you want training to continue after disconnecting.
