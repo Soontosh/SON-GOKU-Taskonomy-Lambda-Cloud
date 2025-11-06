@@ -26,6 +26,14 @@ def _load_png(path: str) -> np.ndarray:
     img = Image.open(path)
     return np.array(img)
 
+def _is_valid_image(path: str) -> bool:
+    try:
+        with Image.open(path) as img:
+            img.verify()
+        return True
+    except (OSError, IOError):
+        return False
+
 def _load_rgb(path: str, resize: Optional[Tuple[int,int]]=None) -> torch.Tensor:
     arr = _load_png(path)  # H,W,3 uint8
     if resize is not None:
@@ -120,13 +128,36 @@ class TaskonomyDataset(Dataset):
             buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
         # enumerate RGB images as anchors
         self.items: List[Tuple[str,str,str]] = []  # (building, rgb_dir, filename)
+        self.skipped_items: List[Tuple[str, str]] = []
         for b in buildings:
             rgb_dir = os.path.join(bdir, b, TASK_FOLDERS["rgb"])
             if not os.path.isdir(rgb_dir):
                 continue
             files = sorted(glob(os.path.join(rgb_dir, "*.png")))
             for f in files:
-                self.items.append((b, rgb_dir, os.path.basename(f)))
+                fname = os.path.basename(f)
+                rgb_path = os.path.join(rgb_dir, fname)
+                if not _is_valid_image(rgb_path):
+                    self.skipped_items.append((rgb_path, "corrupt_rgb"))
+                    continue
+                corrupt_target = False
+                for task_name in self.tasks:
+                    tgt_path = self._path(b, task_name, fname)
+                    if not os.path.exists(tgt_path):
+                        self.skipped_items.append((tgt_path, "missing_target"))
+                        corrupt_target = True
+                        break
+                    if not _is_valid_image(tgt_path):
+                        self.skipped_items.append((tgt_path, "corrupt_target"))
+                        corrupt_target = True
+                        break
+                if corrupt_target:
+                    continue
+                self.items.append((b, rgb_dir, fname))
+        if self.skipped_items:
+            print(f"[TaskonomyDataset] Skipped {len(self.skipped_items)} samples in split '{self.split}' due to missing or corrupt files.")
+        if not self.items:
+            raise RuntimeError(f"No valid samples found for split '{self.split}' with tasks {self.tasks}.")
         # verify coverage of targets lazily during __getitem__
 
     def __len__(self) -> int:
