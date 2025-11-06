@@ -528,6 +528,7 @@ def main():
     with open(log_path, "w") as log_file:
         sys.stdout = _Tee(orig_stdout, log_file)
         sys.stderr = _Tee(orig_stderr, log_file)
+        interrupted = False
         try:
             print(f"Logging to {log_path}")
             if skipped_unknown:
@@ -537,8 +538,12 @@ def main():
             if not valid_methods:
                 print("No valid methods to run after filtering unknown entries.")
             for method in valid_methods:
+                if interrupted:
+                    break
                 method_failed = False
                 for seed in seeds:
+                    if interrupted:
+                        break
                     run_dir = os.path.join(args.out_dir, f"{method}_seed{seed}")
                     cfg = ExperimentConfig(
                         data_root=args.data_root,
@@ -575,6 +580,12 @@ def main():
                         json.dump(asdict(cfg), f, indent=2)
                     try:
                         train_and_eval_once(cfg)
+                    except KeyboardInterrupt:
+                        method_failed = True
+                        interrupted = True
+                        failed_methods.append(f"{method}-seed{seed} (interrupted)")
+                        print("\n[WARN] KeyboardInterrupt received. Finishing current logging before exit...")
+                        break
                     except Exception as exc:  # noqa: BLE001
                         method_failed = True
                         failed_methods.append(f"{method}-seed{seed}")
@@ -583,15 +594,24 @@ def main():
                         break
                 if method_failed:
                     print(f"[WARN] Skipping remaining seeds for method '{method}' due to failure.")
-                    continue
+                    if interrupted:
+                        print("[INFO] Early stop requested; skipping remaining methods.")
+                        break
 
             red = "\033[91m"
             reset = "\033[0m"
+            if interrupted:
+                print("[INFO] Run interrupted by user. Logs and summaries are being finalized.")
             if failed_methods:
                 formatted = ", ".join(failed_methods)
                 print(f"{red}Failed methods: {formatted}{reset}")
             else:
                 print("All methods completed successfully.")
+        except KeyboardInterrupt:
+            # Catch any KeyboardInterrupt not handled inside loops to still flush logs
+            print("\n[WARN] KeyboardInterrupt detected outside training loop. Finalizing logs...")
+            if not failed_methods:
+                print("No method failures recorded before interruption.")
         finally:
             sys.stdout = orig_stdout
             sys.stderr = orig_stderr
