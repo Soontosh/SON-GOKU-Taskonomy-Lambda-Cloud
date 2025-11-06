@@ -9,7 +9,11 @@ description = "SON-GOKU: Interference-aware graph-coloring scheduler for Multi-T
 authors = [{name="Your Name"}]
 license = {text = "MIT"}
 requires-python = ">=3.9"
-dependencies = ["torch"]
+dependencies = [
+    "torch",
+    "numpy",
+    "Pillow",
+]
 readme = "README.md"
 
 [tool.setuptools.packages.find]
