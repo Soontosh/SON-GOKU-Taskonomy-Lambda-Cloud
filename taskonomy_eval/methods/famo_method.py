@@ -8,7 +8,9 @@ import torch
 from torch import nn
 import torch.nn.functional as F
 
-from .base import MultiTaskMethod, TaskSpec, register_method
+from son_goku import TaskSpec
+
+from .base import MultiTaskMethod, register_method
 
 
 class _FAMOController:
