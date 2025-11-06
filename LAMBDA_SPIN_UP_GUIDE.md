@@ -240,6 +240,7 @@ Save the `prepare_taskonomy_data.py` script we wrote earlier into the repo root:
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
+sudo mkdir -p /lambda/nfs/taskonomy && sudo chown ubuntu:ubuntu /lambda/nfs/taskonomy
 rm prepare_taskonomy_data.py
 touch prepare_taskonomy_data.py
 nano prepare_taskonomy_data.py
@@ -247,7 +248,7 @@ nano prepare_taskonomy_data.py
 chmod +x prepare_taskonomy_data.py
 ```
 
-You MUST use this approach rather than using the script directly, so that you can grant it elevated priveleges. Otherwise, it won't work.
+You MUST use this approach (run ALL the above commands) rather than using the script directly, so that you can grant it elevated priveleges. Otherwise, it won't work.
 
 ### 8.3 Choose a filesystem path for raw + reshaped data
 
