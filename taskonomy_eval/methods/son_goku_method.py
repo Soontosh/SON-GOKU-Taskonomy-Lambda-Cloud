@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import os
 from typing import Any, Callable, Dict, Mapping, Sequence
 
 import torch
@@ -35,11 +36,17 @@ class SonGokuMethod(MultiTaskMethod):
         refresh_period: int = 32,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        log_dir: str | None = None,
+        log_interval: int = 50,
     ) -> None:
         self.model = model
         self.optimizer = optimizer
         self.tasks = list(tasks)
         self.task_names = [t.name for t in tasks]
+        log_path = None
+        if log_dir:
+            os.makedirs(log_dir, exist_ok=True)
+            log_path = os.path.join(log_dir, "son_goku_groups.json")
 
         tau = TauSchedule(
             kind=tau_kind,
@@ -57,6 +64,8 @@ class SonGokuMethod(MultiTaskMethod):
             tau_schedule=tau,
             ema_beta=ema_beta,
             min_updates_per_cycle=min_updates_per_cycle,
+            log_interval=log_interval,
+            log_path=log_path,
         )
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:

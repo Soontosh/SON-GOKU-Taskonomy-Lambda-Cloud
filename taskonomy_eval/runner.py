@@ -307,6 +307,8 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             tau_anneal=cfg.tau_anneal,
             ema_beta=cfg.ema_beta,
             min_updates_per_cycle=cfg.min_updates_per_cycle,
+            log_dir=cfg.out_dir,
+            log_interval=50,
         )
     elif cfg.method == "gradnorm":
         from taskonomy_eval.methods.gradnorm_method import GradNormMethod

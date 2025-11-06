@@ -1,7 +1,9 @@
 from __future__ import annotations
 from dataclasses import dataclass
 from typing import Any, Callable, Dict, Iterable, List, Optional, Sequence, Tuple, Union
+import json
 import math
+import os
 import torch
 from torch import nn, Tensor
 from .interfaces import TaskSpec, GradientTransform
@@ -62,6 +64,8 @@ class SonGokuScheduler:
         eps_cosine: float = 1e-12,
         gradient_transform: Optional[GradientTransform] = None,  # e.g., PCGrad hook
         device: Optional[torch.device] = None,
+        log_interval: Optional[int] = None,
+        log_path: Optional[str] = None,
     ):
         self.model = model
         self.tasks = list(tasks)
@@ -99,6 +103,13 @@ class SonGokuScheduler:
         self._step_in_cycle: int = 0
         # Step counter
         self._t: int = 0
+        # Logging
+        self._log_interval = max(1, log_interval) if log_interval else None
+        self._log_path = log_path
+        self._log_records: List[Dict[str, Any]] = []
+        self._last_adj: Optional[Dict[int, set[int]]] = None
+        self._last_rho: Optional[Tensor] = None
+        self._last_tau: Optional[float] = None
 
     def current_tau(self) -> float:
         return float(self.tau_schedule.value(self._t))
@@ -205,6 +216,7 @@ class SonGokuScheduler:
             self._refresh_and_recolor()
         # Advance schedule pointer
         self._step_in_cycle = (self._step_in_cycle + 1) % max(1, self._schedule_len)
+        self._maybe_log_state()
         return loss_log
 
     @torch.no_grad()
@@ -237,14 +249,60 @@ class SonGokuScheduler:
         self._classes = classes
         self._schedule_len = max(1, len(self._classes))
         self._step_in_cycle = 0  # restart new cycle after recoloring
+        self._last_adj = adj
+        self._last_rho = rho.detach().cpu() if isinstance(rho, Tensor) else None
+        self._last_tau = float(tau)
 
     def schedule_snapshot(self) -> List[List[str]]:
         return [[ self.tasks[i].name for i in cls ] for cls in self._classes]
 
     def debug_state(self) -> Dict[str, Any]:
-        return {
+        state: Dict[str, Any] = {
             "t": self._t,
-            "tau": self.current_tau(),
+            "tau": float(self.current_tau()),
             "classes": self.schedule_snapshot(),
             "schedule_len": self._schedule_len,
+            "step_in_cycle": self._step_in_cycle,
+            "refresh_period": self.refresh_period,
+            "min_updates_per_cycle": self.min_updates_per_cycle,
         }
+        if self._last_tau is not None:
+            state["last_tau_value"] = self._last_tau
+        if self._last_adj is not None:
+            state["conflict_graph"] = self._serialize_adj()
+        if self._last_rho is not None:
+            state["interference_matrix"] = self._last_rho.tolist()
+        ema_norms: List[Optional[float]] = []
+        for ema in self._emas:
+            if ema is None:
+                ema_norms.append(None)
+            else:
+                ema_norms.append(float(torch.norm(ema.detach()).item()))
+        state["ema_norms"] = ema_norms
+        return state
+
+    def _serialize_adj(self) -> Dict[str, List[str]]:
+        assert self._last_adj is not None
+        serialized: Dict[str, List[str]] = {}
+        for idx, neighbors in self._last_adj.items():
+            serialized[self.tasks[idx].name] = sorted(self.tasks[n].name for n in neighbors)
+        return serialized
+
+    def _maybe_log_state(self) -> None:
+        if self._log_interval is None or self._log_path is None:
+            return
+        if (self._t % self._log_interval) != 0:
+            return
+        record = self.debug_state()
+        active = [self.tasks[i].name for i in self._active_indices()]
+        record["active_group"] = active
+        record["timestamp_step"] = self._t
+        record["schedule"] = self.schedule_snapshot()
+        self._log_records.append(record)
+        try:
+            os.makedirs(os.path.dirname(self._log_path), exist_ok=True)
+            with open(self._log_path, "w") as f:
+                json.dump(self._log_records, f, indent=2)
+        except OSError:
+            # Best effort logging; swallow to avoid interrupting training
+            pass
