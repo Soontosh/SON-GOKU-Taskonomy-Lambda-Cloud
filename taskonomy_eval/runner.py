@@ -155,6 +155,7 @@ class ExperimentConfig:
     data_root: str
     split: str
     val_split: str
+    test_split: str | None
     tasks: Tuple[str, ...]
     resize: Tuple[int, int]
     buildings_list: str | None
@@ -224,6 +225,23 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         num_workers=cfg.num_workers,
         pin_memory=True,
     )
+    test_loader = None
+    if cfg.test_split:
+        test_cfg = TaskonomyConfig(
+            root=cfg.data_root,
+            split=cfg.test_split,
+            buildings_list=cfg.buildings_list,
+            tasks=cfg.tasks,
+            resize=cfg.resize,
+        )
+        test_ds = TaskonomyDataset(test_cfg)
+        test_loader = DataLoader(
+            test_ds,
+            batch_size=cfg.batch_size,
+            shuffle=False,
+            num_workers=cfg.num_workers,
+            pin_memory=True,
+        )
 
     # Model + optimizer
     model, _ = build_model(cfg.tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
@@ -416,13 +434,21 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     ckpt_path = os.path.join(cfg.out_dir, f"{cfg.method}_seed{cfg.seed}.pt")
     torch.save(model.state_dict(), ckpt_path)
     print(f"Saved {cfg.method} checkpoint to {ckpt_path}")
-    return {"checkpoint": ckpt_path}
+    test_metrics = None
+    if test_loader is not None:
+        test_metrics = evaluate(model, test_loader, cfg.tasks, cfg.seg_classes, device)
+        print(f"[{cfg.method}] [TEST]: {test_metrics}")
+        with open(os.path.join(cfg.out_dir, "test_metrics.json"), "w") as f:
+            json.dump(test_metrics, f, indent=2)
+    return {"checkpoint": ckpt_path, "test_metrics": test_metrics}
 
 def parse_args() -> argparse.Namespace:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument("--split", type=str, default="train")
     ap.add_argument("--val_split", type=str, default="val")
+    ap.add_argument("--test_split", type=str, default=None,
+                    help="If provided, run a final evaluation on this split after training.")
     ap.add_argument("--tasks", type=str, nargs="+", default=["depth_euclidean", "normal", "reshading"])
     ap.add_argument("--resize", type=int, nargs=2, default=[256, 256])
     ap.add_argument("--buildings_list", type=str, default=None)
@@ -476,6 +502,7 @@ def main():
                 data_root=args.data_root,
                 split=args.split,
                 val_split=args.val_split,
+                test_split=args.test_split,
                 tasks=tuple(args.tasks),
                 resize=tuple(args.resize),
                 buildings_list=args.buildings_list,
