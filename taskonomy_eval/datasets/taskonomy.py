@@ -26,14 +26,6 @@ def _load_png(path: str) -> np.ndarray:
     img = Image.open(path)
     return np.array(img)
 
-def _is_valid_image(path: str) -> bool:
-    try:
-        with Image.open(path) as img:
-            img.verify()
-        return True
-    except (OSError, IOError, SyntaxError):
-        return False
-
 def _load_rgb(path: str, resize: Optional[Tuple[int,int]]=None) -> torch.Tensor:
     arr = _load_png(path)  # H,W,3 uint8
     if resize is not None:
@@ -128,36 +120,17 @@ class TaskonomyDataset(Dataset):
             buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
         # enumerate RGB images as anchors
         self.items: List[Tuple[str,str,str]] = []  # (building, rgb_dir, filename)
-        self.skipped_items: List[Tuple[str, str]] = []
         for b in buildings:
             rgb_dir = os.path.join(bdir, b, TASK_FOLDERS["rgb"])
             if not os.path.isdir(rgb_dir):
                 continue
             files = sorted(glob(os.path.join(rgb_dir, "*.png")))
             for f in files:
-                fname = os.path.basename(f)
-                rgb_path = os.path.join(rgb_dir, fname)
-                if not _is_valid_image(rgb_path):
-                    self.skipped_items.append((rgb_path, "corrupt_rgb"))
-                    continue
-                corrupt_target = False
-                for task_name in self.tasks:
-                    tgt_path = self._path(b, task_name, fname)
-                    if not os.path.exists(tgt_path):
-                        self.skipped_items.append((tgt_path, "missing_target"))
-                        corrupt_target = True
-                        break
-                    if not _is_valid_image(tgt_path):
-                        self.skipped_items.append((tgt_path, "corrupt_target"))
-                        corrupt_target = True
-                        break
-                if corrupt_target:
-                    continue
-                self.items.append((b, rgb_dir, fname))
-        if self.skipped_items:
-            print(f"[TaskonomyDataset] Skipped {len(self.skipped_items)} samples in split '{self.split}' due to missing or corrupt files.")
+                self.items.append((b, rgb_dir, os.path.basename(f)))
         if not self.items:
-            raise RuntimeError(f"No valid samples found for split '{self.split}' with tasks {self.tasks}.")
+            raise RuntimeError(f"No samples found for split '{self.split}' with tasks {self.tasks}.")
+        self._bad_indices: set[int] = set()
+        self._bad_logged: set[str] = set()
         # verify coverage of targets lazily during __getitem__
 
     def __len__(self) -> int:
@@ -182,38 +155,52 @@ class TaskonomyDataset(Dataset):
         )
 
     def __getitem__(self, idx: int):
-        b, rgb_dir, fname = self.items[idx]
-        rgb_path = os.path.join(rgb_dir, fname)
-        sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
-        # targets per selected task
-        for t in self.tasks:
-            path = self._path(b, t, fname)
-            if not os.path.exists(path):
-                raise FileNotFoundError(f"Missing target for task '{t}': {path}")
-            if t in ("depth_euclidean","depth_zbuffer"):
-                sample[t] = _load_depth(path, self.cfg.resize)
-            elif t == "normal":
-                sample[t] = _load_normals(path, self.cfg.resize)
-            elif t == "reshading":
-                sample[t] = _load_gray01(path, self.cfg.resize)
-            elif t in ("edge_occlusion","edge_texture"):
-                sample[t] = _load_edges01(path, self.cfg.resize)
-            elif t == "segment_semantic":
-                sample[t] = _load_semantic(path, self.cfg.resize)
-            elif t == "keypoints2d":
-                # Treat as gray heatmap in [0,1]
-                sample[t] = _load_gray01(path, self.cfg.resize)
-            elif t == "principal_curvature":
-                # 2-ch curvature in uint8 127-centered; map to [-1,1]
-                arr = _load_png(path).astype(np.float32)
-                if arr.ndim == 2:
-                    arr = np.expand_dims(arr, -1)
-                if self.cfg.resize is not None:
-                    arr = np.array(Image.fromarray(arr.astype(np.uint8)).resize(self.cfg.resize, Image.BILINEAR)).astype(np.float32)
-                tcurv = (torch.from_numpy(arr).permute(2,0,1) - 127.0) / 127.0
-                sample[t] = tcurv
-            else:
-                raise ValueError(f"Unsupported task: {t}")
-        sample["filename"] = fname
-        sample["building"] = b
-        return sample
+        num_items = len(self.items)
+        attempt = 0
+        current_idx = idx % num_items
+        while attempt < num_items:
+            if current_idx in self._bad_indices:
+                current_idx = (current_idx + 1) % num_items
+                attempt += 1
+                continue
+            b, rgb_dir, fname = self.items[current_idx]
+            rgb_path = os.path.join(rgb_dir, fname)
+            try:
+                sample: Dict[str, Any] = {"rgb": _load_rgb(rgb_path, self.cfg.resize)}
+                for t in self.tasks:
+                    path = self._path(b, t, fname)
+                    if not os.path.exists(path):
+                        raise FileNotFoundError(f"Missing target for task '{t}': {path}")
+                    if t in ("depth_euclidean","depth_zbuffer"):
+                        sample[t] = _load_depth(path, self.cfg.resize)
+                    elif t == "normal":
+                        sample[t] = _load_normals(path, self.cfg.resize)
+                    elif t == "reshading":
+                        sample[t] = _load_gray01(path, self.cfg.resize)
+                    elif t in ("edge_occlusion","edge_texture"):
+                        sample[t] = _load_edges01(path, self.cfg.resize)
+                    elif t == "segment_semantic":
+                        sample[t] = _load_semantic(path, self.cfg.resize)
+                    elif t == "keypoints2d":
+                        sample[t] = _load_gray01(path, self.cfg.resize)
+                    elif t == "principal_curvature":
+                        arr = _load_png(path).astype(np.float32)
+                        if arr.ndim == 2:
+                            arr = np.expand_dims(arr, -1)
+                        if self.cfg.resize is not None:
+                            arr = np.array(Image.fromarray(arr.astype(np.uint8)).resize(self.cfg.resize, Image.BILINEAR)).astype(np.float32)
+                        tcurv = (torch.from_numpy(arr).permute(2,0,1) - 127.0) / 127.0
+                        sample[t] = tcurv
+                    else:
+                        raise ValueError(f"Unsupported task: {t}")
+                sample["filename"] = fname
+                sample["building"] = b
+                return sample
+            except (OSError, IOError, SyntaxError) as err:
+                self._bad_indices.add(current_idx)
+                if rgb_path not in self._bad_logged:
+                    self._bad_logged.add(rgb_path)
+                    print(f"[TaskonomyDataset] Skipping corrupt sample: {rgb_path} ({err})")
+                current_idx = (current_idx + 1) % num_items
+                attempt += 1
+        raise RuntimeError("No valid samples available after skipping corrupt entries.")
