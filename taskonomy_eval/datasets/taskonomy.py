@@ -31,7 +31,7 @@ def _is_valid_image(path: str) -> bool:
         with Image.open(path) as img:
             img.verify()
         return True
-    except (OSError, IOError):
+    except (OSError, IOError, SyntaxError):
         return False
 
 def _load_rgb(path: str, resize: Optional[Tuple[int,int]]=None) -> torch.Tensor:
