@@ -1,6 +1,0 @@
-compressed
-examples
-experiments
-son_goku
-taskonomy_eval
-taskonomy_son_goku_eval
