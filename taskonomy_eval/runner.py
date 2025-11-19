@@ -353,6 +353,39 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             warmup_steps=warmup_steps,
             device=device,
         )
+    elif cfg.method == "son_goku_adatask":
+        from taskonomy_eval.methods.son_goku_adatask_method import SonGokuAdaTaskMethod
+        method = SonGokuAdaTaskMethod(
+            model=model,
+            tasks=task_specs,
+            optimizer=opt,
+            shared_param_filter=shared_filter,
+            refresh_period=cfg.refresh_period,
+            tau_initial=cfg.tau_initial,
+            tau_target=cfg.tau_target,
+            tau_kind=cfg.tau_kind,
+            tau_warmup=cfg.tau_warmup,
+            tau_anneal=cfg.tau_anneal,
+            ema_beta=cfg.ema_beta,
+            min_updates_per_cycle=cfg.min_updates_per_cycle,
+        )
+
+    elif cfg.method == "son_goku_pcgrad":
+        from taskonomy_eval.methods.son_goku_pcgrad_method import SonGokuPCGradMethod
+        method = SonGokuPCGradMethod(
+            model=model,
+            tasks=task_specs,
+            optimizer=opt,
+            shared_param_filter=shared_filter,
+            refresh_period=cfg.refresh_period,
+            tau_initial=cfg.tau_initial,
+            tau_target=cfg.tau_target,
+            tau_kind=cfg.tau_kind,
+            tau_warmup=cfg.tau_warmup,
+            tau_anneal=cfg.tau_anneal,
+            ema_beta=cfg.ema_beta,
+            min_updates_per_cycle=cfg.min_updates_per_cycle,
+        )
     elif cfg.method == "mgda":
         from taskonomy_eval.methods.mgda_method import MGDAMethod
 

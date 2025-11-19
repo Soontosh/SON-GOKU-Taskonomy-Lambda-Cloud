@@ -79,6 +79,10 @@ class SonGokuScheduler:
         self.min_updates_per_cycle = max(1, int(min_updates_per_cycle))
         self.base_method = base_method
         self.grad_transform = gradient_transform
+        if self.base_method == "pcgrad":
+            self.grad_transform = self._pcgrad_transform
+        elif self.base_method == "adatask":
+            self.grad_transform = self._adatask_transform
         self.tau_schedule = tau_schedule or TauSchedule(kind="log", tau_initial=1.0, tau_target=0.25, warmup_steps=0, anneal_duration=0)
         self.device = device
         # Determine shared and head parameter sets
@@ -133,7 +137,7 @@ class SonGokuScheduler:
         Perform ONE training step on the currently active color group.
         Args:
             batches_by_task: dict {task_name: batch} for ANY tasks to be used this step.
-                              Only batches for active tasks are consumed.
+                            Only batches for active tasks are consumed.
         Returns:
             dict of per-task scalar losses for the active tasks.
         """
@@ -145,32 +149,54 @@ class SonGokuScheduler:
 
         # Collect per-task flattened grads (shared) for optional transforms and EMA updates
         per_task_flat: Dict[str, Tensor] = {}
+        # NEW: also capture per-task HEAD grads so we can re-weight them (AdaTask combo)
+        per_task_head: Dict[str, List[Tensor]] = {}
+
         # Compute grads task-by-task
         for i in active:
             spec = self.tasks[i]
             batch = batches_by_task.get(spec.name, None)
             if batch is None:
-                raise ValueError(f"Missing batch for active task '{spec.name}'. Provide batches_by_task[\"{spec.name}\"].")
+                raise ValueError(
+                    f"Missing batch for active task '{spec.name}'. Provide batches_by_task[\"{spec.name}\"]."
+                )
             # Clear all grads before single-task backward
             self.optimizer.zero_grad(set_to_none=True)
             loss = spec.loss_fn(self.model, batch)
             if not torch.is_tensor(loss):
                 raise RuntimeError("loss_fn must return a scalar Tensor.")
             loss.backward()
+
             # Accumulate per-parameter grads
             # Shared
             for acc, p in zip(shared_sum, self.shared_params):
                 if p.grad is not None:
                     acc.add_(p.grad)
+
             # Heads (only this task's head list is known)
             if len(self.head_params[i]) > 0:
                 for acc, p in zip(head_sums[i], self.head_params[i]):
                     if p.grad is not None:
                         acc.add_(p.grad)
+
+            # NEW: capture raw head grads for this task (for potential AdaTask re-weighting)
+            captured_head_grads: List[Tensor] = []
+            for p in self.head_params[i]:
+                g = torch.zeros_like(p) if p.grad is None else p.grad.detach().clone()
+                captured_head_grads.append(g)
+            per_task_head[spec.name] = captured_head_grads
+
             loss_log[spec.name] = float(loss.detach().item())
+
             # Build flattened shared grad for EMA and optional transform
-            flat = torch.cat([ (torch.zeros_like(p).view(-1) if p.grad is None else p.grad.view(-1)) for p in self.shared_params ])
+            flat = torch.cat(
+                [
+                    (torch.zeros_like(p).view(-1) if p.grad is None else p.grad.view(-1))
+                    for p in self.shared_params
+                ]
+            )
             per_task_flat[spec.name] = flat.detach().clone()
+
             # EMA update for active tasks
             with torch.no_grad():
                 prev = self._emas[i]
@@ -179,7 +205,7 @@ class SonGokuScheduler:
                 else:
                     self._emas[i] = self.ema_beta * prev + (1.0 - self.ema_beta) * flat
 
-        # Optional transform/surgery on per-task shared grads (within the active group)
+        # Optional transform/surgery on per-task SHARED grads (within the active group)
         if self.grad_transform is not None:
             transformed = self.grad_transform(per_task_flat)
             # rebuild shared_sum from transformed flats to ensure consistency
@@ -202,6 +228,21 @@ class SonGokuScheduler:
                 for acc, (lo, hi), p in zip(shared_sum, offsets, self.shared_params):
                     acc.add_(flat[lo:hi].view_as(p))
 
+        # If using AdaTask combo, scale HEAD grads with the same per-task weights
+        # (weights are prepared by _adatask_transform via self._last_adatask_weights)
+        if getattr(self, "base_method", None) == "adatask":
+            # zero out head_sums for active tasks, then re-accumulate with weights
+            for i in active:
+                for acc in head_sums[i]:
+                    acc.zero_()
+            device = shared_sum[0].device if len(shared_sum) > 0 else self.shared_params[0].device
+            weights: Dict[str, Tensor] = getattr(self, "_last_adatask_weights", {})
+            for i in active:
+                name = self.tasks[i].name
+                w = weights.get(name, torch.tensor(1.0, device=device))
+                for acc, g in zip(head_sums[i], per_task_head.get(name, [])):
+                    acc.add_(w * g)
+
         # Now apply the combined grads: set .grad tensors and step the optimizer once
         self.optimizer.zero_grad(set_to_none=True)
         for p, g in zip(self.shared_params, shared_sum):
@@ -220,6 +261,85 @@ class SonGokuScheduler:
         self._step_in_cycle = (self._step_in_cycle + 1) % max(1, self._schedule_len)
         self._maybe_log_state()
         return loss_log
+    
+    def _pcgrad_transform(self, per_task_flat: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
+        """
+        PCGrad surgery on flattened *shared* gradients only (within the active group).
+        per_task_flat: {task_name: flat_grad_vector}
+        returns: transformed flats with the same dict keys.
+        """
+        names = list(per_task_flat.keys())
+        flats = [per_task_flat[n].detach().clone() for n in names]  # [T, D]
+        T = len(flats)
+        if T <= 1:
+            return {n: flats[i] for i, n in enumerate(names)}
+
+        # Pairwise projection in random order, using original grads as references
+        import random
+        originals = [f.clone() for f in flats]
+        for i in range(T):
+            order = list(range(T))
+            random.shuffle(order)
+            for j in order:
+                if j == i:
+                    continue
+                gi = flats[i]
+                gj = originals[j]
+                gij = torch.dot(gi, gj)
+                if gij < 0:
+                    denom = gj.norm().pow(2).clamp_min(1e-12)
+                    flats[i] = gi - (gij / denom) * gj
+
+        return {n: flats[i] for i, n in enumerate(names)}
+    
+    def _adatask_transform(self, per_task_flat: Dict[str, torch.Tensor]) -> Dict[str, torch.Tensor]:
+        """
+        AdaTask-style *task-level* weighting over active tasks:
+        - compute EMA of per-task grad norms,
+        - set weights proportional to inverse EMA,
+        - normalize weights to average 1,
+        - scale *shared* flats by the weights,
+        - store weights so we can also scale head grads after this block.
+        """
+        # --- setup state on first use ---
+        if not hasattr(self, "_adatask_ema"):
+            self._adatask_ema: Dict[str, torch.Tensor] = {}
+        if not hasattr(self, "_adatask_beta"):
+            self._adatask_beta: float = 0.9
+        if not hasattr(self, "_last_adatask_weights"):
+            self._last_adatask_weights: Dict[str, torch.Tensor] = {}
+
+        # 1) current norms
+        norms: Dict[str, torch.Tensor] = {
+            name: flat.norm() + 1e-8 for name, flat in per_task_flat.items()
+        }
+
+        # 2) EMA update
+        with torch.no_grad():
+            for name, nval in norms.items():
+                prev = self._adatask_ema.get(name, None)
+                if prev is None:
+                    self._adatask_ema[name] = nval.detach()
+                else:
+                    self._adatask_ema[name] = (
+                        self._adatask_beta * prev + (1.0 - self._adatask_beta) * nval.detach()
+                    )
+
+            # 3) inverse-EMA weights, normalized to mean 1
+            inv = {name: (1.0 / self._adatask_ema[name].clamp_min(1e-8)) for name in per_task_flat}
+            s = torch.stack([v for v in inv.values()]).sum()
+            k = float(len(inv))
+            weights = {name: (v * (k / (s + 1e-8))) for name, v in inv.items()}
+
+            # store for head scaling after transform
+            self._last_adatask_weights = weights
+
+        # 4) scale shared flats
+        transformed = {
+            name: weights[name].to(flat.device, flat.dtype) * flat
+            for name, flat in per_task_flat.items()
+        }
+        return transformed
 
     @torch.no_grad()
     def _refresh_and_recolor(self) -> None:

@@ -36,6 +36,7 @@ class SonGokuMethod(MultiTaskMethod):
         refresh_period: int = 32,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        base_method: str = "vanilla", # "vanilla" | "adatask" | "pcgrad"
         log_dir: str | None = None,
         log_interval: int = 50,
     ) -> None:
@@ -66,6 +67,7 @@ class SonGokuMethod(MultiTaskMethod):
             min_updates_per_cycle=min_updates_per_cycle,
             log_interval=log_interval,
             log_path=log_path,
+            base_method=base_method,
         )
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:
