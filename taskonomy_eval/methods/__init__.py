@@ -10,10 +10,12 @@ from .adatask_method import AdaTaskMethod
 from .nashmtl_method import NashMTLMethod
 from .fairgrad_method import FairGradMethod
 from .famo_method import FAMOMethod 
+from .son_goku_gradnorm_method import SonGokuGradNormWarmStartMethod
 
 METHOD_REGISTRY = {
     "son_goku": SonGokuMethod,
     "gradnorm": GradNormMethod,
+    "son_goku_gradnorm": SonGokuGradNormWarmStartMethod,
     "mgda": MGDAMethod,
     "pcgrad": PCGradMethod,
     "cagrad": CAGradMethod,

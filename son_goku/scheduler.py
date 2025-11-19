@@ -61,6 +61,7 @@ class SonGokuScheduler:
         tau_schedule: Optional[TauSchedule] = None,
         ema_beta: float = 0.9,  # beta in [0,1)
         min_updates_per_cycle: int = 1,  # f_min: at least this many slots per cycle for each task
+        base_method: str = "vanilla",  # "vanilla" | "adatask" | "pcgrad"
         eps_cosine: float = 1e-12,
         gradient_transform: Optional[GradientTransform] = None,  # e.g., PCGrad hook
         device: Optional[torch.device] = None,
@@ -76,6 +77,7 @@ class SonGokuScheduler:
         self.ema_beta = ema_beta
         self.eps_cosine = eps_cosine
         self.min_updates_per_cycle = max(1, int(min_updates_per_cycle))
+        self.base_method = base_method
         self.grad_transform = gradient_transform
         self.tau_schedule = tau_schedule or TauSchedule(kind="log", tau_initial=1.0, tau_target=0.25, warmup_steps=0, anneal_duration=0)
         self.device = device

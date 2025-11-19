@@ -205,6 +205,9 @@ class ExperimentConfig:
     cagrad_inner_lr: float = 0.1
     cagrad_inner_steps: int = 20
 
+    # For SON-GOKU+GradNorm warm start
+    gradnorm_warmup_epochs: int = 3  # matches paper: 3 epochs of GradNorm
+
 def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     set_seed(cfg.seed)
     os.makedirs(cfg.out_dir, exist_ok=True)
@@ -288,6 +291,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         for t in cfg.tasks
     ]
 
+    # Track steps per epoch for GradNorm+SON-GOKU warm start option
+    steps_per_epoch = len(train_loader)
+
     # Instantiate method
     MethodCls = METHOD_REGISTRY[cfg.method]
 
@@ -320,6 +326,31 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             base_optimizer=opt,
             alpha=cfg.gradnorm_alpha,
             weight_lr=cfg.gradnorm_lr,
+            device=device,
+        )
+    elif cfg.method == "son_goku_gradnorm":
+        from taskonomy_eval.methods.son_goku_gradnorm_method import (
+            SonGokuGradNormWarmStartMethod,
+        )
+
+        warmup_steps = cfg.gradnorm_warmup_epochs * steps_per_epoch
+
+        method = SonGokuGradNormWarmStartMethod(
+            model=model,
+            tasks=task_specs,
+            optimizer=opt,
+            shared_param_filter=shared_filter,
+            refresh_period=cfg.refresh_period,
+            tau_initial=cfg.tau_initial,
+            tau_target=cfg.tau_target,
+            tau_kind=cfg.tau_kind,
+            tau_warmup=cfg.tau_warmup,
+            tau_anneal=cfg.tau_anneal,
+            ema_beta=cfg.ema_beta,
+            min_updates_per_cycle=cfg.min_updates_per_cycle,
+            gradnorm_alpha=cfg.gradnorm_alpha,
+            gradnorm_weight_lr=cfg.gradnorm_lr,
+            warmup_steps=warmup_steps,
             device=device,
         )
     elif cfg.method == "mgda":
