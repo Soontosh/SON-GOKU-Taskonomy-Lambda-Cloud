@@ -208,6 +208,9 @@ class ExperimentConfig:
     # For SON-GOKU+GradNorm warm start
     gradnorm_warmup_epochs: int = 3  # matches paper: 3 epochs of GradNorm
 
+    # Logging
+    log_train_every: int = max(64, refresh_period) # number of steps between train CSV rows (0 = off)
+
 def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     set_seed(cfg.seed)
     os.makedirs(cfg.out_dir, exist_ok=True)
@@ -486,6 +489,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         # Future methods can be wired here as needed
         method = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
 
+    log_every = getattr(cfg, "log_train_every", 0)  # 0 disables logging
+    train_csv = os.path.join(cfg.out_dir, "train_log.csv")
+
     # Training loop
     global_step = 0
     for epoch in range(cfg.epochs):
@@ -500,9 +506,28 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             }
 
             logs = method.step(batch, global_step)
+
+            if log_every:
+                if epoch == 0 and step == 0:
+                    with open(train_csv, "w") as f:
+                        f.write(
+                            "global_step,epoch,step," +
+                            ",".join(sorted([k for k in logs.keys() if k.startswith("loss/")])) +
+                            "\n"
+                        )
+                if (global_step % log_every) == 0:
+                    with open(train_csv, "a") as f:
+                        f.write(
+                            f"{global_step},{epoch+1},{step}," +
+                            ",".join(f"{logs.get(k, np.nan)}"
+                                     for k in sorted([k for k in logs if k.startswith('loss/')])) +
+                            "\n"
+                        )
+
             if step % 50 == 0:
                 msg = " | ".join(f"{k}:{v:.3f}" for k, v in sorted(logs.items()) if k.startswith("loss/"))
                 print(f"[{cfg.method}] epoch {epoch+1} step {step}: {msg}")
+        
         dt = time.time() - t0
         print(f"[{cfg.method}] epoch {epoch+1} done in {dt/60:.1f} min")
 
@@ -547,6 +572,8 @@ def parse_args() -> argparse.Namespace:
                     help="E.g. son_goku gradnorm")
     ap.add_argument("--seeds", type=int, nargs="+", default=[0])
     ap.add_argument("--out_dir", type=str, default="experiments")
+    ap.add_argument("--log_train_every", type=int, default=0,
+                help="Write train_log.csv every N steps (0 disables)")
 
     # SON-GOKU hyperparams
     ap.add_argument("--refresh_period", type=int, default=32)
