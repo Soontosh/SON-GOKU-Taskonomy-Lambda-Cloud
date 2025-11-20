@@ -13,6 +13,10 @@ from .famo_method import FAMOMethod
 from .son_goku_gradnorm_method import SonGokuGradNormWarmStartMethod
 from .son_goku_adatask_method import SonGokuAdaTaskMethod 
 from .son_goku_pcgrad_method import SonGokuPCGradMethod
+from taskonomy_eval.methods.son_goku_static_method import SonGokuStaticOneShotMethod
+from taskonomy_eval.methods.son_goku_single_step_method import SonGokuSingleStepMethod
+from taskonomy_eval.methods.son_goku_graph_ablate import SonGokuGraphAblateMethod
+from taskonomy_eval.methods.joint_method import JointMethod
 
 METHOD_REGISTRY = {
     "son_goku": SonGokuMethod,
@@ -20,6 +24,10 @@ METHOD_REGISTRY = {
     "son_goku_gradnorm": SonGokuGradNormWarmStartMethod,
     "son_goku_adatask": SonGokuAdaTaskMethod,
     "son_goku_pcgrad": SonGokuPCGradMethod,
+    "son_goku_static": SonGokuStaticOneShotMethod, # ablation 1
+    "son_goku_single_step": SonGokuSingleStepMethod, # ablation 2
+    "son_goku_graph_ablate": SonGokuGraphAblateMethod, # ablation 3: new graph ablation
+    "joint": JointMethod, # Testing
     "mgda": MGDAMethod,
     "pcgrad": PCGradMethod,
     "cagrad": CAGradMethod,

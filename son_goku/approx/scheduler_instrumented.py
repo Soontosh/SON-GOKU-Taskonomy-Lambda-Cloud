@@ -7,6 +7,7 @@ import torch
 from torch import nn, optim
 
 from son_goku import TaskSpec, TauSchedule
+from son_goku.approx.graph_build import adjacency_from_cos, calibrate_tau_for_density, knn_k_for_density, edge_density
 from .oracles import BaseCosineOracle, ExactOracle
 from .coloring import build_adjacency, welsh_powell_coloring
 
@@ -92,9 +93,9 @@ class SonGokuInstrumentedScheduler:
         compute_exact_shadow: bool = True,
         random_groups_control: bool = False,
         measure_refresh_memory: bool = True,
-        # ------------------ NEW: adaptive τ controls ------------------
+        # ------------------ NEW: adaptive tau controls ------------------
         adaptive_tau_percentile: Optional[float] = None,  # e.g., 0.7 or 70 for 70th percentile
-        adaptive_tau_clip: Tuple[float, float] = (-1.0, 1.0),
+        adaptive_tau_clip: Tuple[float, float] = (-1.0, 1.0)
     ):
         self.model = model
         self.tasks = list(tasks)
@@ -118,6 +119,11 @@ class SonGokuInstrumentedScheduler:
             adaptive_tau_percentile = adaptive_tau_percentile / 100.0
         self.adaptive_tau_percentile = adaptive_tau_percentile
         self.adaptive_tau_clip = adaptive_tau_clip
+
+        self.graph_mode = getattr(self, "graph_mode", "threshold")
+        self.graph_knn_k = getattr(self, "graph_knn_k", 3)
+        self.graph_quantile_p = getattr(self, "graph_quantile_p", 0.3)
+        self.graph_density_target = getattr(self, "graph_density_target", None)  # Optional[float]
 
         self.K = len(self.tasks)
         self._ema = torch.zeros(self.K, sum(p.numel() for p in self.shared_params), device=self.device)
@@ -183,9 +189,31 @@ class SonGokuInstrumentedScheduler:
             tau = float(max(lo, min(hi, tau_val)))
             tau_p = float(self.adaptive_tau_percentile)
 
-        # 3) adjacency + coloring
-        A_hat = build_adjacency(C_hat, tau)
-        colors_hat, ctime = welsh_powell_coloring(A_hat, self._last_colors if self.use_warmstart else None)
+        # 3) adjacency + coloring (graph rule + optional density match)
+        mode = getattr(self, "graph_mode", "threshold")
+        knn_k = int(getattr(self, "graph_knn_k", 3))
+        q_p   = float(getattr(self, "graph_quantile_p", 0.3))
+        dens  = getattr(self, "graph_density_target", None)
+
+        # If you enabled density matching, calibrate the parameters per refresh
+        if dens is not None:
+            dens = float(max(0.0, min(1.0, dens)))
+            if mode in ("threshold", "signed", "quantile"):
+                # threshold: derive tau by percentile; signed: no parameter to tune; quantile: set p = density
+                if mode == "threshold":
+                    tau = calibrate_tau_for_density(C_hat, dens)
+                elif mode == "quantile":
+                    q_p = dens
+                # signed uses its natural density
+            if mode == "knn":
+                knn_k = knn_k_for_density(self.K, dens)
+
+        # Build A_hat using the selected graph rule
+        A_hat = adjacency_from_cos(C_hat, mode=mode, tau=tau, knn_k=knn_k, quantile_p=q_p)
+
+        colors_hat, ctime = welsh_powell_coloring(
+            A_hat, self._last_colors if self.use_warmstart else None
+        )
 
         # 4) groups (or random control)
         groups_coloring: Dict[int, List[int]] = {}
@@ -211,8 +239,11 @@ class SonGokuInstrumentedScheduler:
         if self.compute_exact_shadow:
             exact_res = ExactOracle().build(self._ema)
             C = exact_res.cos
-            A = build_adjacency(C, tau)
+
+            # Use the *same* graph rule/parameters that produced A_hat
+            A = adjacency_from_cos(C, mode=mode, tau=tau, knn_k=knn_k, quantile_p=q_p)
             colors, _ = welsh_powell_coloring(A, None)
+
             with torch.no_grad():
                 iu2, ju2 = torch.triu_indices(self.K, self.K, offset=1)
                 err = (C_hat[iu2, ju2] - C[iu2, ju2]).abs()
@@ -252,6 +283,12 @@ class SonGokuInstrumentedScheduler:
             "random_groups": bool(self.random_groups_control),
             "ing_conf_color": ing_color,
             "ing_conf_active": ing_active,
+            #"log_mode": mode,
+            "graph_mode": mode,
+            "graph_tau": float(tau),
+            "graph_knn_k": float(knn_k),
+            "graph_quantile_p": float(q_p),
+            "graph_density": edge_density(A_hat), # REMOVE FOR HIGHER TRAINING SPEED IF NEEDED.
             **fidel,
             **mem_log,
         }
