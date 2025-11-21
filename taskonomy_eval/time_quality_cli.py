@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate, METHOD_REGISTRY
+    build_task_loss, evaluate, METHOD_REGISTRY, maybe_set_graph_dump_dir
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -95,6 +95,7 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
         shared_param_filter=shared_filter,
         device=device,
     )
+    maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
     # Training loop — measure wall-clock and throughput
     total_imgs = 0

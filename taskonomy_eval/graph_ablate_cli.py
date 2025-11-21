@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate, METHOD_REGISTRY
+    build_task_loss, evaluate, METHOD_REGISTRY, maybe_set_graph_dump_dir
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -98,6 +98,7 @@ def _run_one(seed: int, cfg: Cfg, graph_mode: str,
         graph_quantile_p=(q_p if q_p is not None else 0.3),
         graph_density_target=dens,
     )
+    maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
     t0 = time.time()
     for _ in range(cfg.epochs):

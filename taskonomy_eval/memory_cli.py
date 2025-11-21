@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 # Reuse your helpers
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate,
+    build_task_loss, evaluate, maybe_set_graph_dump_dir,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -221,6 +221,7 @@ def run_m1_for_method(seed: int, cfg: MemCfg, method: str) -> Dict[str, Any]:
         # Same pattern as in runner.py
         task_specs = specs
         method_obj = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
+        maybe_set_graph_dump_dir(method_obj, os.path.join(cfg.out_dir, "graphs"))
         global_step = {"i": 0}
         def step_fn(batch):
             global_step["i"] += 1

@@ -23,6 +23,7 @@ from taskonomy_eval.models.mtl_unet import TaskonomyMTL
 from taskonomy_eval.utils.metrics import depth_metrics, normal_metrics, bce_f1, miou
 
 from son_goku import TaskSpec
+from son_goku.approx.scheduler_instrumented import SonGokuInstrumentedScheduler
 from taskonomy_eval.methods.base import METHOD_REGISTRY
 # Import to trigger registration side effects
 from taskonomy_eval.methods import son_goku_method as _son_goku_method  # noqa: F401
@@ -50,6 +51,15 @@ class _Tee:
     def flush(self) -> None:
         for stream in self.streams:
             stream.flush()
+
+
+def maybe_set_graph_dump_dir(method: Any, dump_dir: str) -> None:
+    """Attach a graph-dump directory to SON-GOKU instrumented schedulers if present."""
+    if not dump_dir:
+        return
+    sched = getattr(method, "sched", None)
+    if isinstance(sched, SonGokuInstrumentedScheduler):
+        sched.dump_graph_dir = dump_dir
 
 
 # ---------- shared helpers ----------
@@ -488,6 +498,8 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
     else:
         # Future methods can be wired here as needed
         method = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
+
+    maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
     log_every = getattr(cfg, "log_train_every", 0)  # 0 disables logging
     train_csv = os.path.join(cfg.out_dir, "train_log.csv")

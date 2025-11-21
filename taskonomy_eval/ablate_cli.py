@@ -11,7 +11,7 @@ from torch.utils.data import DataLoader
 
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate, METHOD_REGISTRY
+    build_task_loss, evaluate, METHOD_REGISTRY, maybe_set_graph_dump_dir
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -100,6 +100,7 @@ def _run_one(seed: int, cfg: AblateCfg, method_key: str):
         min_updates_per_cycle=cfg.min_updates_per_cycle,
         device=device,
     )
+    maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
     t0 = time.time()
     for _ in range(cfg.epochs):
