@@ -330,7 +330,7 @@ python prepare_taskonomy_data.py \
   --download-split all \
   --domains all \
   --connections-total 32 \
-  --name "Santosh Patapati" \
+  --name "Santosh%20Patapati" \
   --email "sapatapatiwork@gmail.com" \
   --agree_all \
   --train-frac 0.7 \
