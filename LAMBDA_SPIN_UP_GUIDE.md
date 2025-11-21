@@ -184,6 +184,7 @@ ssh -T git@github.com
 
 ### 6.2 Clone onto the Lambda instance
 
+<!--
 SSH into the instance, activate your venv:
 
 ```bash
@@ -191,6 +192,7 @@ ssh ubuntu@<INSTANCE_IP>
 source ~/venvs/taskonomy-gpu/bin/activate
 cd ~
 ```
+-->
 
 Then clone the repo (SSH form is best for private access):
 
