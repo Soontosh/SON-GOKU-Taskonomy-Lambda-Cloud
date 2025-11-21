@@ -252,7 +252,7 @@ This uses the `pyproject.toml` to install `son_goku` in **editable mode**, so an
 Install a few extra runtime deps if needed:
 
 ```bash
-pip install omnidata-tools numpy tqdm
+pip install omnidata-tools numpy tqdm Pillow
 ```
 
 ---
