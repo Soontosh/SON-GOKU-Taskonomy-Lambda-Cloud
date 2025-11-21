@@ -295,6 +295,23 @@ class SonGokuInstrumentedScheduler:
         self._refresh_logs.append(log)
         self._last_refresh_log = log
 
+        dump_dir = getattr(self, "dump_graph_dir", None) # NEED TO SPECIFY TO LOG TASK GRAPH
+        if dump_dir:
+            import os, json
+            os.makedirs(dump_dir, exist_ok=True)
+            idx = len(self._refresh_logs)  # refresh index
+            # save edge list (upper triangle) and colors
+            iu, ju = torch.triu_indices(self.K, self.K, offset=1)
+            edges = [(int(i), int(j)) for i, j in zip(iu.tolist(), ju.tolist()) if bool(A_hat[i, j].item())]
+            with open(os.path.join(dump_dir, f"graph_refresh_{idx:04d}.json"), "w") as f:
+                json.dump({
+                    "step": int(self._step),
+                    "tau": float(tau),
+                    "colors": [int(c) for c in colors_hat],
+                    "edges": edges
+                }, f)
+
+
     def step(self, batch: Mapping[str, Any]) -> Dict[str, float]:
         self._step += 1
         batches = {spec.name: batch for spec in self.tasks}
