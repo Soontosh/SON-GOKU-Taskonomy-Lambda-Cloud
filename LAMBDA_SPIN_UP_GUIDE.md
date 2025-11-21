@@ -157,13 +157,14 @@ You’ll know the venv is active when your prompt is prefixed with `(taskonomy-g
 
 ### 6.1 Add your SSH key to GitHub
 
-From **WSL Ubuntu** (same key you used for Lambda):
+Generate a key:
 
 ```bash
+ssh-keygen -t ed25519 -C "sapatapatiwork@gmail.com"
 cat ~/.ssh/id_ed25519.pub
 ```
 
-1. Copy the output.
+1. Copy the whole line (starts with `ssh-ed25519`)
 2. On GitHub:
 
    - Go to **Settings → SSH and GPG keys → New SSH key**.
