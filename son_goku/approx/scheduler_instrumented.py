@@ -295,7 +295,10 @@ class SonGokuInstrumentedScheduler:
         self._refresh_logs.append(log)
         self._last_refresh_log = log
 
-        dump_dir = getattr(self, "dump_graph_dir", None) # NEED TO SPECIFY TO LOG TASK GRAPH
+        dump_dir = os.environ.get("SON_GOKU_DUMP_DIR") # NEED TO SPECIFY TO LOG TASK GRAPHS OVER TIME FOR VISUALIZATION
+
+        if not dump_dir: dump_dir = getattr(self, "dump_graph_dir", None) # NEED TO SPECIFY TO LOG TASK GRAPH
+        
         if dump_dir:
             import os, json
             os.makedirs(dump_dir, exist_ok=True)
