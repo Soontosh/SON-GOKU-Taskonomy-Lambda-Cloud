@@ -286,7 +286,7 @@ cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
 rm prepare_taskonomy_data.py
 touch prepare_taskonomy_data.py
 nano prepare_taskonomy_data.py
-# paste the full script here, then save+exit
+# paste the full script here, then ctrl+O to save, then ctrl+X to exit
 chmod +x prepare_taskonomy_data.py
 ```
 
