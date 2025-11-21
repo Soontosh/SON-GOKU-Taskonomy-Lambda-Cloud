@@ -65,6 +65,7 @@ class SonGokuScheduler:
         eps_cosine: float = 1e-12,
         gradient_transform: Optional[GradientTransform] = None,  # e.g., PCGrad hook
         device: Optional[torch.device] = None,
+        dump_graph_dir: str | None = None, # Optional. Determines where and whether or not you will save task graphs throughout training.
         log_interval: Optional[int] = None,
         log_path: Optional[str] = None,
     ):
@@ -116,6 +117,8 @@ class SonGokuScheduler:
         self._last_adj: Optional[Dict[int, set[int]]] = None
         self._last_rho: Optional[Tensor] = None
         self._last_tau: Optional[float] = None
+        self.dump_graph_dir = dump_graph_dir or os.environ.get("SON_GOKU_DUMP_DIR")
+        self._refresh_count = 0  # track refresh index for file names
 
     def current_tau(self) -> float:
         return float(self.tau_schedule.value(self._t))
@@ -341,6 +344,33 @@ class SonGokuScheduler:
         }
         return transformed
 
+    def _maybe_dump_graph(self, A_bool: torch.Tensor, colors: torch.Tensor, tau: float, step: int) -> None:
+        """Persist the current task graph (edge list) + colors for visualization.
+        Overhead is near-zero; called only when dump_graph_dir is set.
+        """
+        if not self.dump_graph_dir:
+            return
+        try:
+            os.makedirs(self.dump_graph_dir, exist_ok=True)
+            idx = self._refresh_count
+            # upper-tri edge list to keep files small
+            iu, ju = torch.triu_indices(A_bool.shape[0], A_bool.shape[1], offset=1)
+            mask = A_bool[iu, ju]
+            edges = [(int(i), int(j)) for i, j, keep in zip(iu.tolist(), ju.tolist(), mask.tolist()) if keep]
+            out = {
+                "step": int(step),
+                "refresh_index": int(idx),
+                "tau": float(tau),
+                "colors": [int(c) for c in (colors.tolist() if isinstance(colors, torch.Tensor) else colors)],
+                "edges": edges,
+            }
+            path = os.path.join(self.dump_graph_dir, f"graph_refresh_{idx:04d}.json")
+            with open(path, "w") as f:
+                json.dump(out, f)
+        except Exception:
+            # Never fail training if logging has issues
+            pass
+
     @torch.no_grad()
     def _refresh_and_recolor(self) -> None:
         # At refresh, optionally probe all tasks to update EMA (small batches via provider)
@@ -374,6 +404,29 @@ class SonGokuScheduler:
         self._last_adj = adj
         self._last_rho = rho.detach().cpu() if isinstance(rho, Tensor) else None
         self._last_tau = float(tau)
+
+        # 1) Convert classes (list of groups) -> color vector [K]
+        K = len(self.tasks)
+        colors_vec = torch.full((K,), -1, dtype=torch.long)
+        for c_idx, group in enumerate(self._classes):
+            for t_idx in group:
+                colors_vec[int(t_idx)] = int(c_idx)
+
+        # 2) Ensure adjacency is a boolean torch tensor
+        if isinstance(adj, torch.Tensor):
+            A_bool = adj.bool()
+        else:
+            # adj may be a numpy array / nested list; ensure bool tensor
+            A_bool = torch.as_tensor(adj, dtype=torch.bool)
+
+        # 3) Step index (best-effort). If you track step elsewhere, use that.
+        step_val = int(getattr(self, "_step", getattr(self, "global_step", 0)))
+
+        # 4) Persist snapshot (no-op if dump_graph_dir is None)
+        self._maybe_dump_graph(A_bool, colors_vec, float(tau), step_val)
+
+        # 5) Increment refresh counter for consistent filenames
+        self._refresh_count += 1
 
     def schedule_snapshot(self) -> List[List[str]]:
         return [[ self.tasks[i].name for i in cls ] for cls in self._classes]
