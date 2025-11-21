@@ -161,6 +161,11 @@ Generate a key:
 
 ```bash
 ssh-keygen -t ed25519 -C "sapatapatiwork@gmail.com"
+```
+
+Press Enter to accept the default file location. Then, display the OpenSSH Public Key:
+
+```bash
 cat ~/.ssh/id_ed25519.pub
 ```
 
