@@ -454,8 +454,8 @@ def main():
 
     if cfg.exp == "m1_peak":
         rows = []
-        for s in cfg.seeds:
-            for m in cfg.methods:
+        for m in cfg.methods:
+            for s in cfg.seeds:
                 print(f"[memory] M1 seed={s} method={m}")
                 res = run_m1_for_method(s, cfg, m)
                 rows.append(res)
@@ -466,8 +466,8 @@ def main():
 
     if cfg.exp == "m2_refresh":
         rows = []
-        for s in cfg.seeds:
-            for tech in cfg.techniques:
+        for tech in cfg.techniques:
+            for s in cfg.seeds:
                 print(f"[memory] M2 seed={s} technique={tech}")
                 res = run_m2_for_tech(s, cfg, tech)
                 rows.append(res)

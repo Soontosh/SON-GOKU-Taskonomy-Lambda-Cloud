@@ -642,11 +642,12 @@ def main():
 
             if not valid_methods:
                 print("No valid methods to run after filtering unknown entries.")
-            for method in valid_methods:
+
+            for seed in seeds:
                 if interrupted:
                     break
-                method_failed = False
-                for seed in seeds:
+                for method in valid_methods:
+                    method_failed = False
                     if interrupted:
                         break
                     run_dir = os.path.join(args.out_dir, f"{method}_seed{seed}")

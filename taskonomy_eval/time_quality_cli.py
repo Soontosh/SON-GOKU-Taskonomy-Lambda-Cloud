@@ -163,8 +163,8 @@ def main():
         json.dump(asdict(cfg), f, indent=2)
 
     rows: List[Dict[str, Any]] = []
-    for m in cfg.methods:
-        for s in cfg.seeds:
+    for s in cfg.seeds:
+        for m in cfg.methods:
             print(f"[time_quality] method={m} seed={s}")
             res = _run_one(cfg, m, s)
             rows.append(res)
