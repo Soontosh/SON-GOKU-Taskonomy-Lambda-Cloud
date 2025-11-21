@@ -288,6 +288,8 @@ touch prepare_taskonomy_data.py
 nano prepare_taskonomy_data.py
 # paste the full script here, then ctrl+O to save, then ctrl+X to exit
 chmod +x prepare_taskonomy_data.py
+sudo mkdir -p /lambda/nfs/taskonomy
+sudo chown -R ubuntu:ubuntu /lambda/nfs/taskonomy
 ```
 
 No `sudo` is needed here: your filesystem is already mounted under `/lambda/nfs/<FILESYSTEM_NAME>` and writable by `ubuntu`.
