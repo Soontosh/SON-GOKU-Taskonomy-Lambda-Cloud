@@ -267,7 +267,7 @@ We’ll use:
   - Restructure into `data_root/split/building/domain/*.png`
   - Optionally create random train/val/test splits.
 
-### 8.1 Install Omnidata tools
+### 8.1 Install Omnidata tools and tmux
 
 With your venv active:
 
@@ -276,6 +276,19 @@ pip install omnidata-tools
 ```
 
 > ⚠️ If you use `--agree_all`, **you must** pass `--name` and `--email` or omnitools will raise a ValueError.
+
+Now, download `tmux` to run processes detached from SSH session:
+```
+sudo apt-get update && sudo apt-get install -y tmux
+```
+
+With this installed, you can wrap any command as follows:
+```bash
+tmux new -d -s <WHAT_TO_NAME_SUBPROCESS> \
+'bash -lc "
+[FULL COMMAND]
+" '
+```
 
 ### 8.2 Place `prepare_taskonomy_data.py` in the repo
 
@@ -321,8 +334,9 @@ Example (using the **debug** subset for quick tests):
 
 ```bash
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
-source ~/venvs/taskonomy-gpu/bin/activate
-
+tmux new -d -s prep \
+'bash -lc "
+source ~/venvs/taskonomy-gpu/bin/activate && \
 python prepare_taskonomy_data.py \
   --download-root /lambda/nfs/taskonomy \
   --reshape-root  /lambda/nfs/taskonomy/reshaped \
@@ -338,6 +352,7 @@ python prepare_taskonomy_data.py \
   --test-frac  0.2 \
   --max-retries 50
   --retry-wait 10
+"'
 ```
 
 Notes:
