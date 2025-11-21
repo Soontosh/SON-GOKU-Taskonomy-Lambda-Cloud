@@ -331,9 +331,9 @@ python prepare_taskonomy_data.py \
   --name "Santosh Patapati" \
   --email "sapatapatiwork@gmail.com" \
   --agree_all \
-  --train-frac 0.8 \
+  --train-frac 0.7 \
   --val-frac   0.1 \
-  --test-frac  0.1 \
+  --test-frac  0.2 \
 ```
 
 Notes:
