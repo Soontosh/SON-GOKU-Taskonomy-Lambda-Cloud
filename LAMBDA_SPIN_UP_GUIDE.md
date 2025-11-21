@@ -324,16 +324,16 @@ source ~/venvs/taskonomy-gpu/bin/activate
 python prepare_taskonomy_data.py \
   --download-root /lambda/nfs/taskonomy \
   --reshape-root  /lambda/nfs/taskonomy/reshaped \
-  --subset debug \
+  --subset medium \
   --download-split all \
-  --domains rgb depth_euclidean normal reshading \
-  --connections-total 16 \
-  --name "Your Name" \
-  --email "you@example.com" \
+  --domains all \
+  --connections-total 32 \
+  --name "Santosh Patapati" \
+  --email "sapatapatiwork@gmail.com" \
+  --agree_all \
   --train-frac 0.8 \
   --val-frac   0.1 \
   --test-frac  0.1 \
-  --force
 ```
 
 Notes:
