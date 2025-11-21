@@ -6,11 +6,11 @@ from pathlib import Path
 import random
 import shutil
 import os
-from typing import List, Set
+import time
+from typing import List, Set, Optional
 
 
-# A broad superset of Taskonomy/Omnidata domain names for discovery.
-# (Safe to expand over time; discovery walks the tree anyway.)
+# ---- Domain catalog (used for discovery) ------------------------------------
 KNOWN_DOMAIN_NAMES: Set[str] = {
     "rgb", "albedo", "depth_euclidean", "depth_zbuffer",
     "edge_occlusion", "edge_texture",
@@ -25,105 +25,67 @@ KNOWN_DOMAIN_NAMES: Set[str] = {
 }
 
 
-def run(cmd: List[str]):
-    print("[INFO] Running:", " ".join(cmd))
-    try:
-        result = subprocess.run(
-            cmd,
-            check=True,
-            stdout=subprocess.PIPE,
-            stderr=subprocess.PIPE,
-            text=True,
-        )
-    except FileNotFoundError:
-        print("ERROR: 'omnitools.download' not found in PATH. Did you install 'omnidata-tools'?", file=sys.stderr)
-        sys.exit(1)
-    except subprocess.CalledProcessError as exc:
-        print(f"[ERROR] omnitools.download exited with code {exc.returncode}.", file=sys.stderr)
-        if exc.stdout:
-            print("[omnitools stdout]\n" + exc.stdout, file=sys.stderr)
-        if exc.stderr:
-            print("[omnitools stderr]\n" + exc.stderr, file=sys.stderr)
-        raise
-    else:
-        if result.stdout:
-            print(result.stdout)
-        if result.stderr:
-            print(result.stderr, file=sys.stderr)
+# ---- Small helpers ----------------------------------------------------------
+def _p(s: str) -> None:
+    print(s, flush=True)
 
 
-def run_download(args) -> Path:
-    """
-    Call `omnitools.download` to fetch Taskonomy data.
-
-    Returns the *actual* raw destination directory used so the reshape step
-    can point to the right place (especially for --domains all).
-    """
-    if args.skip_download:
-        print("[INFO] Skipping download step.")
-        # If skipping, assume the provided path already contains the data.
-        return Path(args.download_root)
-
-    use_all = (len(args.domains) == 1 and args.domains[0].lower() == "all")
-
-    # For 'all', download into a subdir to avoid clobbering prior runs.
-    if use_all:
-        raw_dest = Path(args.download_root) / f"{args.component}_{args.subset}_all"
-        raw_dest.parent.mkdir(parents=True, exist_ok=True)
-    else:
-        raw_dest = Path(args.download_root)
-        raw_dest.mkdir(parents=True, exist_ok=True)
-
-    if not args.name or not args.email:
-        print("ERROR: --name and --email are required unless you use --skip-download.", file=sys.stderr)
-        sys.exit(1)
-
-    cmd = ["omnitools.download"]
-    if use_all:
-        if not args.agree_all:
-            print("ERROR: Using --domains all requires --agree_all to accept the license.", file=sys.stderr)
-            sys.exit(2)
-        cmd += ["all"]
-    else:
-        cmd += args.domains
-
-    cmd.extend([
-        "--components", args.component,
-        "--subset", args.subset,             # debug / tiny / medium / full / fullplus
-        "--split", args.download_split,      # train / val / test / all
-        "--dest", str(raw_dest),
-        "--connections_total", str(args.connections_total),
-        "--name", args.name,
-        "--email", args.email,
-    ])
-
-    if args.agree_all:
-        cmd.append("--agree_all")
-
-    run(cmd)
-    return raw_dest.resolve()
+def run_cmd(cmd: List[str], log_file: Optional[Path], max_retries: int, retry_wait: int) -> None:
+    """Run a CLI with retry + optional logging. Raises on final failure."""
+    attempt = 0
+    while True:
+        attempt += 1
+        _p(f"[INFO] Running (attempt {attempt}/{max_retries + 1}): {' '.join(cmd)}")
+        try:
+            proc = subprocess.run(
+                cmd, check=True, text=True,
+                stdout=subprocess.PIPE, stderr=subprocess.PIPE
+            )
+            if log_file:
+                log_file.parent.mkdir(parents=True, exist_ok=True)
+                with open(log_file, "a") as f:
+                    if proc.stdout:
+                        f.write(proc.stdout)
+                    if proc.stderr:
+                        f.write(proc.stderr)
+            if proc.stdout:
+                _p(proc.stdout)
+            if proc.stderr:
+                _p(proc.stderr)
+            return  # success
+        except FileNotFoundError:
+            _p("[ERROR] 'omnitools.download' not found. Did you `pip install omnidata-tools`?")
+            raise
+        except subprocess.CalledProcessError as exc:
+            # Append logs so you can inspect failures later
+            if log_file:
+                with open(log_file, "a") as f:
+                    if exc.stdout:
+                        f.write(exc.stdout)
+                    if exc.stderr:
+                        f.write(exc.stderr)
+            _p(f"[WARN] Command failed with code {exc.returncode}.")
+            if attempt > max_retries:
+                _p("[ERROR] Exhausted retries, giving up.")
+                raise
+            _p(f"[INFO] Sleeping {retry_wait}s then retrying …")
+            time.sleep(retry_wait)
 
 
 def discover_layout(download_root: Path, component: str):
     """
-    Figure out whether omnitools created:
-
-        <dest>/<domain>/<component>/<building> or
+    Detect whether omnitools created:
+        <dest>/<domain>/<component>/<building>  OR
         <dest>/<component>/<domain>/<building>
-
-    and return (layout_type, rgb_root, building_names).
+    Return (layout_type, rgb_root, building_names).
     """
-    # domain-first layout: <dest>/<domain>/<component>/<building>
     rgb_domain_first = download_root / "rgb" / component
-    # component-first layout: <dest>/<component>/<domain>/<building>
     rgb_component_first = download_root / component / "rgb"
 
     if rgb_domain_first.is_dir():
-        layout = "domain_first"
-        rgb_root = rgb_domain_first
+        layout, rgb_root = "domain_first", rgb_domain_first
     elif rgb_component_first.is_dir():
-        layout = "component_first"
-        rgb_root = rgb_component_first
+        layout, rgb_root = "component_first", rgb_component_first
     else:
         raise RuntimeError(
             f"Could not find RGB root under {download_root} "
@@ -139,12 +101,8 @@ def discover_layout(download_root: Path, component: str):
 
 def src_dir(download_root: Path, layout: str, component: str, domain: str, building: str) -> Path:
     """Return source directory for given domain + building."""
-    if layout == "domain_first":
-        # <dest>/<domain>/<component>/<building>
-        return download_root / domain / component / building
-    else:
-        # <dest>/<component>/<domain>/<building>
-        return download_root / component / domain / building
+    return (download_root / domain / component / building) if layout == "domain_first" \
+           else (download_root / component / domain / building)
 
 
 def make_splits(buildings, train_frac, val_frac, test_frac, seed):
@@ -157,20 +115,18 @@ def make_splits(buildings, train_frac, val_frac, test_frac, seed):
     rng.shuffle(buildings)
 
     n = len(buildings)
-    n_train = int(n * train_frac)
-    n_val = int(n * val_frac)
-    n_test = int(n * test_frac)
+    n_tr = int(n * train_frac)
+    n_v  = int(n * val_frac)
+    n_te = int(n * test_frac)
 
-    # Ensure all buildings get used: put leftovers into test
-    assigned = n_train + n_val + n_test
-    if assigned < n:
-        n_test += n - assigned
+    if (n_tr + n_v + n_te) < n:
+        n_te += n - (n_tr + n_v + n_te)
 
     splits = {}
     for i, b in enumerate(buildings):
-        if i < n_train:
+        if i < n_tr:
             splits[b] = "train"
-        elif i < n_train + n_val:
+        elif i < n_tr + n_v:
             splits[b] = "val"
         else:
             splits[b] = "test"
@@ -186,23 +142,88 @@ def discover_domains(raw_root: Path) -> List[str]:
     found: Set[str] = set()
     for root, dirs, files in os.walk(raw_root):
         base = os.path.basename(root)
-        if base in KNOWN_DOMAIN_NAMES:
-            # Keep if this looks like a real domain folder (has subdirs or image files)
-            if dirs or any(f.lower().endswith((".png", ".jpg", ".jpeg")) for f in files):
-                found.add(base)
-    # Ensure rgb, put it first
+        if base in KNOWN_DOMAIN_NAMES and (dirs or any(f.lower().endswith((".png", ".jpg", ".jpeg")) for f in files)):
+            found.add(base)
+
     domains = sorted(d for d in found if d != "rgb")
-    if "rgb" in found:
-        return ["rgb"] + domains
-    return domains
+    return (["rgb"] + domains) if "rgb" in found else domains
 
 
-def reshape(args):
+def report_progress(raw_root: Path, component: str) -> None:
+    """Print a per-domain progress report vs RGB count."""
+    try:
+        _, rgb_root, _ = discover_layout(raw_root, component)
+    except Exception as e:
+        _p(f"[INFO] Layout not ready yet: {e}")
+        return
+
+    rgb_n = sum(1 for _ in rgb_root.rglob("*") if _.is_file())
+    _p(f"[REPORT] RGB files: {rgb_n}")
+
+    domains = discover_domains(raw_root)
+    _p(f"[REPORT] Domains seen: {', '.join(domains)}")
+
+    def count_domain(d):
+        cand = [raw_root / d / component, raw_root / component / d]
+        droot = next((p for p in cand if p.is_dir()), None)
+        return 0 if not droot else sum(1 for _ in droot.rglob("*") if _.is_file())
+
+    for d in domains:
+        if d == "rgb":
+            continue
+        n = count_domain(d)
+        pct = 0.0 if rgb_n == 0 else 100.0 * (n / rgb_n)
+        _p(f"[REPORT] {d:20s} {n:9d} files  ~ {pct:5.1f}% of RGB")
+
+
+# ---- Download & reshape -----------------------------------------------------
+def run_download(args) -> Path:
+    """
+    Call `omnitools.download` to fetch Taskonomy data (resumable + retry).
+    Returns the *actual* raw destination directory used so the reshape step
+    can point to the right place (especially for --domains all).
+    """
+    if args.skip_download:
+        _p("[INFO] Skipping download step.")
+        return Path(args.download_root)
+
+    use_all = (len(args.domains) == 1 and args.domains[0].lower() == "all")
+    raw_dest = (Path(args.download_root) / f"{args.component}_{args.subset}_all") if use_all else Path(args.download_root)
+    raw_dest.parent.mkdir(parents=True, exist_ok=True)
+
+    if not args.name or not args.email:
+        _p("ERROR: --name and --email are required unless --skip-download.")
+        sys.exit(1)
+
+    cmd = ["omnitools.download"]
+    if use_all:
+        if not args.agree_all:
+            _p("ERROR: Using --domains all requires --agree_all.")
+            sys.exit(2)
+        cmd += ["all"]
+    else:
+        cmd += args.domains
+
+    cmd += [
+        "--components", args.component,
+        "--subset", args.subset,            # debug/tiny/medium/full/fullplus
+        "--split", args.download_split,     # train/val/test/all
+        "--dest", str(raw_dest),
+        "--connections_total", str(args.connections_total),
+        "--name", args.name,                # plain text; don't URL-encode
+        "--email", args.email,
+    ]
+    if args.agree_all:
+        cmd.append("--agree_all")
+
+    run_cmd(cmd, args.log_file, args.max_retries, args.retry_wait)
+    return raw_dest.resolve()
+
+
+def reshape(args) -> None:
     """
     Build Taskonomy-style layout:
-
         reshape_root/split/building/domain/*.png
-
     using RGB filenames as anchors and enforcing that all requested domains
     exist for each sample (otherwise that view is skipped).
     """
@@ -211,41 +232,34 @@ def reshape(args):
 
     if reshape_root.exists():
         if args.force:
-            print(f"[INFO] Removing existing reshape_root: {reshape_root}")
+            _p(f"[INFO] Removing existing reshape_root: {reshape_root}")
             shutil.rmtree(reshape_root)
         else:
             raise RuntimeError(f"{reshape_root} already exists. Use --force to overwrite.")
 
     layout, rgb_root, buildings = discover_layout(download_root, args.component)
-    print(f"[INFO] Found {len(buildings)} buildings under {rgb_root}")
+    _p(f"[INFO] Found {len(buildings)} buildings under {rgb_root}")
 
-    if args.no_split:
-        splits = {b: "train" for b in buildings}  # everything goes into 'train'
-    else:
-        splits = make_splits(buildings, args.train_frac, args.val_frac, args.test_frac, args.seed)
-
+    splits = {b: "train"} if args.no_split else make_splits(buildings, args.train_frac, args.val_frac, args.test_frac, args.seed)
     reshape_root.mkdir(parents=True, exist_ok=True)
 
     # Determine domains to reshape
     use_all = (len(args.domains) == 1 and args.domains[0].lower() == "all")
     if use_all:
-        discovered = discover_domains(download_root)
-        if not discovered:
-            print(f"[ERROR] Could not discover any domains under {download_root}", file=sys.stderr)
+        domains = discover_domains(download_root)
+        if not domains:
+            _p(f"[ERROR] Could not discover any domains under {download_root}")
             sys.exit(2)
-        domains = discovered if "rgb" in discovered else (["rgb"] + discovered)
-        print(f"[INFO] Discovered domains: {', '.join(domains)}")
-        # Save the final list for reproducibility
-        with open(reshape_root / "domains_used.txt", "w") as f:
-            for d in domains:
-                f.write(d + "\n")
+        _p(f"[INFO] Discovered domains: {', '.join(domains)}")
     else:
         # ensure rgb is present and domains are unique, keep order
         domains = list(dict.fromkeys(["rgb"] + args.domains))
-        print(f"[INFO] Domains: {domains}")
-        with open(reshape_root / "domains_used.txt", "w") as f:
-            for d in domains:
-                f.write(d + "\n")
+        _p(f"[INFO] Domains: {domains}")
+
+    # Save final list for reproducibility
+    with open(reshape_root / "domains_used.txt", "w") as f:
+        for d in domains:
+            f.write(d + "\n")
 
     total_samples = 0
     skipped_samples = 0
@@ -254,12 +268,12 @@ def reshape(args):
         split = splits[b]
         rgb_dir = src_dir(download_root, layout, args.component, "rgb", b)
         if not rgb_dir.is_dir():
-            print(f"[WARN] No rgb dir for building {b} at {rgb_dir}, skipping building.")
+            _p(f"[WARN] No rgb dir for building {b} at {rgb_dir}, skipping building.")
             continue
 
         rgb_files = sorted(p for p in rgb_dir.iterdir() if p.is_file())
         if not rgb_files:
-            print(f"[WARN] No rgb files for building {b}, skipping building.")
+            _p(f"[WARN] No rgb files for building {b}, skipping building.")
             continue
 
         for rgb_path in rgb_files:
@@ -279,12 +293,7 @@ def reshape(args):
                     break
 
                 # Omnidata naming: ...domain_rgb.png -> ...domain_<domain>.png
-                if "domain_rgb" in fname:
-                    d_fname = fname.replace("domain_rgb", f"domain_{d}")
-                else:
-                    # Fallback: identical filename
-                    d_fname = fname
-
+                d_fname = fname.replace("domain_rgb", f"domain_{d}") if "domain_rgb" in fname else fname
                 cand = d_dir / d_fname
                 if not cand.is_file():
                     ok = False
@@ -306,133 +315,85 @@ def reshape(args):
 
             total_samples += 1
 
-    print("[INFO] Finished reshaping.")
-    print(f"[INFO] Total multi-task samples created: {total_samples}")
+    _p("[INFO] Finished reshaping.")
+    _p(f"[INFO] Total multi-task samples created: {total_samples}")
     if skipped_samples:
-        print(f"[INFO] Skipped {skipped_samples} rgb views with missing targets: {skipped_samples}")
+        _p(f"[INFO] Skipped {skipped_samples} rgb views with missing targets.")
 
 
+# ---- CLI --------------------------------------------------------------------
 def main():
-    parser = argparse.ArgumentParser(
+    ap = argparse.ArgumentParser(
         description="Download and reshape Omnidata/Taskonomy data for SON-GOKU Taskonomy training."
     )
-    parser.add_argument(
-        "--download-root",
-        type=str,
-        required=True,
-        help="Directory where raw data will be stored. For --domains all, a subfolder "
-             "<component>_<subset>_all is created inside this directory.",
-    )
-    parser.add_argument(
-        "--reshape-root",
-        type=str,
-        required=True,
-        help="Output directory for Taskonomy-style layout (root/split/building/domain/).",
-    )
-    parser.add_argument(
-        "--subset",
-        type=str,
-        default="debug",
-        choices=["debug", "tiny", "medium", "full", "fullplus"],
-        help="Subset to download (omnitools --subset).",
-    )
-    parser.add_argument(
-        "--download-split",
-        type=str,
-        default="all",
-        choices=["train", "val", "test", "all"],
-        help="Split to download from Omnidata (omnitools --split).",
-    )
-    parser.add_argument(
-        "--component",
-        type=str,
-        default="taskonomy",
-        help="Component dataset (omnitools --components). Usually 'taskonomy'.",
-    )
-    parser.add_argument(
-        "--domains",
-        type=str,
-        nargs="+",
-        default=["rgb", "depth_euclidean", "normal", "reshading"],
-        help="Domains to download & reshape. Use the special value 'all' to include *all* "
-             "domains available for the subset. RGB is always included for reshaping.",
-    )
-    parser.add_argument(
-        "--agree_all",
-        action="store_true",
-        help="Automatically accept the Omnidata EULA for omnitools (required for --domains all).",
-    )
-    parser.add_argument(
-        "--connections-total",
-        type=int,
-        default=16,
-        help="omnitools --connections_total.",
-    )
-    parser.add_argument(
-        "--name",
-        type=str,
-        required=False,
-        help="Your name for omnitools license agreement (required unless --skip-download).",
-    )
-    parser.add_argument(
-        "--email",
-        type=str,
-        required=False,
-        help="Your email for omnitools license agreement (required unless --skip-download).",
-    )
-    parser.add_argument(
-        "--skip-download",
-        action="store_true",
-        help="Skip download step and only reshape existing data.",
-    )
-    parser.add_argument(
-        "--no-split",
-        action="store_true",
-        help="Do not create train/val/test splits; put everything into 'train'.",
-    )
-    parser.add_argument(
-        "--train-frac",
-        type=float,
-        default=0.8,
-        help="Fraction of buildings in train split.",
-    )
-    parser.add_argument(
-        "--val-frac",
-        type=float,
-        default=0.1,
-        help="Fraction of buildings in val split.",
-    )
-    parser.add_argument(
-        "--test-frac",
-        type=float,
-        default=0.1,
-        help="Fraction of buildings in test split.",
-    )
-    parser.add_argument(
-        "--seed",
-        type=int,
-        default=0,
-        help="Random seed for building splits.",
-    )
-    parser.add_argument(
-        "--force",
-        action="store_true",
-        help="Delete existing reshape-root directory before reshaping.",
-    )
+    ap.add_argument("--download-root", type=str, required=True,
+                    help="Directory where raw data will be stored. For --domains all, a subfolder "
+                         "<component>_<subset>_all is created inside this directory.")
+    ap.add_argument("--reshape-root", type=str, required=True,
+                    help="Output directory for Taskonomy-style layout (root/split/building/domain/).")
+    ap.add_argument("--subset", type=str, default="debug",
+                    choices=["debug", "tiny", "medium", "full", "fullplus"],
+                    help="Subset to download (omnitools --subset).")
+    ap.add_argument("--download-split", type=str, default="all",
+                    choices=["train", "val", "test", "all"],
+                    help="Split to download from Omnidata (omnitools --split).")
+    ap.add_argument("--component", type=str, default="taskonomy",
+                    help="Component dataset (omnitools --components). Usually 'taskonomy'.")
+    ap.add_argument("--domains", type=str, nargs="+",
+                    default=["rgb", "depth_euclidean", "normal", "reshading"],
+                    help="Domains to download & reshape. Use 'all' to include *all* domains available for the subset. "
+                         "RGB is always included for reshaping.")
+    ap.add_argument("--agree_all", action="store_true",
+                    help="Automatically accept the Omnidata EULA for omnitools (required for --domains all).")
+    ap.add_argument("--connections-total", type=int, default=16,
+                    help="omnitools --connections_total.")
+    ap.add_argument("--name", type=str, required=False,
+                    help="Your name for omnitools license agreement (required unless --skip-download).")
+    ap.add_argument("--email", type=str, required=False,
+                    help="Your email for omnitools license agreement (required unless --skip-download).")
+    ap.add_argument("--skip-download", action="store_true",
+                    help="Skip download step and only reshape existing data.")
+    ap.add_argument("--no-split", action="store_true",
+                    help="Do not create train/val/test splits; put everything into 'train'.")
+    ap.add_argument("--train-frac", type=float, default=0.8,
+                    help="Fraction of buildings in train split.")
+    ap.add_argument("--val-frac", type=float, default=0.1,
+                    help="Fraction of buildings in val split.")
+    ap.add_argument("--test-frac", type=float, default=0.1,
+                    help="Fraction of buildings in test split.")
+    ap.add_argument("--seed", type=int, default=0,
+                    help="Random seed for building splits.")
+    ap.add_argument("--force", action="store_true",
+                    help="Delete existing reshape-root directory before reshaping.")
 
-    args = parser.parse_args()
-    # keep these as Paths throughout
+    # NEW: robustness & reporting
+    ap.add_argument("--max-retries", type=int, default=10,
+                    help="Retries for omnitools if it fails.")
+    ap.add_argument("--retry-wait", type=int, default=60,
+                    help="Seconds to wait between retries.")
+    ap.add_argument("--log-file", type=str, default=None,
+                    help="If set, append omnitools stdout/stderr here.")
+    ap.add_argument("--report-only", action="store_true",
+                    help="Only print a progress report and exit.")
+
+    args = ap.parse_args()
     args.download_root = Path(args.download_root).expanduser().resolve()
     args.reshape_root = Path(args.reshape_root).expanduser().resolve()
+    args.log_file = Path(args.log_file).expanduser().resolve() if args.log_file else None
 
-    # Download (or skip) and capture actual raw path used
-    if args.skip_download:
-        raw_root = args.download_root
-    else:
-        raw_root = run_download(args)
-    # Point reshape step at the actual raw directory
-    args.download_root = raw_root
+    # Report-only mode (no download/reshape)
+    if args.report_only:
+        raw = args.download_root if args.skip_download else (
+            (args.download_root / f"{args.component}_{args.subset}_all")
+            if (len(args.domains) == 1 and args.domains[0].lower() == "all")
+            else args.download_root
+        )
+        report_progress(raw, args.component)
+        return
 
+    # Download (resumable + retry), then reshape
+    raw_root = args.download_root if args.skip_download else run_download(args)
+    args.download_root = raw_root  # point reshape to actual location
     reshape(args)
 
 
