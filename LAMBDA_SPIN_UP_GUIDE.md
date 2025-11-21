@@ -336,6 +336,8 @@ python prepare_taskonomy_data.py \
   --train-frac 0.7 \
   --val-frac   0.1 \
   --test-frac  0.2 \
+  --max-retries 50
+  --retry-wait 10
 ```
 
 Notes:
