@@ -13,6 +13,9 @@ from .utils import (
 from .graph import cosine_interference_matrix, build_conflict_graph
 from .coloring import welsh_powell_coloring, duplicate_min_coverage
 
+# son_goku/scheduler.py 
+# TEMPORARY ALIAS FOR EXPERIMENTATION
+
 @dataclass
 class TauSchedule:
     kind: str = "log"  # 'log' | 'linear' | 'cosine' | 'constant'
@@ -38,7 +41,7 @@ class TauSchedule:
             return self.tau_target
         return self.tau_initial * ((self.tau_target / self.tau_initial) ** progress)
 
-class SonGokuScheduler:
+class SonGokuScheduler_Legacy: # Remove the "_Legacy" part after
     """
     SON-GOKU: Interference-aware task scheduling via graph-coloring for MTL.
 
@@ -481,3 +484,6 @@ class SonGokuScheduler:
         except OSError:
             # Best effort logging; swallow to avoid interrupting training
             pass
+
+
+from .approx.scheduler_instrumented import SonGokuInstrumentedScheduler as SonGokuScheduler # TEMPORARY ALIAS FOR BETTER LOGGING

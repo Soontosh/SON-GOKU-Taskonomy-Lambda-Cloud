@@ -95,7 +95,8 @@ class SonGokuInstrumentedScheduler:
         measure_refresh_memory: bool = True,
         # ------------------ NEW: adaptive tau controls ------------------
         adaptive_tau_percentile: Optional[float] = None,  # e.g., 0.7 or 70 for 70th percentile
-        adaptive_tau_clip: Tuple[float, float] = (-1.0, 1.0)
+        adaptive_tau_clip: Tuple[float, float] = (-1.0, 1.0),
+        **kwargs  # <-- swallows any stray args from older callsites
     ):
         self.model = model
         self.tasks = list(tasks)
