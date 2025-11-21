@@ -416,7 +416,7 @@ class SonGokuScheduler:
         if isinstance(adj, torch.Tensor):
             A_bool = adj.bool()
         else:
-            # adj may be a numpy array / nested list; ensure bool tensor
+            # adj may be a numpy array / nested list; ensure the tenser is type bool
             A_bool = torch.as_tensor(adj, dtype=torch.bool)
 
         # 3) Step index (best-effort). If you track step elsewhere, use that.
