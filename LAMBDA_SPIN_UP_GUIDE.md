@@ -330,21 +330,24 @@ ln -s /lambda/nfs/taskonomy/reshaped ~/taskonomy-reshaped
 
 ### 8.4 Run the data-prep script
 
-Example (using the **debug** subset for quick tests):
+Example:
 
 ```bash
+mkdir -p /lambda/nfs/india-training/taskonomy_medium_raw \
+         /lambda/nfs/india-training/taskonomy_medium/reshaped \
+         /lambda/nfs/india-training/taskonomy_tmp
 export TMPDIR=/lambda/nfs/india-training/taskonomy/tmp
 source ~/venvs/taskonomy-gpu/bin/activate
 tmux new -d -s prep \
 'bash -lc "
 python prepare_taskonomy_data.py \
-  --download-root /lambda/nfs/india-training/taskonomy \
-  --reshape-root  /lambda/nfs/india-training/taskonomy/reshaped \
+  --download-root /lambda/nfs/india-training/taskonomy_medium_raw \
+  --reshape-root  /lambda/nfs/india-training/taskonomy_medium/reshaped \
   --subset medium \
   --download-split all \
   --domains all \
   --connections-total 32 \
-  --name \"Santosh%@0Patapati\" \
+  --name \"Santosh%20Patapati\" \
   --email \"sapatapatiwork@gmail.com\" \
   --agree_all \
   --train-frac 0.7 \
@@ -355,6 +358,32 @@ python prepare_taskonomy_data.py \
   --log-file /lambda/nfs/india-training/taskonomy/download_medium.log
 "'
 ```
+
+Then download the tiny subset as well:
+```bash
+mkdir -p /lambda/nfs/india-training/taskonomy_tiny_raw \
+         /lambda/nfs/india-training/taskonomy_tiny/reshaped \
+         /lambda/nfs/india-training/taskonomy_tmp
+'bash -lc "
+export TMPDIR=/lambda/nfs/india-training/taskonomy_tmp; \
+source ~/venvs/taskonomy-gpu/bin/activate && \
+python prepare_taskonomy_data.py \
+  --download-root /lambda/nfs/india-training/taskonomy_tiny_raw \
+  --reshape-root  /lambda/nfs/india-training/taskonomy_tiny/reshaped \
+  --subset tiny \
+  --download-split all \
+  --domains all \
+  --connections-total 32 \
+  --name \"Santosh%20Patapati\" \
+  --email \"sapatapatiwork@gmail.com\" \
+  --agree_all \
+  --train-frac 0.7 \
+  --val-frac 0.1 \
+  --test-frac 0.2 \
+  --max-retries 50 \
+  --retry-wait 10 \
+  --log-file /lambda/nfs/india-training/taskonomy_tiny_raw/download_tiny.log
+"'
 
 Notes:
 
