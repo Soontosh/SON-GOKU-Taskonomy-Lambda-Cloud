@@ -338,7 +338,7 @@ mkdir -p /lambda/nfs/india-training/taskonomy_medium_raw \
          /lambda/nfs/india-training/taskonomy_tmp
 export TMPDIR=/lambda/nfs/india-training/taskonomy/tmp
 source ~/venvs/taskonomy-gpu/bin/activate
-tmux new -d -s prep \
+tmux new -d -s medium_prep \
 'bash -lc "
 python prepare_taskonomy_data.py \
   --download-root /lambda/nfs/india-training/taskonomy_medium_raw \
@@ -364,6 +364,7 @@ Then download the tiny subset as well:
 mkdir -p /lambda/nfs/india-training/taskonomy_tiny_raw \
          /lambda/nfs/india-training/taskonomy_tiny/reshaped \
          /lambda/nfs/india-training/taskonomy_tmp
+tmux new -d -s tiny_prep \
 'bash -lc "
 export TMPDIR=/lambda/nfs/india-training/taskonomy_tmp; \
 source ~/venvs/taskonomy-gpu/bin/activate && \
@@ -384,6 +385,7 @@ python prepare_taskonomy_data.py \
   --retry-wait 10 \
   --log-file /lambda/nfs/india-training/taskonomy_tiny_raw/download_tiny.log
 "'
+```
 
 Notes:
 
