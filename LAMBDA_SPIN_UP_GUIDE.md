@@ -333,25 +333,26 @@ ln -s /lambda/nfs/taskonomy/reshaped ~/taskonomy-reshaped
 Example (using the **debug** subset for quick tests):
 
 ```bash
-cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
+export TMPDIR=/lambda/nfs/india-training/taskonomy/tmp
+source ~/venvs/taskonomy-gpu/bin/activate
 tmux new -d -s prep \
 'bash -lc "
-source ~/venvs/taskonomy-gpu/bin/activate && \
 python prepare_taskonomy_data.py \
-  --download-root /lambda/nfs/taskonomy \
-  --reshape-root  /lambda/nfs/taskonomy/reshaped \
+  --download-root /lambda/nfs/india-training/taskonomy \
+  --reshape-root  /lambda/nfs/india-training/taskonomy/reshaped \
   --subset medium \
   --download-split all \
   --domains all \
   --connections-total 32 \
-  --name "Santosh%20Patapati" \
-  --email "sapatapatiwork@gmail.com" \
+  --name \"Santosh%@0Patapati\" \
+  --email \"sapatapatiwork@gmail.com\" \
   --agree_all \
   --train-frac 0.7 \
-  --val-frac   0.1 \
-  --test-frac  0.2 \
-  --max-retries 50
-  --retry-wait 10
+  --val-frac 0.1 \
+  --test-frac 0.2 \
+  --max-retries 50 \
+  --retry-wait 10 \
+  --log-file /lambda/nfs/india-training/taskonomy/download_medium.log
 "'
 ```
 
