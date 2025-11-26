@@ -31,6 +31,9 @@ class SonGokuPCGradMethod(MultiTaskMethod):
         tau_anneal: int = 0,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        graph_mode: str = "threshold",
+        graph_knn_k: int = 3,
+        graph_quantile_p: float = 0.3,
         graph_density_target: float | None = None,
     ) -> None:
         self.inner = SonGokuMethod(
@@ -47,6 +50,9 @@ class SonGokuPCGradMethod(MultiTaskMethod):
             ema_beta=ema_beta,
             min_updates_per_cycle=min_updates_per_cycle,
             base_method="pcgrad",
+            graph_mode=graph_mode,
+            graph_knn_k=graph_knn_k,
+            graph_quantile_p=graph_quantile_p,
             graph_density_target=graph_density_target,
         )
 

@@ -39,6 +39,9 @@ class SonGokuGradNormWarmStartMethod(MultiTaskMethod):
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
         graph_density_target: float | None = None,
+        graph_mode: str = "threshold",
+        graph_knn_k: int = 3,
+        graph_quantile_p: float = 0.3,
         # GradNorm hyperparams
         gradnorm_alpha: float = 1.5,
         gradnorm_weight_lr: float = 0.025,
@@ -79,6 +82,9 @@ class SonGokuGradNormWarmStartMethod(MultiTaskMethod):
             tau_anneal=tau_anneal,
             ema_beta=ema_beta,
             min_updates_per_cycle=min_updates_per_cycle,
+            graph_mode=graph_mode,
+            graph_knn_k=graph_knn_k,
+            graph_quantile_p=graph_quantile_p,
             graph_density_target=graph_density_target,
         )
 

@@ -36,6 +36,9 @@ class SonGokuMethod(MultiTaskMethod):
         refresh_period: int = 32,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        graph_mode: str = "threshold",
+        graph_knn_k: int = 3,
+        graph_quantile_p: float = 0.3,
         base_method: str = "vanilla", # "vanilla" | "adatask" | "pcgrad"
         log_dir: str | None = None,
         log_interval: int = 50,
@@ -70,6 +73,9 @@ class SonGokuMethod(MultiTaskMethod):
             log_path=log_path,
             base_method=base_method,
         )
+        self.scheduler.graph_mode = graph_mode
+        self.scheduler.graph_knn_k = int(graph_knn_k)
+        self.scheduler.graph_quantile_p = float(graph_quantile_p)
         if graph_density_target is not None:
             try:
                 self.scheduler.graph_density_target = float(graph_density_target)

@@ -224,6 +224,9 @@ class ExperimentConfig:
     min_updates_per_cycle: int = 1
     gradnorm_alpha: float = 1.5
     gradnorm_lr: float = 0.025
+    graph_rule: str = "threshold"
+    graph_knn_m: int = 3
+    graph_quantile_p: float = 0.3
     graph_density_target: float | None = None
     
     # CAGrad
@@ -344,6 +347,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             min_updates_per_cycle=cfg.min_updates_per_cycle,
             log_dir=cfg.out_dir,
             log_interval=50,
+            graph_mode=cfg.graph_rule,
+            graph_knn_k=cfg.graph_knn_m,
+            graph_quantile_p=cfg.graph_quantile_p,
             graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "gradnorm":
@@ -382,6 +388,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             gradnorm_weight_lr=cfg.gradnorm_lr,
             warmup_steps=warmup_steps,
             device=device,
+            graph_mode=cfg.graph_rule,
+            graph_knn_k=cfg.graph_knn_m,
+            graph_quantile_p=cfg.graph_quantile_p,
             graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "son_goku_adatask":
@@ -399,6 +408,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             tau_anneal=cfg.tau_anneal,
             ema_beta=cfg.ema_beta,
             min_updates_per_cycle=cfg.min_updates_per_cycle,
+            graph_mode=cfg.graph_rule,
+            graph_knn_k=cfg.graph_knn_m,
+            graph_quantile_p=cfg.graph_quantile_p,
             graph_density_target=cfg.graph_density_target,
         )
 
@@ -417,6 +429,9 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             tau_anneal=cfg.tau_anneal,
             ema_beta=cfg.ema_beta,
             min_updates_per_cycle=cfg.min_updates_per_cycle,
+            graph_mode=cfg.graph_rule,
+            graph_knn_k=cfg.graph_knn_m,
+            graph_quantile_p=cfg.graph_quantile_p,
             graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "mgda":
@@ -629,6 +644,13 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--tau_anneal", type=int, default=0)
     ap.add_argument("--ema_beta", type=float, default=0.9)
     ap.add_argument("--min_updates_per_cycle", type=int, default=1)
+    ap.add_argument("--graph_rule", type=str, default="threshold",
+                    choices=["threshold", "knn", "signed", "quantile"],
+                    help="Graph building rule for SON-GOKU methods.")
+    ap.add_argument("--graph_knn_m", type=int, default=3,
+                    help="k for kNN graph modes (when --graph_rule=knn).")
+    ap.add_argument("--graph_quantile_p", type=float, default=0.3,
+                    help="Quantile (0-1 or 0-100) for quantile graph rule.")
     ap.add_argument("--graph_density_target", type=float, default=None,
                     help="If set, target graph density used by SON-GOKU schedulers.")
 
@@ -715,6 +737,9 @@ def main():
                         min_updates_per_cycle=args.min_updates_per_cycle,
                         gradnorm_alpha=args.gradnorm_alpha,
                         gradnorm_lr=args.gradnorm_lr,
+                        graph_rule=args.graph_rule,
+                        graph_knn_m=args.graph_knn_m,
+                        graph_quantile_p=args.graph_quantile_p,
                         graph_density_target=args.graph_density_target,
                     )
                     print(f"\n=== Running method={method}, seed={seed}, out_dir={run_dir} ===")
