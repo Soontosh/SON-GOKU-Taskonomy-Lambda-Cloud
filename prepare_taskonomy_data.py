@@ -237,11 +237,19 @@ def reshape(args) -> None:
         else:
             raise RuntimeError(f"{reshape_root} already exists. Use --force to overwrite.")
 
+    t0 = time.time()
     layout, rgb_root, buildings = discover_layout(download_root, args.component)
     _p(f"[INFO] Found {len(buildings)} buildings under {rgb_root}")
 
     splits = {b: "train"} if args.no_split else make_splits(buildings, args.train_frac, args.val_frac, args.test_frac, args.seed)
     reshape_root.mkdir(parents=True, exist_ok=True)
+    if args.no_split:
+        _p("[INFO] No split requested; all buildings go to 'train'.")
+    else:
+        counts = {"train": 0, "val": 0, "test": 0}
+        for v in splits.values():
+            counts[v] += 1
+        _p(f"[INFO] Building split counts -> train:{counts['train']}  val:{counts['val']}  test:{counts['test']}")
 
     # Determine domains to reshape
     use_all = (len(args.domains) == 1 and args.domains[0].lower() == "all")
@@ -264,8 +272,9 @@ def reshape(args) -> None:
     total_samples = 0
     skipped_samples = 0
 
-    for b in buildings:
+    for idx_b, b in enumerate(buildings, start=1):
         split = splits[b]
+        _p(f"[INFO] [{idx_b}/{len(buildings)}] Processing building '{b}' (split={split})")
         rgb_dir = src_dir(download_root, layout, args.component, "rgb", b)
         if not rgb_dir.is_dir():
             _p(f"[WARN] No rgb dir for building {b} at {rgb_dir}, skipping building.")
@@ -276,7 +285,11 @@ def reshape(args) -> None:
             _p(f"[WARN] No rgb files for building {b}, skipping building.")
             continue
 
-        for rgb_path in rgb_files:
+        created_here = 0
+        skipped_here = 0
+        checkpoint_every = max(1, len(rgb_files) // 10)
+
+        for view_idx, rgb_path in enumerate(rgb_files, start=1):
             fname = rgb_path.name
 
             # candidate src paths for all domains
@@ -303,6 +316,7 @@ def reshape(args) -> None:
 
             if not ok:
                 skipped_samples += 1
+                skipped_here += 1
                 continue
 
             # Create symlinks for this multi-task sample
@@ -314,11 +328,22 @@ def reshape(args) -> None:
                     dest.symlink_to(src)
 
             total_samples += 1
+            created_here += 1
+
+            if (view_idx % checkpoint_every) == 0 or view_idx == len(rgb_files):
+                pct = 100.0 * (view_idx / max(1, len(rgb_files)))
+                _p(
+                    f"[INFO] Building {b}: {view_idx}/{len(rgb_files)} RGB views processed "
+                    f"({pct:4.1f}%), created={created_here}, skipped={skipped_here}"
+                )
+
+        _p(f"[INFO] Finished building '{b}': created {created_here}, skipped {skipped_here}")
 
     _p("[INFO] Finished reshaping.")
     _p(f"[INFO] Total multi-task samples created: {total_samples}")
     if skipped_samples:
         _p(f"[INFO] Skipped {skipped_samples} rgb views with missing targets.")
+    _p(f"[INFO] Reshape wall-clock: {(time.time() - t0)/60.0:.2f} min")
 
 
 # ---- CLI --------------------------------------------------------------------
