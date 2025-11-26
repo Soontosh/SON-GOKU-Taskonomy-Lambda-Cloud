@@ -43,6 +43,7 @@ class Cfg:
     graph_knn_k: Tuple[int, ...]
     graph_quantiles: Tuple[float, ...]
     densities: Tuple[float, ...]
+    graph_density_target: float | None
     density_match: bool
     seeds: Tuple[int, ...]
     out_dir: str
@@ -159,6 +160,8 @@ def parse_args():
                     help="Values for k in kNN (ignored for non-knn modes)")
     ap.add_argument("--graph_quantiles", type=float, nargs="+", default=[0.3],
                     help="Quantiles (0..1 or 0..100) for 'quantile' mode")
+    ap.add_argument("--graph_density_target", type=float, default=None,
+                    help="If set, target graph density enforced during graph construction.")
     ap.add_argument("--densities", type=float, nargs="+", default=[],
                     help="If provided with --density_match, we run density-matched calibration")
     ap.add_argument("--density_match", action="store_true",
@@ -183,6 +186,7 @@ def main():
         graph_modes=tuple(args.graph_modes),
         graph_knn_k=tuple(args.graph_knn_k),
         graph_quantiles=tuple(args.graph_quantiles),
+        graph_density_target=args.graph_density_target,
         densities=tuple(args.densities),
         density_match=bool(args.density_match),
         seeds=tuple(args.seeds), out_dir=args.out_dir,
@@ -202,20 +206,21 @@ def main():
                         json.dump(res, f, indent=2)
             else:
                 # parameterized sweeps per mode
+                target = cfg.graph_density_target
                 if mode == "knn":
                     for k in cfg.graph_knn_k:
-                        res = _run_one(s, cfg, mode, k, None, None)
+                        res = _run_one(s, cfg, mode, k, None, target)
                         rows.append(res)
                         with open(os.path.join(cfg.out_dir, f"{mode}_k{k}_seed{s}.json"), "w") as f:
                             json.dump(res, f, indent=2)
                 elif mode == "quantile":
                     for p in cfg.graph_quantiles:
-                        res = _run_one(s, cfg, mode, None, p, None)
+                        res = _run_one(s, cfg, mode, None, p, target)
                         rows.append(res)
                         with open(os.path.join(cfg.out_dir, f"{mode}_p{p}_seed{s}.json"), "w") as f:
                             json.dump(res, f, indent=2)
                 else:
-                    res = _run_one(s, cfg, mode, None, None, None)
+                    res = _run_one(s, cfg, mode, None, None, target)
                     rows.append(res)
                     with open(os.path.join(cfg.out_dir, f"{mode}_seed{s}.json"), "w") as f:
                         json.dump(res, f, indent=2)

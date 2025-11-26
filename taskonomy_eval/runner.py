@@ -715,6 +715,7 @@ def main():
                         min_updates_per_cycle=args.min_updates_per_cycle,
                         gradnorm_alpha=args.gradnorm_alpha,
                         gradnorm_lr=args.gradnorm_lr,
+                        graph_density_target=args.graph_density_target,
                     )
                     print(f"\n=== Running method={method}, seed={seed}, out_dir={run_dir} ===")
                     os.makedirs(run_dir, exist_ok=True)
