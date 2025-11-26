@@ -224,6 +224,7 @@ class ExperimentConfig:
     min_updates_per_cycle: int = 1
     gradnorm_alpha: float = 1.5
     gradnorm_lr: float = 0.025
+    graph_density_target: float | None = None
     
     # CAGrad
     cagrad_c: float = 0.5
@@ -343,6 +344,7 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             min_updates_per_cycle=cfg.min_updates_per_cycle,
             log_dir=cfg.out_dir,
             log_interval=50,
+            graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "gradnorm":
         from taskonomy_eval.methods.gradnorm_method import GradNormMethod
@@ -380,6 +382,7 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             gradnorm_weight_lr=cfg.gradnorm_lr,
             warmup_steps=warmup_steps,
             device=device,
+            graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "son_goku_adatask":
         from taskonomy_eval.methods.son_goku_adatask_method import SonGokuAdaTaskMethod
@@ -396,6 +399,7 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             tau_anneal=cfg.tau_anneal,
             ema_beta=cfg.ema_beta,
             min_updates_per_cycle=cfg.min_updates_per_cycle,
+            graph_density_target=cfg.graph_density_target,
         )
 
     elif cfg.method == "son_goku_pcgrad":
@@ -413,6 +417,7 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
             tau_anneal=cfg.tau_anneal,
             ema_beta=cfg.ema_beta,
             min_updates_per_cycle=cfg.min_updates_per_cycle,
+            graph_density_target=cfg.graph_density_target,
         )
     elif cfg.method == "mgda":
         from taskonomy_eval.methods.mgda_method import MGDAMethod
@@ -624,6 +629,8 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--tau_anneal", type=int, default=0)
     ap.add_argument("--ema_beta", type=float, default=0.9)
     ap.add_argument("--min_updates_per_cycle", type=int, default=1)
+    ap.add_argument("--graph_density_target", type=float, default=None,
+                    help="If set, target graph density used by SON-GOKU schedulers.")
 
     # GradNorm hyperparams
     ap.add_argument("--gradnorm_alpha", type=float, default=1.5)

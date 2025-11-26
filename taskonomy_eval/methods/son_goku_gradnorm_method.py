@@ -1,6 +1,6 @@
 from __future__ import annotations
 
-from typing import Any, Dict, Mapping, Sequence
+from typing import Any, Dict, Mapping, Sequence, Optional
 
 import torch
 from torch import nn, optim
@@ -38,6 +38,7 @@ class SonGokuGradNormWarmStartMethod(MultiTaskMethod):
         tau_anneal: int = 0,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        graph_density_target: float | None = None,
         # GradNorm hyperparams
         gradnorm_alpha: float = 1.5,
         gradnorm_weight_lr: float = 0.025,
@@ -78,6 +79,7 @@ class SonGokuGradNormWarmStartMethod(MultiTaskMethod):
             tau_anneal=tau_anneal,
             ema_beta=ema_beta,
             min_updates_per_cycle=min_updates_per_cycle,
+            graph_density_target=graph_density_target,
         )
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:

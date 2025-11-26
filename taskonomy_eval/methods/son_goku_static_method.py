@@ -85,6 +85,7 @@ class SonGokuStaticOneShotMethod:
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
         device: Optional[torch.device] = None,
+        graph_density_target: float | None = None,
     ):
         self.device = device or next(model.parameters()).device
         self.model = model
@@ -112,6 +113,8 @@ class SonGokuStaticOneShotMethod:
             compute_exact_shadow=True,
             measure_refresh_memory=True,
         )
+        if graph_density_target is not None:
+            self.sched.graph_density_target = float(graph_density_target)
 
     def step(self, batch: Dict[str, Any], global_step: int) -> Dict[str, float]:
         # Move tensors to device here to keep runner simple/consistent.

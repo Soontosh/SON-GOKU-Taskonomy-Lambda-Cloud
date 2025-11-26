@@ -31,6 +31,7 @@ class SonGokuPCGradMethod(MultiTaskMethod):
         tau_anneal: int = 0,
         ema_beta: float = 0.9,
         min_updates_per_cycle: int = 1,
+        graph_density_target: float | None = None,
     ) -> None:
         self.inner = SonGokuMethod(
             model=model,
@@ -46,6 +47,7 @@ class SonGokuPCGradMethod(MultiTaskMethod):
             ema_beta=ema_beta,
             min_updates_per_cycle=min_updates_per_cycle,
             base_method="pcgrad",
+            graph_density_target=graph_density_target,
         )
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:

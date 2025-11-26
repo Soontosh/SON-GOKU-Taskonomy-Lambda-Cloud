@@ -39,6 +39,7 @@ class SonGokuMethod(MultiTaskMethod):
         base_method: str = "vanilla", # "vanilla" | "adatask" | "pcgrad"
         log_dir: str | None = None,
         log_interval: int = 50,
+        graph_density_target: float | None = None,
     ) -> None:
         self.model = model
         self.optimizer = optimizer
@@ -69,6 +70,11 @@ class SonGokuMethod(MultiTaskMethod):
             log_path=log_path,
             base_method=base_method,
         )
+        if graph_density_target is not None:
+            try:
+                self.scheduler.graph_density_target = float(graph_density_target)
+            except AttributeError:
+                pass
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:
         # Use *exactly* the same semantics as your existing SON-GOKU training:
