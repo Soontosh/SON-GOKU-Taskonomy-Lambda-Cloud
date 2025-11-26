@@ -576,6 +576,19 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         print(f"[{cfg.method}] [TEST]: {test_metrics}")
         with open(os.path.join(cfg.out_dir, "test_metrics.json"), "w") as f:
             json.dump(test_metrics, f, indent=2)
+    if hasattr(method, "scheduler") and hasattr(method.scheduler, "refresh_logs"):
+        try:
+            refresh_logs = method.scheduler.refresh_logs()
+        except Exception:
+            refresh_logs = None
+        if refresh_logs:
+            with open(os.path.join(cfg.out_dir, "refresh_logs.json"), "w") as f:
+                json.dump(refresh_logs, f, indent=2)
+            # Occasionally print
+            if (global_step % 100) == 0:
+                print(f"[{cfg.method}] refresh logs: {refresh_logs}")
+        elif (global_step % 100) == 0:
+            print(f"[{cfg.method}] no refresh logs available.")
     return {"checkpoint": ckpt_path, "test_metrics": test_metrics}
 
 def parse_args() -> argparse.Namespace:
