@@ -166,7 +166,7 @@ def parse_args():
     ap.add_argument("--resize", type=int, nargs=2, default=[256,256])
     ap.add_argument("--buildings_list", type=str, default=None)
     ap.add_argument("--seg_classes", type=int, default=40)
-    ap.add_argument("--base_channels", type=int, default=64)
+    ap.add_argument("--base_channels", type=int, default=32)
     # Loader/timing
     ap.add_argument("--batch_size", type=int, default=8)
     ap.add_argument("--num_workers", type=int, default=8)

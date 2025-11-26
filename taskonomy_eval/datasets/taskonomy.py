@@ -88,6 +88,42 @@ def _load_semantic(path: str, resize: Optional[Tuple[int,int]]=None) -> torch.Te
     # long tensor H,W
     return torch.from_numpy(arr).long()
 
+def _resolve_buildings(root: str, split: str, buildings_list: Optional[str]) -> List[str]:
+    bdir = os.path.join(root, split)
+    if not os.path.isdir(bdir):
+        raise FileNotFoundError(f"Split directory not found: {bdir}")
+    if buildings_list:
+        list_path = os.path.expanduser(buildings_list)
+        if os.path.exists(list_path):
+            with open(list_path, "r") as f:
+                buildings = [ln.strip() for ln in f if ln.strip()]
+            if buildings:
+                return buildings
+    return sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+
+
+def list_available_tasks(root: str, split: str, buildings_list: Optional[str] = None) -> Tuple[str, ...]:
+    """
+    Enumerate which supervision targets exist for the requested subset by scanning
+    buildings for Taskonomy domains that contain at least one PNG file.
+    """
+    root = os.path.expanduser(root)
+    bdir = os.path.join(root, split)
+    buildings = _resolve_buildings(root, split, buildings_list)
+    available: List[str] = []
+    for task, folder in TASK_FOLDERS.items():
+        if task == "rgb":
+            continue
+        for b in buildings:
+            domain_dir = os.path.join(bdir, b, folder)
+            if not os.path.isdir(domain_dir):
+                continue
+            if glob(os.path.join(domain_dir, "*.png")):
+                available.append(task)
+                break
+    return tuple(sorted(available))
+
+
 @dataclass
 class TaskonomyConfig:
     root: str
@@ -112,12 +148,7 @@ class TaskonomyDataset(Dataset):
         self.tasks = tuple(cfg.tasks)
         # collect buildings
         bdir = os.path.join(self.root, self.split)
-        if cfg.buildings_list and os.path.exists(cfg.buildings_list):
-            with open(cfg.buildings_list, "r") as f:
-                buildings = [ln.strip() for ln in f if ln.strip()]
-        else:
-            # every directory in split is a building
-            buildings = sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
+        buildings = _resolve_buildings(self.root, self.split, cfg.buildings_list)
         # enumerate RGB images as anchors
         self.items: List[Tuple[str,str,str]] = []  # (building, rgb_dir, filename)
         for b in buildings:

@@ -28,7 +28,7 @@ class UpBlock(nn.Module):
         return self.conv(x)
 
 class SharedUNetBackbone(nn.Module):
-    def __init__(self, in_ch=3, base=64):
+    def __init__(self, in_ch=3, base=32):
         super().__init__()
         self.down1 = ConvBlock(in_ch, base)       # 256
         self.pool1 = nn.MaxPool2d(2)
@@ -48,7 +48,7 @@ class SharedUNetBackbone(nn.Module):
         return b, (s1,s2,s3,s4)
 
 class HeadUNet(nn.Module):
-    def __init__(self, base=64, out_ch=1):
+    def __init__(self, base=32, out_ch=1):
         super().__init__()
         self.up1 = UpBlock(base*16, base*8, base*8)
         self.up2 = UpBlock(base*8,  base*4, base*4)
@@ -67,7 +67,7 @@ class TaskonomyMTL(nn.Module):
     """
     Shared UNet encoder-decoder with per-task final conv layers.
     """
-    def __init__(self, tasks_to_out: Dict[str,int], base=64):
+    def __init__(self, tasks_to_out: Dict[str,int], base=32):
         super().__init__()
         self.backbone = SharedUNetBackbone(in_ch=3, base=base)
         self.heads = nn.ModuleDict({ t: HeadUNet(base=base, out_ch=out) for t,out in tasks_to_out.items() })

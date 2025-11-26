@@ -394,7 +394,7 @@ def parse_args():
     ap.add_argument("--resize", type=int, nargs=2, default=[256,256])
     ap.add_argument("--buildings_list", type=str, default=None)
     ap.add_argument("--seg_classes", type=int, default=40)
-    ap.add_argument("--base_channels", type=int, default=64)
+    ap.add_argument("--base_channels", type=int, default=32)
     # train
     ap.add_argument("--epochs", type=int, default=1, help="(kept for API symmetry; we measure steps)")
     ap.add_argument("--warmup_steps", type=int, default=50)

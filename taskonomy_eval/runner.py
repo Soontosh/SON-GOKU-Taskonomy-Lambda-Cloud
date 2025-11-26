@@ -8,7 +8,7 @@ import sys
 import time
 from dataclasses import dataclass, asdict
 from datetime import datetime
-from typing import Any, Dict, Sequence, Tuple
+from typing import Any, Dict, Optional, Sequence, Tuple
 import traceback
 
 import numpy as np
@@ -18,7 +18,7 @@ from torch.utils.data import DataLoader
 
 # These imports assume you are using the Taskonomy scaffold from earlier.
 # Adjust module paths to match your repo layout.
-from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
+from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig, list_available_tasks
 from taskonomy_eval.models.mtl_unet import TaskonomyMTL
 from taskonomy_eval.utils.metrics import depth_metrics, normal_metrics, bce_f1, miou
 
@@ -73,7 +73,7 @@ def set_seed(seed: int) -> None:
     torch.backends.cudnn.benchmark = False
 
 
-def build_model(tasks: Sequence[str], seg_classes: int, base: int = 64) -> Tuple[nn.Module, Dict[str, int]]:
+def build_model(tasks: Sequence[str], seg_classes: int, base: int = 32) -> Tuple[nn.Module, Dict[str, int]]:
     out_ch: Dict[str, int] = {}
     for t in tasks:
         if t in ("depth_euclidean", "depth_zbuffer", "reshading", "edge_occlusion", "edge_texture", "keypoints2d"):
@@ -141,6 +141,21 @@ def build_task_loss(task: str, seg_classes: int):
             model(batch["rgb"], task), batch[task]
         )
     raise ValueError(f"Unsupported task: {task}")
+
+
+def resolve_requested_tasks(tasks: Sequence[str], data_root: str, split: str, buildings_list: Optional[str]) -> Tuple[str, ...]:
+    """
+    Interpret the --tasks argument, allowing the keyword 'all' to expand
+    to every available supervision target for the requested subset.
+    """
+    if len(tasks) == 1 and tasks[0].lower() == "all":
+        available = list_available_tasks(data_root, split, buildings_list)
+        if not available:
+            raise ValueError(
+                f"No supervised tasks were found under root={data_root}, split={split}, buildings_list={buildings_list}."
+            )
+        return available
+    return tuple(tasks)
 
 
 @torch.no_grad()
@@ -577,7 +592,7 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--epochs", type=int, default=5)
     ap.add_argument("--batch_size", type=int, default=8)
     ap.add_argument("--lr", type=float, default=1e-3)
-    ap.add_argument("--base_channels", type=int, default=64)
+    ap.add_argument("--base_channels", type=int, default=32)
     ap.add_argument("--num_workers", type=int, default=8)
     ap.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--methods", type=str, nargs="+", required=True,
@@ -611,6 +626,7 @@ def parse_args() -> argparse.Namespace:
 
 def main():
     args = parse_args()
+    args.tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     methods = list(args.methods)
     seeds = args.seeds
 
