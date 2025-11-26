@@ -287,7 +287,7 @@ def reshape(args) -> None:
 
         created_here = 0
         skipped_here = 0
-        checkpoint_every = max(1, len(rgb_files) // 10)
+        checkpoint_every = max(1, len(rgb_files) // 40)
 
         for view_idx, rgb_path in enumerate(rgb_files, start=1):
             fname = rgb_path.name
