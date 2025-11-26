@@ -144,6 +144,7 @@ def discover_domains(raw_root: Path) -> List[str]:
         base = os.path.basename(root)
         if base in KNOWN_DOMAIN_NAMES and (dirs or any(f.lower().endswith((".png", ".jpg", ".jpeg")) for f in files)):
             found.add(base)
+        print("found: ", base)  # DEBUG
 
     domains = sorted(d for d in found if d != "rgb")
     return (["rgb"] + domains) if "rgb" in found else domains
@@ -287,7 +288,7 @@ def reshape(args) -> None:
 
         created_here = 0
         skipped_here = 0
-        checkpoint_every = max(1, len(rgb_files) // 40)
+        checkpoint_every = max(1, len(rgb_files) // 500)
 
         for view_idx, rgb_path in enumerate(rgb_files, start=1):
             fname = rgb_path.name
