@@ -1,15 +1,18 @@
 # son_goku/approx/scheduler_instrumented.py
 from __future__ import annotations
-from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
+from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, TYPE_CHECKING
 import time
 import itertools
 import torch
 from torch import nn, optim
 
-from son_goku import TaskSpec, TauSchedule
 from son_goku.approx.graph_build import adjacency_from_cos, calibrate_tau_for_density, knn_k_for_density, edge_density
 from .oracles import BaseCosineOracle, ExactOracle
 from .coloring import build_adjacency, welsh_powell_coloring
+
+if TYPE_CHECKING:
+    from son_goku.interfaces import TaskSpec
+    from son_goku.scheduler import TauSchedule
 
 
 def _flatten_shared(params: List[nn.Parameter]) -> torch.Tensor:
