@@ -1,3 +1,6 @@
+"""Metric utilities shared across Taskonomy and Pascal-Context runners."""
+
+from __future__ import annotations
 
 from typing import Dict
 import torch
@@ -53,22 +56,31 @@ def bce_f1(pred_logits: torch.Tensor, target_mask: torch.Tensor, thresh: float=0
     bce = F.binary_cross_entropy(prob.clamp(1e-6, 1-1e-6), target_mask.float())
     return {"f1": float(f1.item()), "precision": float(prec.item()), "recall": float(rec.item()), "bce": float(bce.item())}
 
-def miou(pred_logits: torch.Tensor, target: torch.Tensor, num_classes: int) -> Dict[str,float]:
-    """
-    pred_logits: (B,C,H,W), target: (B,H,W) with class ids [0..C-1]
-    """
+def miou(
+    pred_logits: torch.Tensor,
+    target: torch.Tensor,
+    num_classes: int,
+    ignore_index: int | None = None,
+) -> Dict[str, float]:
+    """Compute mean IoU with optional masking of ignored labels."""
+
     pred = pred_logits.argmax(dim=1)  # (B,H,W)
+    if ignore_index is None:
+        valid = torch.ones_like(target, dtype=torch.bool)
+    else:
+        valid = target != ignore_index
+
     ious = []
-    eps=1e-6
+    eps = 1e-6
     for c in range(num_classes):
-        p = (pred == c)
-        t = (target == c)
+        p = (pred == c) & valid
+        t = (target == c) & valid
         inter = (p & t).sum().float()
         union = (p | t).sum().float()
         if union < 1:
             continue
         ious.append((inter + eps) / (union + eps))
-    if len(ious)==0:
+    if len(ious) == 0:
         return {"miou": 0.0}
     miou = torch.stack(ious).mean().item()
     return {"miou": float(miou)}
