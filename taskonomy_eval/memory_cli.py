@@ -1,6 +1,6 @@
 # taskonomy_eval/memory_cli.py
 from __future__ import annotations
-import argparse, os, json, time, csv
+import argparse, os, json, time, csv, inspect
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Tuple
 
@@ -110,6 +110,41 @@ def _make_specs(model: nn.Module, tasks: Tuple[str, ...], seg_classes: int):
     ]
 
 
+def _instantiate_method(method_key: str,
+                        cfg: MemCfg,
+                        model: nn.Module,
+                        specs: Tuple[TaskSpec, ...],
+                        optimizer: optim.Optimizer,
+                        shared_filter,
+                        device: torch.device):
+    MethodCls = METHOD_REGISTRY[method_key]
+    candidate_kwargs = {
+        "model": model,
+        "tasks": specs,
+        "optimizer": optimizer,
+        "base_optimizer": optimizer,
+        "shared_param_filter": shared_filter,
+        "device": device,
+        "refresh_period": cfg.refresh_period,
+        "tau_kind": cfg.tau_kind,
+        "tau_initial": cfg.tau_initial,
+        "tau_target": cfg.tau_target,
+        "tau_warmup": cfg.tau_warmup,
+        "tau_anneal": cfg.tau_anneal,
+        "ema_beta": cfg.ema_beta,
+        "min_updates_per_cycle": cfg.min_updates_per_cycle,
+        "lr": cfg.lr,
+    }
+    sig = inspect.signature(MethodCls)
+    init_kwargs = {}
+    for name in sig.parameters:
+        if name == "self":
+            continue
+        if name in candidate_kwargs:
+            init_kwargs[name] = candidate_kwargs[name]
+    return MethodCls(**init_kwargs)
+
+
 def _build_sg_scheduler(model, specs, opt, shared_filter, cfg: MemCfg, device, technique: str):
     # tau schedule
     tau = TauSchedule(
@@ -185,7 +220,11 @@ def _measure_step_memory(cfg: MemCfg, device: torch.device,
             torch.cuda.synchronize()
             peaks_alloc.append(torch.cuda.max_memory_allocated() / (1024.0 ** 2))
             peaks_reserved.append(torch.cuda.max_memory_reserved() / (1024.0 ** 2))
-        n = next(iter(batch.values())).shape[0]  # batch size from a tensor
+        if "rgb" in batch and torch.is_tensor(batch["rgb"]):
+            n = batch["rgb"].shape[0]
+        else:
+            tensor_vals = [v for v in batch.values() if torch.is_tensor(v)]
+            n = tensor_vals[0].shape[0] if tensor_vals else 0
         n_imgs += int(n)
     secs = time.time() - t0
     throughput = float(n_imgs / max(1e-6, secs))
@@ -217,10 +256,7 @@ def run_m1_for_method(seed: int, cfg: MemCfg, method: str) -> Dict[str, Any]:
         # Use your METHOD_REGISTRY if available
         if method not in METHOD_REGISTRY:
             raise ValueError(f"Unknown method '{method}'. Add it to METHOD_REGISTRY or choose 'son_goku'.")
-        MethodCls = METHOD_REGISTRY[method]
-        # Same pattern as in runner.py
-        task_specs = specs
-        method_obj = MethodCls(model=model, tasks=task_specs, optimizer=opt, shared_param_filter=shared_filter)
+        method_obj = _instantiate_method(method, cfg, model, tuple(specs), opt, shared_filter, device)
         maybe_set_graph_dump_dir(method_obj, os.path.join(cfg.out_dir, "graphs"))
         global_step = {"i": 0}
         def step_fn(batch):
