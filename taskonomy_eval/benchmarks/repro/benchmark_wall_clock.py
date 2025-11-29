@@ -1,7 +1,7 @@
 from __future__ import annotations
-import argparse, json, os, time, csv, math, random
+import argparse, json, os, time, csv, random, inspect
 from dataclasses import dataclass, asdict
-from typing import Any, Dict, List, Tuple, Optional
+from typing import Any, Dict, List, Tuple, Optional, Mapping
 
 import numpy as np
 import torch
@@ -96,9 +96,11 @@ def _set_scheduler_technique_if_any(method_obj: Any, technique: str) -> None:
     at `method_obj.sched`, try to set technique flags seen in your repo.
     If a flag/attr doesn't exist, ignore it (keeps compatibility).
     """
-    if not hasattr(method_obj, "sched"):
+    sched = getattr(method_obj, "sched", None)
+    if sched is None:
+        sched = getattr(method_obj, "scheduler", None)
+    if sched is None:
         return
-    sched = method_obj.sched
 
     # Common technique flags we’ve used in earlier CLIs; set if they exist.
     # exact / jl / fd / incr / gram / edge
@@ -141,6 +143,12 @@ def _scalar_sink(logs: Dict[str, float]) -> float:
             s += float(v)
     return s
 
+def _move_batch_to_device(batch: Mapping[str, Any], device: torch.device) -> Dict[str, Any]:
+    return {
+        k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
+        for k, v in batch.items()
+    }
+
 def _measure_once(cfg: BenchCfg, method_key: str, technique: Optional[str], seed: int) -> Dict[str, Any]:
     set_seed(seed)
     device = torch.device(cfg.device)
@@ -156,20 +164,32 @@ def _measure_once(cfg: BenchCfg, method_key: str, technique: Optional[str], seed
     specs = _make_specs(model, cfg.tasks, cfg.seg_classes)
 
     Method = METHOD_REGISTRY[method_key]
-    # Try to pass SON-GOKU knobs; for non-SON-GOKU methods these kwargs are ignored by signature
-    try:
-        method = Method(
-            model=model, tasks=specs, optimizer=opt, shared_param_filter=shared_filter,
-            device=device,
-            refresh_period=cfg.refresh_period,  # SON-GOKU-only
-            tau_kind=cfg.tau_kind, tau_initial=cfg.tau_initial, tau_target=cfg.tau_target,
-            ema_beta=cfg.ema_beta, min_updates_per_cycle=cfg.min_updates_per_cycle,
-        )
-    except TypeError:
-        # Signature doesn’t accept SG-only fields (e.g., GradNorm) → pass minimal set
-        method = Method(
-            model=model, tasks=specs, optimizer=opt, shared_param_filter=shared_filter, device=device
-        )
+
+    candidate_kwargs: Dict[str, Any] = {
+        "model": model,
+        "tasks": specs,
+        "optimizer": opt,
+        "base_optimizer": opt,
+        "shared_param_filter": shared_filter,
+        "device": device,
+        "refresh_period": cfg.refresh_period,
+        "tau_kind": cfg.tau_kind,
+        "tau_initial": cfg.tau_initial,
+        "tau_target": cfg.tau_target,
+        "ema_beta": cfg.ema_beta,
+        "min_updates_per_cycle": cfg.min_updates_per_cycle,
+        "lr": cfg.lr,
+    }
+
+    sig = inspect.signature(Method)
+    init_kwargs: Dict[str, Any] = {}
+    for name in sig.parameters:
+        if name == "self":
+            continue
+        if name in candidate_kwargs:
+            init_kwargs[name] = candidate_kwargs[name]
+
+    method = Method(**init_kwargs)
 
     # If this method has a SON-GOKU-like scheduler, set the technique
     if technique is not None:
@@ -182,6 +202,7 @@ def _measure_once(cfg: BenchCfg, method_key: str, technique: Optional[str], seed
             b = next(it)
         except StopIteration:
             it = iter(loader); b = next(it)
+        b = _move_batch_to_device(b, device)
         _ = method.step(b, 0)
 
     # Timed window
@@ -199,6 +220,7 @@ def _measure_once(cfg: BenchCfg, method_key: str, technique: Optional[str], seed
         if isinstance(b.get("rgb", None), torch.Tensor):
             total_imgs += int(b["rgb"].shape[0])
 
+        b = _move_batch_to_device(b, device)
         logs = method.step(b, 0)
         sink += _scalar_sink(logs)
 
@@ -211,8 +233,11 @@ def _measure_once(cfg: BenchCfg, method_key: str, technique: Optional[str], seed
 
     # Try to fetch refresh timing info if available
     refresh_ms = None
-    if hasattr(method, "sched") and hasattr(method.sched, "refresh_logs"):
-        logs = method.sched.refresh_logs()
+    sched = getattr(method, "sched", None)
+    if sched is None:
+        sched = getattr(method, "scheduler", None)
+    if sched is not None and hasattr(sched, "refresh_logs"):
+        logs = sched.refresh_logs()
         if logs:
             refresh_ms = float(np.mean([x.get("refresh_ms", 0.0) for x in logs if isinstance(x, dict)] or [0.0]))
 
