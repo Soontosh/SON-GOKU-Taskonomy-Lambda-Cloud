@@ -3,6 +3,8 @@ from __future__ import annotations
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple, TYPE_CHECKING
 import time
 import itertools
+import os
+import json
 import torch
 from torch import nn, optim
 
@@ -304,7 +306,6 @@ class SonGokuInstrumentedScheduler:
         if not dump_dir: dump_dir = getattr(self, "dump_graph_dir", None) # NEED TO SPECIFY TO LOG TASK GRAPH
         
         if dump_dir:
-            import os, json
             os.makedirs(dump_dir, exist_ok=True)
             idx = len(self._refresh_logs)  # refresh index
             # save edge list (upper triangle) and colors
