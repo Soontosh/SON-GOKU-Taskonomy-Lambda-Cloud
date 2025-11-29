@@ -83,10 +83,9 @@ class SonGokuMethod(MultiTaskMethod):
                 pass
 
     def step(self, batch: Mapping[str, Any], global_step: int) -> Dict[str, float]:
-        # Use *exactly* the same semantics as your existing SON-GOKU training:
-        # same batch for every task in the schedule.
-        task_batches = {name: batch for name in self.task_names}
-        losses = self.scheduler.step(task_batches)
+        # Reuse the runner's multi-task batch directly; the scheduler expects the
+        # standard Taskonomy batch dict (with rgb + per-task targets).
+        losses = self.scheduler.step(batch)
         return {f"loss/{k}": float(v) for k, v in losses.items()}
 
     def state_dict(self) -> Dict[str, Any]:

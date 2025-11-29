@@ -53,12 +53,24 @@ class _Tee:
             stream.flush()
 
 
+def _get_son_goku_scheduler(method: Any) -> SonGokuInstrumentedScheduler | None:
+    """
+    Return the instrumented SON-GOKU scheduler attached to a method, if any.
+    Methods historically stored it as either `.sched` or `.scheduler`.
+    """
+    for attr in ("sched", "scheduler"):
+        sched = getattr(method, attr, None)
+        if isinstance(sched, SonGokuInstrumentedScheduler):
+            return sched
+    return None
+
+
 def maybe_set_graph_dump_dir(method: Any, dump_dir: str) -> None:
     """Attach a graph-dump directory to SON-GOKU instrumented schedulers if present."""
     if not dump_dir:
         return
-    sched = getattr(method, "sched", None)
-    if isinstance(sched, SonGokuInstrumentedScheduler):
+    sched = _get_son_goku_scheduler(method)
+    if sched is not None:
         sched.dump_graph_dir = dump_dir
 
 
@@ -596,19 +608,21 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         print(f"[{cfg.method}] [TEST]: {test_metrics}")
         with open(os.path.join(cfg.out_dir, "test_metrics.json"), "w") as f:
             json.dump(test_metrics, f, indent=2)
-    if hasattr(method, "scheduler") and hasattr(method.scheduler, "refresh_logs"):
+    refresh_logs = None
+    sched = _get_son_goku_scheduler(method)
+    if sched is not None and hasattr(sched, "refresh_logs"):
         try:
-            refresh_logs = method.scheduler.refresh_logs()
+            refresh_logs = sched.refresh_logs()
         except Exception:
             refresh_logs = None
-        if refresh_logs:
-            with open(os.path.join(cfg.out_dir, "refresh_logs.json"), "w") as f:
-                json.dump(refresh_logs, f, indent=2)
-            # Occasionally print
-            if (global_step % 100) == 0:
-                print(f"[{cfg.method}] refresh logs: {refresh_logs}")
-        elif (global_step % 100) == 0:
-            print(f"[{cfg.method}] no refresh logs available.")
+    if refresh_logs:
+        with open(os.path.join(cfg.out_dir, "refresh_logs.json"), "w") as f:
+            json.dump(refresh_logs, f, indent=2)
+        # Occasionally print
+        if (global_step % 100) == 0:
+            print(f"[{cfg.method}] refresh logs: {refresh_logs}")
+    elif (global_step % 100) == 0:
+        print(f"[{cfg.method}] no refresh logs available.")
     return {"checkpoint": ckpt_path, "test_metrics": test_metrics}
 
 def parse_args() -> argparse.Namespace:
