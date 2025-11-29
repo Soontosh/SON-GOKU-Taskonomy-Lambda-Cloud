@@ -1,6 +1,6 @@
 # taskonomy_eval/time_quality_cli.py
 from __future__ import annotations
-import argparse, json, os, time, csv
+import argparse, json, os, time, csv, inspect
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Tuple
 
@@ -35,6 +35,14 @@ class Cfg:
     methods: Tuple[str, ...]
     seeds: Tuple[int, ...]
     out_dir: str
+    refresh_period: int
+    tau_kind: str
+    tau_initial: float
+    tau_target: float
+    tau_warmup: int
+    tau_anneal: int
+    ema_beta: float
+    min_updates_per_cycle: int
 
 
 def _loaders(cfg: Cfg):
@@ -67,6 +75,44 @@ def _make_specs(model: nn.Module, tasks: Tuple[str, ...], seg_classes: int):
         for t in tasks
     ]
 
+def _instantiate_method(method_key: str,
+                        cfg: Cfg,
+                        model: nn.Module,
+                        specs: Tuple[Any, ...],
+                        optimizer: optim.Optimizer,
+                        shared_filter,
+                        device: torch.device):
+    Method = METHOD_REGISTRY[method_key]
+    candidate_kwargs = {
+        "model": model,
+        "tasks": specs,
+        "optimizer": optimizer,
+        "base_optimizer": optimizer,
+        "shared_param_filter": shared_filter,
+        "device": device,
+        "refresh_period": cfg.refresh_period,
+        "tau_kind": cfg.tau_kind,
+        "tau_initial": cfg.tau_initial,
+        "tau_target": cfg.tau_target,
+        "tau_warmup": cfg.tau_warmup,
+        "tau_anneal": cfg.tau_anneal,
+        "ema_beta": cfg.ema_beta,
+        "min_updates_per_cycle": cfg.min_updates_per_cycle,
+        "lr": cfg.lr,
+    }
+    sig = inspect.signature(Method)
+    kwargs = {}
+    for name in sig.parameters:
+        if name == "self":
+            continue
+        if name in candidate_kwargs:
+            kwargs[name] = candidate_kwargs[name]
+    return Method(**kwargs)
+
+
+def _move_batch_to_device(batch: Dict[str, Any], device: torch.device) -> Dict[str, Any]:
+    return {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in batch.items()}
+
 
 def _scalarize(m):
     vals = []
@@ -85,27 +131,21 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
     opt = optim.Adam(model.parameters(), lr=cfg.lr)
     shared_filter = make_shared_filter(model)
     specs = _make_specs(model, cfg.tasks, cfg.seg_classes)
-    Method = METHOD_REGISTRY[method_key]
-
-    # Instantiate method; pass only compatible args
-    method = Method(
-        model=model,
-        tasks=specs,
-        optimizer=opt,
-        shared_param_filter=shared_filter,
-        device=device,
-    )
+    method = _instantiate_method(method_key, cfg, model, tuple(specs), opt, shared_filter, device)
     maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
     # Training loop — measure wall-clock and throughput
     total_imgs = 0
     t0 = time.time()
+    global_step = 0
     for _ in range(cfg.epochs):
         for batch in train_loader:
+            global_step += 1
+            batch = _move_batch_to_device(batch, device)
             # count images for throughput (batch of RGB always present)
             if isinstance(batch.get("rgb", None), torch.Tensor):
                 total_imgs += int(batch["rgb"].shape[0])
-            _ = method.step(batch, 0)
+            _ = method.step(batch, global_step)
     wall_s = time.time() - t0
     wall_min = wall_s / 60.0
     imgs_per_sec = float(total_imgs / max(1.0, wall_s))
@@ -138,6 +178,14 @@ def parse_args():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--num_workers", type=int, default=8)
     ap.add_argument("--device", type=str, default="cuda")
+    ap.add_argument("--refresh_period", type=int, default=32)
+    ap.add_argument("--tau_kind", type=str, default="log", choices=["log","linear","cosine","constant"])
+    ap.add_argument("--tau_initial", type=float, default=1.0)
+    ap.add_argument("--tau_target", type=float, default=0.25)
+    ap.add_argument("--tau_warmup", type=int, default=0)
+    ap.add_argument("--tau_anneal", type=int, default=0)
+    ap.add_argument("--ema_beta", type=float, default=0.9)
+    ap.add_argument("--min_updates_per_cycle", type=int, default=1)
     # Compare
     ap.add_argument("--methods", type=str, nargs="+",
                     default=["joint","son_goku","gradnorm"],
@@ -157,6 +205,14 @@ def main():
         num_workers=args.num_workers, device=args.device,
         methods=tuple(args.methods), seeds=tuple(args.seeds),
         out_dir=args.out_dir,
+        refresh_period=args.refresh_period,
+        tau_kind=args.tau_kind,
+        tau_initial=args.tau_initial,
+        tau_target=args.tau_target,
+        tau_warmup=args.tau_warmup,
+        tau_anneal=args.tau_anneal,
+        ema_beta=args.ema_beta,
+        min_updates_per_cycle=args.min_updates_per_cycle,
     )
     os.makedirs(cfg.out_dir, exist_ok=True)
     with open(os.path.join(cfg.out_dir, "config.json"), "w") as f:
