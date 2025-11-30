@@ -101,7 +101,7 @@ def _measure_baseline_step_time(cfg: Cfg, loader: DataLoader, device: torch.devi
     it = iter(loader)
 
     # warmup 1 step to consume the mandatory step==1 refresh
-    b = next(it); _ = method.step(b, 1)
+    b = next(it); b = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in b.items()}; _ = method.step(b, 1)
 
     # measure
     nsteps = 0
@@ -111,6 +111,7 @@ def _measure_baseline_step_time(cfg: Cfg, loader: DataLoader, device: torch.devi
             b = next(it)
         except StopIteration:
             it = iter(loader); b = next(it)
+        b = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in b.items()}
         _ = method.step(b, 1)
         nsteps += 1
     dt = time.time() - t0
@@ -138,6 +139,7 @@ def _measure_for_R(cfg: Cfg, loader: DataLoader, device: torch.device, R: int) -
     for _ in range(cfg.warmup_steps):
         try: b = next(it)
         except StopIteration: it = iter(loader); b = next(it)
+        b = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in b.items()}
         _ = method.step(b, 1)
 
     # measure
@@ -146,6 +148,7 @@ def _measure_for_R(cfg: Cfg, loader: DataLoader, device: torch.device, R: int) -
     while nsteps < cfg.measure_steps:
         try: b = next(it)
         except StopIteration: it = iter(loader); b = next(it)
+        b = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in b.items()}
         _ = method.step(b, 1)
         nsteps += 1
     dt = time.time() - t0

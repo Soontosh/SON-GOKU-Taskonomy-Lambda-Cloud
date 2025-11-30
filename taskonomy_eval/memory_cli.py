@@ -145,24 +145,35 @@ def _instantiate_method(method_key: str,
     return MethodCls(**init_kwargs)
 
 
+def _shared_ema_dim(model: nn.Module, shared_filter) -> int:
+    total = 0
+    for p in model.parameters():
+        if shared_filter(p):
+            total += p.numel()
+    return total
+
+
 def _build_sg_scheduler(model, specs, opt, shared_filter, cfg: MemCfg, device, technique: str):
     # tau schedule
     tau = TauSchedule(
         kind=cfg.tau_kind, tau_initial=cfg.tau_initial, tau_target=cfg.tau_target,
         warmup_steps=cfg.tau_warmup, anneal_duration=cfg.tau_anneal
     )
+    ema_dim = _shared_ema_dim(model, shared_filter)
     # choose oracle per technique
     tech = technique.lower()
     if tech == "exact":
         oracle = ExactOracle()
     elif tech == "jl":
-        oracle = RandomProjectionOracle(dim=cfg.jl_dim)
+        oracle = RandomProjectionOracle(d=ema_dim, r=cfg.jl_dim, device=device)
     elif tech == "fd":
-        oracle = FrequentDirectionsOracle(rank=cfg.fd_rank)
+        oracle = FrequentDirectionsOracle(d=ema_dim, ell=cfg.fd_rank, device=device)
     elif tech == "edge":
         oracle = EdgeSamplingOracle(base=ExactOracle(), p=cfg.edge_p)
     elif tech == "incr":
         oracle = IncrementalGramOracle(base=ExactOracle(), eps=cfg.incr_eps)
+    elif tech == "gram":
+        oracle = ExactOracle()
     elif tech == "warm":
         oracle = ExactOracle()  # warm-start affects coloring only
     else:
@@ -374,6 +385,43 @@ def summarize_m2(rows: List[Dict[str, Any]], out_csv: str):
         w.writeheader()
         for row in table: w.writerow(row)
     print(f"[memory] wrote {out_csv}")
+
+    # Compare techniques vs exact SON-GOKU baseline
+    baseline = next((row for row in table if row["technique"] == "exact"), None)
+    if baseline:
+        comps = []
+        base_peak = baseline["step_peak_mb_mean"]
+        base_ips = baseline["throughput_ips_mean"]
+        base_refresh = baseline["refresh_peak_mb_mean"]
+        for row in table:
+            if row["technique"] == "exact":
+                continue
+            comps.append({
+                "technique": row["technique"],
+                "step_peak_rel": float(row["step_peak_mb_mean"] / max(base_peak, 1e-8)),
+                "refresh_peak_rel": float(row["refresh_peak_mb_mean"] / max(base_refresh, 1e-8)),
+                "throughput_rel": float(row["throughput_ips_mean"] / max(base_ips, 1e-8)),
+                "step_peak_mb_mean": row["step_peak_mb_mean"],
+                "refresh_peak_mb_mean": row["refresh_peak_mb_mean"],
+                "throughput_ips_mean": row["throughput_ips_mean"],
+            })
+        if comps:
+            comp_path = os.path.join(os.path.dirname(out_csv), "m2_vs_exact.json")
+            with open(comp_path, "w") as f:
+                json.dump({
+                    "baseline": {
+                        "technique": "exact",
+                        "step_peak_mb_mean": base_peak,
+                        "refresh_peak_mb_mean": base_refresh,
+                        "throughput_ips_mean": base_ips,
+                    },
+                    "comparisons": comps,
+                }, f, indent=2)
+            print("[memory] SON-GOKU technique memory ratios vs exact:")
+            for c in comps:
+                print(f"  tech={c['technique']:>5} | step_peak={c['step_peak_rel']*100:6.1f}% "
+                      f"| refresh_peak={c['refresh_peak_rel']*100:6.1f}% "
+                      f"| throughput={c['throughput_rel']*100:6.1f}%")
 
 
 # -----------------------
