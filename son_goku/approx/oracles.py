@@ -116,10 +116,11 @@ class FrequentDirectionsOracle(BaseCosineOracle):
     def build(self, E: torch.Tensor) -> CosineBuildResult:
         t0 = time.time()
         t_embed0 = time.time()
-        fd = _FrequentDirections(E.size(1), self.ell, E.device)
-        fd.push_rows(E)                 # stream
-        W = fd.projection()             # [d, ell]
-        Z = E @ W                       # [K, ell]
+        E_cpu = E.to(self.device)
+        fd = _FrequentDirections(E_cpu.size(1), self.ell, self.device)
+        fd.push_rows(E_cpu)                 # stream
+        W = fd.projection().to(E.device)    # [d, ell]
+        Z = E @ W                           # [K, ell]
         U = _normalize_rows(Z)
         t_embed = (time.time() - t_embed0) * 1000.0
         t_pairs0 = time.time()
