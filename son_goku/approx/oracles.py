@@ -71,7 +71,8 @@ class _FrequentDirections:
     """
     def __init__(self, d: int, ell: int, device: torch.device):
         self.ell = ell
-        self.B = torch.zeros(ell, d, device=device)
+        cpu_device = torch.device("cpu")
+        self.B = torch.zeros(ell, d, device=cpu_device)
 
     @torch.no_grad()
     def push_rows(self, A: torch.Tensor):
@@ -116,8 +117,8 @@ class FrequentDirectionsOracle(BaseCosineOracle):
     def build(self, E: torch.Tensor) -> CosineBuildResult:
         t0 = time.time()
         t_embed0 = time.time()
-        E_cpu = E.to(self.device)
-        fd = _FrequentDirections(E_cpu.size(1), self.ell, self.device)
+        E_cpu = E.cpu()
+        fd = _FrequentDirections(E_cpu.size(1), self.ell, torch.device("cpu"))
         fd.push_rows(E_cpu)                 # stream
         W = fd.projection().to(E.device)    # [d, ell]
         Z = E @ W                           # [K, ell]
