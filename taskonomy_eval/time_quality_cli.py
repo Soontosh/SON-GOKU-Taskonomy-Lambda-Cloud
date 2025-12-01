@@ -11,7 +11,8 @@ from torch.utils.data import DataLoader
 
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate, METHOD_REGISTRY, maybe_set_graph_dump_dir
+    build_task_loss, evaluate, METHOD_REGISTRY, maybe_set_graph_dump_dir,
+    resolve_requested_tasks,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -45,14 +46,18 @@ class Cfg:
     min_updates_per_cycle: int
 
 
-def _loaders(cfg: Cfg):
+def _resolved_tasks(cfg: Cfg) -> Tuple[str, ...]:
+    return resolve_requested_tasks(cfg.tasks, cfg.data_root, cfg.split, cfg.buildings_list)
+
+
+def _loaders(cfg: Cfg, tasks: Tuple[str, ...]):
     train = TaskonomyDataset(TaskonomyConfig(
         root=cfg.data_root, split=cfg.split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
+        tasks=tasks, resize=cfg.resize
     ))
     val = TaskonomyDataset(TaskonomyConfig(
         root=cfg.data_root, split=cfg.val_split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
+        tasks=tasks, resize=cfg.resize
     ))
     train_loader = DataLoader(train, batch_size=cfg.batch_size, shuffle=True,
                               num_workers=cfg.num_workers, pin_memory=True)
@@ -125,12 +130,13 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
     set_seed(seed)
     device = torch.device(cfg.device)
 
-    train_loader, val_loader = _loaders(cfg)
-    model, _ = build_model(cfg.tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
+    tasks = _resolved_tasks(cfg)
+    train_loader, val_loader = _loaders(cfg, tasks)
+    model, _ = build_model(tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=cfg.lr)
     shared_filter = make_shared_filter(model)
-    specs = _make_specs(model, cfg.tasks, cfg.seg_classes)
+    specs = _make_specs(model, tasks, cfg.seg_classes)
     method = _instantiate_method(method_key, cfg, model, tuple(specs), opt, shared_filter, device)
     maybe_set_graph_dump_dir(method, os.path.join(cfg.out_dir, "graphs"))
 
@@ -150,7 +156,7 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
     wall_min = wall_s / 60.0
     imgs_per_sec = float(total_imgs / max(1.0, wall_s))
 
-    metrics = evaluate(model, val_loader, cfg.tasks, cfg.seg_classes, device)
+    metrics = evaluate(model, val_loader, tasks, cfg.seg_classes, device)
     return {
         "seed": seed,
         "method": method_key,

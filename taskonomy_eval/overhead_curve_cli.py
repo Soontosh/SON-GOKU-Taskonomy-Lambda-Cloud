@@ -15,7 +15,7 @@ import matplotlib.pyplot as plt
 
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, METHOD_REGISTRY
+    build_task_loss, METHOD_REGISTRY, resolve_requested_tasks
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 from taskonomy_eval.methods.son_goku_method import SonGokuMethod  # we need SON-GOKU specifically
@@ -191,9 +191,10 @@ def parse_args():
 
 def main():
     args = parse_args()
+    resolved_tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     cfg = Cfg(
         data_root=args.data_root, split=args.split,
-        tasks=tuple(args.tasks), resize=tuple(args.resize), buildings_list=args.buildings_list,
+        tasks=resolved_tasks, resize=tuple(args.resize), buildings_list=args.buildings_list,
         seg_classes=args.seg_classes, base_channels=args.base_channels,
         batch_size=args.batch_size, num_workers=args.num_workers, device=args.device,
         warmup_steps=args.warmup_steps, measure_steps=args.measure_steps,

@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 # Reuse your existing helpers
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate,
+    build_task_loss, evaluate, resolve_requested_tasks,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -55,7 +55,29 @@ class RebuttalConfig:
     seeds: Tuple[int, ...]
     out_dir: str
     adaptive_tau_p: float | None
+    log_train_every: int
 
+def _train_log_path(cfg: RebuttalConfig, label: str) -> str:
+    safe = label.replace("/", "_").replace(" ", "_")
+    return os.path.join(cfg.out_dir, f"train_log_{safe}.csv")
+
+
+def _maybe_log_step(logs: Dict[str, float], global_step: int, epoch: int, step: int,
+                    csv_path: str, log_every: int) -> None:
+    if log_every <= 0 or not logs:
+        return
+    if (global_step % log_every) != 0:
+        return
+    loss_keys = sorted(k for k in logs if k.startswith("loss/"))
+    if not loss_keys:
+        return
+    os.makedirs(os.path.dirname(csv_path), exist_ok=True)
+    if not os.path.exists(csv_path):
+        with open(csv_path, "w") as f:
+            f.write(f"global_step,epoch,step,{','.join(loss_keys)}\n")
+    with open(csv_path, "a") as f:
+        row = ",".join(f"{logs.get(k, np.nan)}" for k in loss_keys)
+        f.write(f"{global_step},{epoch},{step},{row}\n")
 
 def _make_task_specs(model: nn.Module, tasks: Sequence[str], seg_classes: int):
     head_filters = {t: make_head_filter(model, t) for t in tasks}
@@ -154,13 +176,18 @@ def run_adaptive_vs_default(seed: int, cfg: RebuttalConfig) -> Dict[str, Any]:
             tau_const=None,
             adaptive_tau_p=adaptive_p
         )
+        label = f"adaptive_tau_seed{seed}_{tag}"
+        train_csv = _train_log_path(cfg, label)
+        global_step = 0
 
         t0 = time.time()
-        for _ in range(cfg.epochs):
-            for batch in train_loader:
+        for epoch in range(cfg.epochs):
+            for step_idx, batch in enumerate(train_loader):
+                global_step += 1
                 batch = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
                          for k, v in batch.items()}
-                _ = sched.step(batch)
+                logs = sched.step(batch)
+                _maybe_log_step(logs, global_step, epoch + 1, step_idx, train_csv, cfg.log_train_every)
         wall = (time.time() - t0)/60.0
         metrics = evaluate(model, val_loader, cfg.tasks, cfg.seg_classes, device)
 
@@ -277,13 +304,17 @@ def run_random_groups(seed: int, cfg: RebuttalConfig) -> Dict[str, Any]:
         specs = _make_task_specs(model, cfg.tasks, cfg.seg_classes)
         sched = _build_sched(model, specs, opt, shared_filter, cfg, device,
                              random_groups_control=random_ctrl, tau_const=None)
+        train_csv = _train_log_path(cfg, f"random_seed{seed}_{tag}")
+        global_step = 0
 
         t0 = time.time()
         for epoch in range(cfg.epochs):
-            for batch in train_loader:
+            for step_idx, batch in enumerate(train_loader):
+                global_step += 1
                 batch = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
                          for k, v in batch.items()}
-                _ = sched.step(batch)
+                logs = sched.step(batch)
+                _maybe_log_step(logs, global_step, epoch + 1, step_idx, train_csv, cfg.log_train_every)
         wall = (time.time() - t0) / 60.0
 
         metrics = evaluate(model, val_loader, cfg.tasks, cfg.seg_classes, device)
@@ -315,6 +346,8 @@ def run_scheduled_vs_mixed(seed: int, cfg: RebuttalConfig) -> Dict[str, Any]:
     specs = _make_task_specs(model, cfg.tasks, cfg.seg_classes)
     sched = _build_sched(model, specs, opt, shared_filter, cfg, device,
                          random_groups_control=False, tau_const=None)
+    train_csv = _train_log_path(cfg, f"scheduled_vs_mixed_seed{seed}")
+    global_step = 0
 
     # prepare a fixed small pool of probe batches from val
     probe_batches: List[Dict[str, Any]] = []
@@ -332,10 +365,12 @@ def run_scheduled_vs_mixed(seed: int, cfg: RebuttalConfig) -> Dict[str, Any]:
 
     t0 = time.time()
     for epoch in range(cfg.epochs):
-        for batch in train_loader:
+        for step_idx, batch in enumerate(train_loader):
+            global_step += 1
             batch = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
                      for k, v in batch.items()}
-            _ = sched.step(batch)
+            logs = sched.step(batch)
+            _maybe_log_step(logs, global_step, epoch + 1, step_idx, train_csv, cfg.log_train_every)
 
             # detect a new refresh
             if len(sched.refresh_logs()) > last_refresh_count:
@@ -380,13 +415,18 @@ def run_tau_sweep(seed: int, cfg: RebuttalConfig) -> Dict[str, Any]:
         specs = _make_task_specs(model, cfg.tasks, cfg.seg_classes)
         sched = _build_sched(model, specs, opt, shared_filter, cfg, device,
                              random_groups_control=False, tau_const=float(tau_val))
+        tau_label = str(tau_val).replace(".", "p")
+        train_csv = _train_log_path(cfg, f"tau_sweep_seed{seed}_tau{tau_label}")
+        global_step = 0
 
         t0 = time.time()
         for epoch in range(cfg.epochs):
-            for batch in train_loader:
+            for step_idx, batch in enumerate(train_loader):
+                global_step += 1
                 batch = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v)
                          for k, v in batch.items()}
-                _ = sched.step(batch)
+                logs = sched.step(batch)
+                _maybe_log_step(logs, global_step, epoch + 1, step_idx, train_csv, cfg.log_train_every)
         wall = (time.time() - t0) / 60.0
         metrics = evaluate(model, val_loader, cfg.tasks, cfg.seg_classes, device)
 
@@ -608,6 +648,8 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--min_updates_per_cycle", type=int, default=1)
     ap.add_argument("--adaptive_tau_p", type=float, default=None,
                 help="If set (e.g., 0.7 or 70), τ is the percentile of the cosine matrix each refresh.")
+    ap.add_argument("--log_train_every", type=int, default=0,
+                help="Log per-task losses every N steps (0 disables logging).")
     # Experiments
     ap.add_argument("--exp", type=str, required=True,
                 choices=["random_groups", "scheduled_vs_mixed", "tau_sweep", "adaptive_tau"])
@@ -622,9 +664,10 @@ def parse_args() -> argparse.Namespace:
 
 def main():
     args = parse_args()
+    resolved_tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     cfg = RebuttalConfig(
         data_root=args.data_root, split=args.split, val_split=args.val_split,
-        tasks=tuple(args.tasks), resize=tuple(args.resize), buildings_list=args.buildings_list,
+        tasks=resolved_tasks, resize=tuple(args.resize), buildings_list=args.buildings_list,
         seg_classes=args.seg_classes, base_channels=args.base_channels,
         epochs=args.epochs, batch_size=args.batch_size, lr=args.lr,
         num_workers=args.num_workers, device=args.device,
@@ -634,7 +677,8 @@ def main():
         min_updates_per_cycle=args.min_updates_per_cycle,
         exp=args.exp, taus=tuple(args.taus), micro_batches=int(args.micro_batches),
         seeds=tuple(args.seeds), out_dir=args.out_dir,
-        adaptive_tau_p=args.adaptive_tau_p
+        adaptive_tau_p=args.adaptive_tau_p,
+        log_train_every=args.log_train_every,
     )
     os.makedirs(cfg.out_dir, exist_ok=True)
     with open(os.path.join(cfg.out_dir, "config.json"), "w") as f:
