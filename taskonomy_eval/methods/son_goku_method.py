@@ -43,6 +43,7 @@ class SonGokuMethod(MultiTaskMethod):
         log_dir: str | None = None,
         log_interval: int = 50,
         graph_density_target: float | None = None,
+        device: torch.device | str | None = None,
     ) -> None:
         self.model = model
         self.optimizer = optimizer
@@ -72,6 +73,7 @@ class SonGokuMethod(MultiTaskMethod):
             log_interval=log_interval,
             log_path=log_path,
             base_method=base_method,
+            device=device if device is None or isinstance(device, torch.device) else torch.device(device),
         )
         self.scheduler.graph_mode = graph_mode
         self.scheduler.graph_knn_k = int(graph_knn_k)
