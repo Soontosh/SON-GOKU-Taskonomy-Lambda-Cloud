@@ -152,12 +152,15 @@ class EdgeSamplingOracle(BaseCosineOracle):
         K = C.size(0)
         # Sample upper triangle
         t_pairs0 = time.time()
-        mask = torch.zeros_like(C, dtype=torch.bool)
+        device = C.device
+        mask = torch.zeros_like(C, dtype=torch.bool, device=device)
         iu, ju = torch.triu_indices(K, K, offset=1)
+        iu = iu.to(device)
+        ju = ju.to(device)
         num_pairs = iu.numel()
-        keep = torch.rand(num_pairs, generator=self.gen, device=C.device) < self.p
+        keep = torch.rand(num_pairs, generator=self.gen, device=device) < self.p
         mask[iu[keep], ju[keep]] = True
-        mask = mask | mask.t() | torch.eye(K, dtype=torch.bool, device=C.device)
+        mask = mask | mask.t() | torch.eye(K, dtype=torch.bool, device=device)
         C = torch.where(mask, C, torch.zeros_like(C))
         t_pairs = (time.time() - t_pairs0) * 1000.0
         t_total = (time.time() - t0) * 1000.0
