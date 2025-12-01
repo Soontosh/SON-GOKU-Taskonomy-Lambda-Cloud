@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 # Reuse your helpers
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate, maybe_set_graph_dump_dir,
+    build_task_loss, evaluate, maybe_set_graph_dump_dir, resolve_requested_tasks,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
