@@ -516,6 +516,7 @@ def parse_args():
 
 def main():
     args = parse_args()
+    args.tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     cfg = MemCfg(
         data_root=args.data_root, split=args.split, val_split=args.val_split,
         tasks=tuple(args.tasks), resize=tuple(args.resize), buildings_list=args.buildings_list,
