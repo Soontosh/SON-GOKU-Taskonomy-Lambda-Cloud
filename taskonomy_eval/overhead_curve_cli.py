@@ -165,7 +165,11 @@ def parse_args():
     # Data/model
     ap.add_argument("--data_root", type=str, required=True)
     ap.add_argument("--split", type=str, default="train")
-    ap.add_argument("--tasks", type=str, nargs="+", default=["depth_euclidean", "normal", "reshading"])
+    ap.add_argument(
+        "--tasks", type=str, nargs="+",
+        default=["depth_euclidean", "normal", "reshading"],
+        help="Space-separated task list or 'all' to automatically use every available target."
+    )
     ap.add_argument("--resize", type=int, nargs=2, default=[256,256])
     ap.add_argument("--buildings_list", type=str, default=None)
     ap.add_argument("--seg_classes", type=int, default=40)

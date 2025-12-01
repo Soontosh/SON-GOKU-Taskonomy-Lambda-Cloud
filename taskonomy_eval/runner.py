@@ -157,17 +157,29 @@ def build_task_loss(task: str, seg_classes: int):
 
 def resolve_requested_tasks(tasks: Sequence[str], data_root: str, split: str, buildings_list: Optional[str]) -> Tuple[str, ...]:
     """
-    Interpret the --tasks argument, allowing the keyword 'all' to expand
-    to every available supervision target for the requested subset.
+    Interpret the --tasks argument, allowing the keyword 'all' (in any position)
+    to expand to every available supervision target for the requested subset.
     """
-    if len(tasks) == 1 and tasks[0].lower() == "all":
-        available = list_available_tasks(data_root, split, buildings_list)
-        if not available:
-            raise ValueError(
-                f"No supervised tasks were found under root={data_root}, split={split}, buildings_list={buildings_list}."
-            )
-        return available
-    return tuple(tasks)
+    normalized = [t.strip() for t in tasks if t]
+    wants_all = any(t.lower() == "all" for t in normalized)
+    if not wants_all:
+        return tuple(normalized)
+
+    available = list_available_tasks(data_root, split, buildings_list)
+    if not available:
+        raise ValueError(
+            f"No supervised tasks were found under root={data_root}, split={split}, buildings_list={buildings_list}."
+        )
+
+    # Preserve the default alphabetical ordering from list_available_tasks.
+    resolved = list(available)
+    # If the user listed extra tasks alongside 'all', append any unseen names
+    # (useful for experimenting with custom targets stored on disk).
+    extras = [t for t in normalized if t.lower() != "all"]
+    for task in extras:
+        if task not in resolved:
+            resolved.append(task)
+    return tuple(resolved)
 
 
 @torch.no_grad()
