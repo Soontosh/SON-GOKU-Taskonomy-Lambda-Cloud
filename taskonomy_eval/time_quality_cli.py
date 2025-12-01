@@ -1,6 +1,6 @@
 # taskonomy_eval/time_quality_cli.py
 from __future__ import annotations
-import argparse, json, os, time, csv, inspect
+import argparse, json, os, time, csv, inspect, gc
 from dataclasses import dataclass, asdict
 from typing import Any, Dict, List, Tuple
 
@@ -177,7 +177,7 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
     imgs_per_sec = float(total_imgs / max(1.0, wall_s))
 
     metrics = evaluate(model, val_loader, tasks, cfg.seg_classes, device)
-    return {
+    result = {
         "seed": seed,
         "method": method_key,
         "wall_min": wall_min,
@@ -185,6 +185,10 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
         "val_metrics": metrics,
         "val_scalar": _scalarize(metrics),
     }
+    del train_loader, val_loader, method, model, opt, shared_filter, specs
+    gc.collect()
+    torch.cuda.empty_cache()
+    return result
 
 
 def parse_args():
