@@ -19,7 +19,7 @@ echo "[`date`] New graph ablation run started" >> "$STATUS_LOG"
 cd ~/SON-GOKU-Taskonomy-Lambda-Cloud
 source ~/venvs/taskonomy-gpu/bin/activate
 
-# Common training args (5 epochs, batch 32, all tasks)
+# Common training args (5 epochs, batch ~32~ now 64, all tasks)
 COMMON_ARGS=(
   --data_root "$TASKONOMY_MEDIUM"
   --split train
@@ -28,7 +28,7 @@ COMMON_ARGS=(
   --tasks all
   --resize 256 256
   --epochs 5
-  --batch_size 32
+  --batch_size 64
   --lr 1e-3
   --methods son_goku
   --seeds 0 1 2
