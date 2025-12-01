@@ -87,6 +87,26 @@ def _instantiate_method(method_key: str,
                         optimizer: optim.Optimizer,
                         shared_filter,
                         device: torch.device):
+    if method_key == "joint":
+        class _JointBaseline:
+            def __init__(self, model, specs, optimizer):
+                self.model = model
+                self.specs = specs
+                self.optimizer = optimizer
+
+            def step(self, batch, global_step: int):
+                self.model.train()
+                self.optimizer.zero_grad(set_to_none=True)
+                losses = []
+                for spec in self.specs:
+                    losses.append(spec.loss_fn(self.model, batch))
+                total = torch.stack(losses).sum()
+                total.backward()
+                self.optimizer.step()
+                logs = {f"loss/{spec.name}": float(l.item()) for spec, l in zip(self.specs, losses)}
+                logs["loss/total"] = float(total.item())
+                return logs
+        return _JointBaseline(model, specs, optimizer)
     Method = METHOD_REGISTRY[method_key]
     candidate_kwargs = {
         "model": model,
