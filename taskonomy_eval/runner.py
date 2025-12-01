@@ -95,7 +95,7 @@ def build_model(tasks: Sequence[str], seg_classes: int, base: int = 32) -> Tuple
         elif t == "segment_semantic":
             out_ch[t] = seg_classes
         elif t == "principal_curvature":
-            out_ch[t] = 2
+            out_ch[t] = 3
         else:
             raise ValueError(f"Unsupported task: {t}")
     model = TaskonomyMTL(out_ch, base=base)
