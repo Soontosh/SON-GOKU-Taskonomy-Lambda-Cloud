@@ -86,7 +86,7 @@ class SonGokuMethod(MultiTaskMethod):
         # Reuse the runner's multi-task batch directly; the scheduler expects the
         # standard Taskonomy batch dict (with rgb + per-task targets).
         losses = self.scheduler.step(batch)
-        return {f"loss/{k}": float(v) for k, v in losses.items()}
+        return {k if k.startswith("loss/") else f"loss/{k}": float(v) for k, v in losses.items()}
 
     def state_dict(self) -> Dict[str, Any]:
         # If SonGokuScheduler exposes state_dict() later you can forward to it.
