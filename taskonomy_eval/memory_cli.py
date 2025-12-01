@@ -171,7 +171,7 @@ def _build_sg_scheduler(model, specs, opt, shared_filter, cfg: MemCfg, device, t
     elif tech == "edge":
         oracle = EdgeSamplingOracle(base=ExactOracle(), p=cfg.edge_p)
     elif tech == "incr":
-        oracle = IncrementalGramOracle(base=ExactOracle(), eps=cfg.incr_eps)
+        oracle = IncrementalGramOracle(base=ExactOracle(), epsilon=cfg.incr_eps)
     elif tech == "gram":
         oracle = ExactOracle()
     elif tech == "warm":
