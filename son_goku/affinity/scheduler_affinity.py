@@ -1,6 +1,8 @@
 # son_goku/affinity/scheduler_affinity.py
 from __future__ import annotations
 from typing import Any, Dict, List, Mapping, Optional, Sequence, Tuple
+import json
+import os
 import time
 import torch
 from torch import nn, optim
@@ -64,6 +66,7 @@ class AffinityScheduler:
         self._group_idx = 0
         self._step = 0
         self._refresh_logs: List[Dict[str, float]] = []
+        self.dump_graph_dir = os.environ.get("SON_GOKU_DUMP_DIR")
 
     def _refresh(self, batch: Mapping[str, Any]):
         t0 = time.time()
@@ -119,6 +122,24 @@ class AffinityScheduler:
             "ingroup_conflict": ing,
             **A_stats
         })
+        dump_dir = self.dump_graph_dir or os.environ.get("SON_GOKU_DUMP_DIR")
+        if dump_dir:
+            os.makedirs(dump_dir, exist_ok=True)
+            idx = len(self._refresh_logs)
+            iu, ju = torch.triu_indices(A.shape[0], A.shape[0], offset=1)
+            edges = [
+                (int(i), int(j))
+                for i, j in zip(iu.tolist(), ju.tolist())
+                if bool(A[i, j].item())
+            ]
+            with open(os.path.join(dump_dir, f"graph_refresh_{idx:04d}.json"), "w") as f:
+                json.dump({
+                    "step": int(self._step),
+                    "mode": self.mode,
+                    "colors": [int(c) for c in colors],
+                    "edges": edges,
+                    **A_stats
+                }, f)
 
     def step(self, batch: Mapping[str, Any]) -> Dict[str, float]:
         self._step += 1

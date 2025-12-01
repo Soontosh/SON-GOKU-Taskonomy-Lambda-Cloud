@@ -12,7 +12,7 @@ from torch.utils.data import DataLoader
 # Reuse your helpers
 from taskonomy_eval.runner import (
     set_seed, build_model, make_shared_filter, make_head_filter,
-    build_task_loss, evaluate,
+    build_task_loss, evaluate, resolve_requested_tasks,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
 
@@ -71,15 +71,18 @@ def _make_specs(model: nn.Module, tasks: Sequence[str], seg_classes: int):
         for t in tasks
     ]
 
+def _resolved_tasks(cfg: AffinityCfg) -> Tuple[str, ...]:
+    return resolve_requested_tasks(cfg.tasks, cfg.data_root, cfg.split, cfg.buildings_list)
 
-def _loaders(cfg: AffinityCfg):
+
+def _loaders(cfg: AffinityCfg, tasks: Sequence[str]):
     train = TaskonomyDataset(TaskonomyConfig(
         root=cfg.data_root, split=cfg.split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
+        tasks=tuple(tasks), resize=cfg.resize
     ))
     val = TaskonomyDataset(TaskonomyConfig(
         root=cfg.data_root, split=cfg.val_split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
+        tasks=tuple(tasks), resize=cfg.resize
     ))
     train_loader = DataLoader(train, batch_size=cfg.batch_size, shuffle=True,
                               num_workers=cfg.num_workers, pin_memory=True)
@@ -94,12 +97,13 @@ def _loaders(cfg: AffinityCfg):
 def run_e1(seed: int, cfg: AffinityCfg) -> Dict[str, Any]:
     set_seed(seed)
     device = torch.device(cfg.device)
-    train_loader, _ = _loaders(cfg)
+    tasks = _resolved_tasks(cfg)
+    train_loader, _ = _loaders(cfg, tasks)
 
-    model, _ = build_model(cfg.tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
+    model, _ = build_model(tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
     model.to(device)
     shared_filter = make_shared_filter(model)
-    specs = _make_specs(model, cfg.tasks, cfg.seg_classes)
+    specs = _make_specs(model, tasks, cfg.seg_classes)
 
     cos_aff = GradCosineAffinity(shared_filter)
     tag_aff = TAGExactAffinity(shared_filter, symmetrize=True)
@@ -159,13 +163,14 @@ def _train_with_affinity(
 ) -> Dict[str, Any]:
     set_seed(seed)
     device = torch.device(cfg.device)
-    train_loader, val_loader = _loaders(cfg)
+    tasks = _resolved_tasks(cfg)
+    train_loader, val_loader = _loaders(cfg, tasks)
 
-    model, _ = build_model(cfg.tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
+    model, _ = build_model(tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=cfg.lr)
     shared_filter = make_shared_filter(model)
-    specs = _make_specs(model, cfg.tasks, cfg.seg_classes)
+    specs = _make_specs(model, tasks, cfg.seg_classes)
 
     if mode == "cosine":
         affinity = GradCosineAffinity(shared_filter)
@@ -207,7 +212,7 @@ def _train_with_affinity(
             batch = {k: (v.to(device, non_blocking=True) if isinstance(v, torch.Tensor) else v) for k, v in batch.items()}
             _ = sched.step(batch)
     wall = (time.time() - t0)/60.0
-    metrics = evaluate(model, val_loader, cfg.tasks, cfg.seg_classes, device)
+    metrics = evaluate(model, val_loader, tasks, cfg.seg_classes, device)
     return {
         "seed": seed, "mode": mode, "tau_const": tau_const,
         "wall_clock_min": wall, "val_metrics": metrics,
@@ -303,9 +308,10 @@ def parse_args():
 
 def main():
     args = parse_args()
+    resolved_tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     cfg = AffinityCfg(
         data_root=args.data_root, split=args.split, val_split=args.val_split,
-        tasks=tuple(args.tasks), resize=tuple(args.resize), buildings_list=args.buildings_list,
+        tasks=resolved_tasks, resize=tuple(args.resize), buildings_list=args.buildings_list,
         seg_classes=args.seg_classes, base_channels=args.base_channels,
         epochs=args.epochs, batch_size=args.batch_size, lr=args.lr, num_workers=args.num_workers,
         device=args.device, refresh_period=args.refresh_period, ema_beta=args.ema_beta,
