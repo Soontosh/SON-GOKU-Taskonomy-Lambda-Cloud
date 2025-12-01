@@ -172,6 +172,7 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
             if isinstance(batch.get("rgb", None), torch.Tensor):
                 total_imgs += int(batch["rgb"].shape[0])
             _ = method.step(batch, global_step)
+        torch.cuda.empty_cache()
     wall_s = time.time() - t0
     wall_min = wall_s / 60.0
     imgs_per_sec = float(total_imgs / max(1.0, wall_s))
