@@ -36,6 +36,7 @@ class Cfg:
     methods: Tuple[str, ...]
     seeds: Tuple[int, ...]
     out_dir: str
+    use_checkpoint: bool
     refresh_period: int
     tau_kind: str
     tau_initial: float
@@ -152,7 +153,12 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
 
     tasks = _resolved_tasks(cfg)
     train_loader, val_loader = _loaders(cfg, tasks)
-    model, _ = build_model(tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
+    model, _ = build_model(
+        tasks,
+        seg_classes=cfg.seg_classes,
+        base=cfg.base_channels,
+        use_checkpoint=cfg.use_checkpoint,
+    )
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=cfg.lr)
     shared_filter = make_shared_filter(model)
@@ -209,6 +215,8 @@ def parse_args():
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--num_workers", type=int, default=8)
     ap.add_argument("--device", type=str, default="cuda")
+    ap.add_argument("--use_checkpoint", action="store_true",
+                    help="Enable gradient checkpointing in the Taskonomy UNet to lower activation memory.")
     ap.add_argument("--refresh_period", type=int, default=32)
     ap.add_argument("--tau_kind", type=str, default="log", choices=["log","linear","cosine","constant"])
     ap.add_argument("--tau_initial", type=float, default=1.0)
@@ -236,6 +244,7 @@ def main():
         num_workers=args.num_workers, device=args.device,
         methods=tuple(args.methods), seeds=tuple(args.seeds),
         out_dir=args.out_dir,
+        use_checkpoint=args.use_checkpoint,
         refresh_period=args.refresh_period,
         tau_kind=args.tau_kind,
         tau_initial=args.tau_initial,

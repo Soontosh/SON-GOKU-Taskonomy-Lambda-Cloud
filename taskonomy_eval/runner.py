@@ -85,7 +85,7 @@ def set_seed(seed: int) -> None:
     torch.backends.cudnn.benchmark = False
 
 
-def build_model(tasks: Sequence[str], seg_classes: int, base: int = 32) -> Tuple[nn.Module, Dict[str, int]]:
+def build_model(tasks: Sequence[str], seg_classes: int, base: int = 32, use_checkpoint: bool = False) -> Tuple[nn.Module, Dict[str, int]]:
     out_ch: Dict[str, int] = {}
     for t in tasks:
         if t in ("depth_euclidean", "depth_zbuffer", "reshading", "edge_occlusion", "edge_texture", "keypoints2d"):
@@ -98,7 +98,7 @@ def build_model(tasks: Sequence[str], seg_classes: int, base: int = 32) -> Tuple
             out_ch[t] = 3
         else:
             raise ValueError(f"Unsupported task: {t}")
-    model = TaskonomyMTL(out_ch, base=base)
+    model = TaskonomyMTL(out_ch, base=base, use_checkpoint=use_checkpoint)
     return model, out_ch
 
 
@@ -224,6 +224,7 @@ class ExperimentConfig:
     method: str
     seed: int
     out_dir: str
+    use_checkpoint: bool = False
 
     # SON-GOKU / GradNorm method-specific hyperparams:
     refresh_period: int = 32
@@ -309,7 +310,12 @@ def train_and_eval_once(cfg: ExperimentConfig) -> Dict[str, Any]:
         )
 
     # Model + optimizer
-    model, _ = build_model(cfg.tasks, seg_classes=cfg.seg_classes, base=cfg.base_channels)
+    model, _ = build_model(
+        cfg.tasks,
+        seg_classes=cfg.seg_classes,
+        base=cfg.base_channels,
+        use_checkpoint=cfg.use_checkpoint,
+    )
     model.to(device)
     opt = optim.Adam(model.parameters(), lr=cfg.lr)
 
@@ -640,6 +646,8 @@ def parse_args() -> argparse.Namespace:
     ap.add_argument("--batch_size", type=int, default=8)
     ap.add_argument("--lr", type=float, default=1e-3)
     ap.add_argument("--base_channels", type=int, default=32)
+    ap.add_argument("--use_checkpoint", action="store_true",
+                    help="Enable gradient checkpointing in the Taskonomy UNet to reduce activation memory.")
     ap.add_argument("--num_workers", type=int, default=8)
     ap.add_argument("--device", type=str, default="cuda" if torch.cuda.is_available() else "cpu")
     ap.add_argument("--methods", type=str, nargs="+", required=True,
@@ -736,6 +744,7 @@ def main():
                         batch_size=args.batch_size,
                         lr=args.lr,
                         base_channels=args.base_channels,
+                        use_checkpoint=args.use_checkpoint,
                         num_workers=args.num_workers,
                         device=args.device,
                         method=method,
