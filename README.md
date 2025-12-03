@@ -95,5 +95,31 @@ for step in range(100):
 - Plug-in your gradient surgery (`gradient_transform`) to combine SON-GOKU with PCGrad/CAGrad, etc.
 - Combine with loss reweighting (e.g., AdaTask/FAMO) **outside** the scheduler; the scheduler only selects/aggregates tasks.
 
+## Synthetic Memory Isolation
+Run deterministic, dummy-data memory experiments that isolate each method by using the synthetic Taskonomy pipeline:
+
+```bash
+# defaults cover SON-GOKU + major baselines; pass method names to override
+./run_synthetic_memory_isolation.sh
+
+# example: only profile SON-GOKU + PCGrad on CPU
+DEVICE=cpu ./run_synthetic_memory_isolation.sh son_goku pcgrad
+```
+
+The helper script calls `python -m taskonomy_eval.memory_cli --exp m1_peak --synthetic_data ...`
+per method so that every measurement happens in a fresh Python process.
+Results (JSON + CSV) land in `experiments/memory_isolation/<timestamp>/<method>/`.
+Tweak knobs such as `BATCH_SIZE`, `MEASURE_STEPS`, or `SYNTH_DATASET_SIZE`
+via environment variables to stress different regimes.
+
+For cloud usage, run the script inside a clean container to keep host noise out:
+
+```bash
+docker run --rm --gpus all \
+  -v $PWD:/workspace -w /workspace \
+  nvcr.io/nvidia/pytorch:23.10-py3 \
+  bash -lc "./run_synthetic_memory_isolation.sh"
+```
+
 ## License
 MIT

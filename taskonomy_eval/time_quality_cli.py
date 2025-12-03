@@ -170,6 +170,12 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
     total_imgs = 0
     t0 = time.time()
     global_step = 0
+    try:
+        steps_per_epoch = len(train_loader)
+        total_steps = steps_per_epoch * cfg.epochs
+    except TypeError:
+        steps_per_epoch = None
+        total_steps = None
     for _ in range(cfg.epochs):
         for batch in train_loader:
             global_step += 1
@@ -178,6 +184,17 @@ def _run_one(cfg: Cfg, method_key: str, seed: int) -> Dict[str, Any]:
             if isinstance(batch.get("rgb", None), torch.Tensor):
                 total_imgs += int(batch["rgb"].shape[0])
             _ = method.step(batch, global_step)
+            if global_step == 1 or (global_step % 50) == 0:
+                remaining = (
+                    max(0, total_steps - global_step) if total_steps is not None else "unknown"
+                )
+                timestamp = time.strftime("%Y-%m-%d %H:%M:%S", time.localtime())
+                print(
+                    f"[{timestamp}] [{method_key} seed={seed}] "
+                    f"step {global_step}"
+                    + (f"/{total_steps}" if total_steps is not None else "")
+                    + f" (remaining {remaining})"
+                )
         torch.cuda.empty_cache()
     wall_s = time.time() - t0
     wall_min = wall_s / 60.0

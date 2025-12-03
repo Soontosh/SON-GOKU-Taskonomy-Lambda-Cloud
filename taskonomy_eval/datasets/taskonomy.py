@@ -1,7 +1,7 @@
 
 import os
 from dataclasses import dataclass
-from typing import Dict, List, Optional, Tuple, Any
+from typing import Dict, List, Optional, Tuple, Any, Set
 from glob import glob
 
 import numpy as np
@@ -102,6 +102,9 @@ def _resolve_buildings(root: str, split: str, buildings_list: Optional[str]) -> 
     return sorted([d for d in os.listdir(bdir) if os.path.isdir(os.path.join(bdir, d))])
 
 
+_GLOBAL_BAD_LOGGED: Set[str] = set()
+
+
 def list_available_tasks(root: str, split: str, buildings_list: Optional[str] = None) -> Tuple[str, ...]:
     """
     Enumerate which supervision targets exist for the requested subset by scanning
@@ -162,6 +165,9 @@ class TaskonomyDataset(Dataset):
             raise RuntimeError(f"No samples found for split '{self.split}' with tasks {self.tasks}.")
         self._bad_indices: set[int] = set()
         self._bad_logged: set[str] = set()
+        self._skip_count: int = 0
+        self._skip_log_limit: int = 5
+        self._skip_log_interval: int = 50
         # verify coverage of targets lazily during __getitem__
 
     def __len__(self) -> int:
@@ -229,9 +235,22 @@ class TaskonomyDataset(Dataset):
                 return sample
             except (OSError, IOError, SyntaxError) as err:
                 self._bad_indices.add(current_idx)
-                if rgb_path not in self._bad_logged:
-                    self._bad_logged.add(rgb_path)
-                    print(f"[TaskonomyDataset] Skipping corrupt sample: {rgb_path} ({err})")
+                self._bad_logged.add(rgb_path)
+                self._skip_count += 1
+                log_this = (
+                    self._skip_count <= self._skip_log_limit
+                    or (self._skip_count % self._skip_log_interval) == 0
+                )
+                if log_this:
+                    already_reported = rgb_path in _GLOBAL_BAD_LOGGED
+                    _GLOBAL_BAD_LOGGED.add(rgb_path)
+                    detail = rgb_path if already_reported else f"{rgb_path} ({err})"
+                    print(
+                        "[TaskonomyDataset] "
+                        f"Skipped {self._skip_count} samples so far; latest: {detail}"
+                    )
+                else:
+                    _GLOBAL_BAD_LOGGED.add(rgb_path)
                 current_idx = (current_idx + 1) % num_items
                 attempt += 1
         raise RuntimeError("No valid samples available after skipping corrupt entries.")

@@ -15,6 +15,10 @@ from taskonomy_eval.runner import (
     build_task_loss, evaluate, maybe_set_graph_dump_dir, resolve_requested_tasks,
 )
 from taskonomy_eval.datasets.taskonomy import TaskonomyDataset, TaskonomyConfig
+from taskonomy_eval.datasets.synthetic_taskonomy import (
+    SyntheticTaskonomyDataset,
+    SyntheticConfig,
+)
 
 # SON-GOKU instrumented scheduler + D.5 oracles
 from son_goku import TaskSpec, TauSchedule
@@ -49,6 +53,9 @@ class MemCfg:
     lr: float
     num_workers: int
     device: str
+    use_synthetic_data: bool
+    synthetic_dataset_size: int
+    synthetic_seed: int
 
     # SON-GOKU core
     refresh_period: int
@@ -81,15 +88,27 @@ def _to_device(batch: Dict[str, Any], device: torch.device) -> Dict[str, Any]:
 
 
 def _loaders(cfg: MemCfg):
-    train = TaskonomyDataset(TaskonomyConfig(
-        root=cfg.data_root, split=cfg.split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
-    ))
-    val = TaskonomyDataset(TaskonomyConfig(
-        root=cfg.data_root, split=cfg.val_split, buildings_list=cfg.buildings_list,
-        tasks=cfg.tasks, resize=cfg.resize
-    ))
-    train_loader = DataLoader(train, batch_size=cfg.batch_size, shuffle=True,
+    if cfg.use_synthetic_data:
+        synth_cfg = SyntheticConfig(
+            tasks=cfg.tasks,
+            resize=cfg.resize,
+            length=cfg.synthetic_dataset_size,
+            seg_classes=cfg.seg_classes,
+            seed=cfg.synthetic_seed,
+        )
+        train = SyntheticTaskonomyDataset(synth_cfg)
+        val = SyntheticTaskonomyDataset(synth_cfg)
+    else:
+        train = TaskonomyDataset(TaskonomyConfig(
+            root=cfg.data_root, split=cfg.split, buildings_list=cfg.buildings_list,
+            tasks=cfg.tasks, resize=cfg.resize
+        ))
+        val = TaskonomyDataset(TaskonomyConfig(
+            root=cfg.data_root, split=cfg.val_split, buildings_list=cfg.buildings_list,
+            tasks=cfg.tasks, resize=cfg.resize
+        ))
+    shuffle_flag = not cfg.use_synthetic_data
+    train_loader = DataLoader(train, batch_size=cfg.batch_size, shuffle=shuffle_flag,
                               num_workers=cfg.num_workers, pin_memory=True)
     val_loader = DataLoader(val, batch_size=cfg.batch_size, shuffle=False,
                             num_workers=cfg.num_workers, pin_memory=True)
@@ -479,6 +498,12 @@ def parse_args():
     ap.add_argument("--buildings_list", type=str, default=None)
     ap.add_argument("--seg_classes", type=int, default=40)
     ap.add_argument("--base_channels", type=int, default=32)
+    ap.add_argument("--synthetic_data", action="store_true",
+                    help="Generate deterministic dummy samples instead of loading Taskonomy data.")
+    ap.add_argument("--synthetic_dataset_size", type=int, default=512,
+                    help="Length of the synthetic dataset when --synthetic_data is used.")
+    ap.add_argument("--synthetic_seed", type=int, default=0,
+                    help="Base RNG seed for synthetic sample generation.")
     # train
     ap.add_argument("--epochs", type=int, default=1, help="(kept for API symmetry; we measure steps)")
     ap.add_argument("--warmup_steps", type=int, default=50)
@@ -516,13 +541,22 @@ def parse_args():
 
 def main():
     args = parse_args()
-    args.tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
+    if args.synthetic_data:
+        lowered = [t.lower() for t in args.tasks]
+        if any(t == "all" for t in lowered):
+            raise ValueError("Synthetic data mode requires explicit task names; remove 'all'.")
+        resolved_tasks = tuple(args.tasks)
+    else:
+        resolved_tasks = resolve_requested_tasks(args.tasks, args.data_root, args.split, args.buildings_list)
     cfg = MemCfg(
         data_root=args.data_root, split=args.split, val_split=args.val_split,
-        tasks=tuple(args.tasks), resize=tuple(args.resize), buildings_list=args.buildings_list,
+        tasks=resolved_tasks, resize=tuple(args.resize), buildings_list=args.buildings_list,
         seg_classes=args.seg_classes, base_channels=args.base_channels,
         epochs=args.epochs, warmup_steps=args.warmup_steps, measure_steps=args.measure_steps,
         batch_size=args.batch_size, lr=args.lr, num_workers=args.num_workers, device=args.device,
+        use_synthetic_data=args.synthetic_data,
+        synthetic_dataset_size=args.synthetic_dataset_size,
+        synthetic_seed=args.synthetic_seed,
         refresh_period=args.refresh_period, ema_beta=args.ema_beta,
         tau_kind=args.tau_kind, tau_initial=args.tau_initial, tau_target=args.tau_target,
         tau_warmup=args.tau_warmup, tau_anneal=args.tau_anneal,
